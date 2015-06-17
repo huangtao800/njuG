@@ -1,0 +1,48 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load account %}
+
+
+{% block content %}
+<div class="ui grid">
+	<div class="row">
+		<div class="seven wide column">
+			<img src="/static/img/pride_flag.jpg" />
+		</div>
+		<div class="two wide column"></div>
+		<div class="five wide column">
+			<h1>{% trans "登录" %}</h1>
+			<form method="POST" action="{% url 'account_login' %}">
+				{% csrf_token %}
+				<div class="ui form">
+					<div class="field">
+						<label for="{{form.login.id_for_label}}">用户名</label>
+						{{ form.login }}
+					</div>
+					<div class="field">
+						<label for="{{form.password.id_for_label}}">密码</label>
+						{{ form.password }}
+					</div>
+					<div class="inline field">
+						<div class="ui checkbox">
+							{{ form.remember }}
+							<label for="{{form.remember.id_for_label}}">记住我</label>
+						</div>				
+					</div>
+					<button type = "submit" class="ui submit blue button">登录</button>
+					<!-- <div class="ui submit blue button">Login</div> -->
+				</form>
+				<p>
+					<a href="{% url 'account_reset_password' %}">{% trans "忘记密码？" %}</a>
+				</p>
+				<p>
+					还没账号？ <a href="{{ signup_url }}">注册</a> 仅需一分钟!
+				</p>
+			</div>
+		</div>
+		<div class = "two wide column"></div>
+	</div>	
+</div>
+
+{% endblock %}

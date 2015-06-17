@@ -1,0 +1,27 @@
+{% extends "njuG/index.html" %}
+{% block main_block %}
+{% load filters %}
+<div class="ui grid">
+	<div class="row">
+		<div class="nine wide column"></div>
+		<div class="five wide column">
+			<div class="ui form">
+				<div class="field">
+					<label for="{{form.username.id__for_label}}">Username</label>
+					{{ form.username }}
+				</div>
+				<div class="field">
+					<label for="{{form.email.id__for_label}}">Password</label>
+					{{ form.password }}
+				</div>
+				<div class="field">
+					<label for="{{form.school.id__for_label}}">Password</label>
+					{{ form.password }}
+				</div>
+				<button type = "submit" class="ui submit blue button">Sign in</button>
+			</div>
+		</div>
+		<div class = "two wide column"></div>
+	</div>	
+</div>
+{% endblock %}
