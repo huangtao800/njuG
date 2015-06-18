@@ -1,0 +1,4 @@
+.ui.form>form>.field>.poststate{
+	min-height: 3em;
+	max-height: 6em;
+}

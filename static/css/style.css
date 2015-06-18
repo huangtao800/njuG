@@ -55,8 +55,3 @@ body > .segment{
 .main.nav:after{
   clear: both;
 }
-
-.ui.form>.field>.poststate{
-	min-height: 3em;
-	max-height: 6em;
-}
