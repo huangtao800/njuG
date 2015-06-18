@@ -16,11 +16,11 @@ def post(request):
 # 			content = request.POST['content'];
 # 			post = Post(user=request.user, content=content, time=timezone().now)
 # 			post.save()
-			responseDict = {'result':'success', 'msg':''}
+			responseDict = {'result':1, 'msg':''}
 			return JsonResponse(responseDict)
 		except Exception as e:
-			responseDict = {'result':'false','msg': e.message}
+			responseDict = {'result':0,'msg': e.message}
 			return JsonResponse(responseDict)
 	else:
-		return JsonResponse({'result':"false",'msg':'user not login'})
+		return JsonResponse({'result':0,'msg':'user not login'})
 		
