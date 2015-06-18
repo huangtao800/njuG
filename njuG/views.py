@@ -10,7 +10,8 @@ def index(request):
 
 def post(request):
 	from django.utils import timezone
-	if(request.method == 'POST'):
+	if(request.method == 'POST' and request.user.is_authenticated()):
+		print request.user.username
 		try:
 # 			content = request.POST['content'];
 # 			post = Post(user=request.user, content=content, time=timezone().now)
@@ -20,4 +21,6 @@ def post(request):
 		except Exception as e:
 			responseDict = {'result':'false','msg': e.message}
 			return JsonResponse(responseDict)
+	else:
+		return JsonResponse({'result':"false",'msg':'user not login'})
 		
