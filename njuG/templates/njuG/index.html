@@ -1,22 +1,29 @@
 {% extends "base.html" %}
+{% load staticfiles %}
+{% block loadCss %}
+<link rel="stylesheet" type="text/css" href="{% static "css/index.css" %}">
+{% endblock %}
 
 {% block content %}
 <div class="ui grid">
 	<div class="row">
 		<div class="twelve wide column">
 			<div class="ui form">
-			  <div class="field">
-			    <label>说点儿什么吧...</label>
-			    <textarea rows="2" class="poststate" placeholder="What's on you mind"></textarea>
-			  </div>
-			  <div class="ui labeled icon blue basic button">
-  				<i class="send icon"></i>
-  				就这样吧
-			  </div>
-			  <div class="ui labeled icon teal basic button">
-			  	<i class="file image outline icon"></i>
-				添加图片
-			  </div>
+				<form method="post" action="/njuG/post" id="postForm">
+					{% csrf_token %}
+				  <div class="field">
+				    <label>说点儿什么吧...</label>
+				    <textarea rows="2" class="poststate" placeholder="What's on you mind"></textarea>
+				  </div>
+				  <div class="ui labeled icon blue basic button" id="postButton">
+	  				<i class="send icon"></i>
+	  				就这样吧
+				  </div>
+				  <div class="ui labeled icon teal basic button">
+				  	<i class="file image outline icon"></i>
+					添加图片
+				  </div>
+			    </form>
 			</div>
 			<div class="ui divider"></div>
 			
@@ -156,4 +163,8 @@
 	</div>	
 </div>
 
+{% endblock %}
+
+{% block loadJs %}
+<script src="{% static "js/createEvent.js" %}"></script>
 {% endblock %}
