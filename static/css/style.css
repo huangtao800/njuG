@@ -55,3 +55,9 @@ body > .segment{
 .main.nav:after{
   clear: both;
 }
+
+.ui.message{
+	position: fixed;
+	left: 50%;
+	top: 10%;
+}

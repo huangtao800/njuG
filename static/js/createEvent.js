@@ -7,7 +7,10 @@ $(document).ready(function(){
 			contentType: "application/json; charset=utf-8",
 			success: function(response){
 				var result = response['result'];
-				if(result==1){}
+				if(result==1){
+					$("#postForm textarea").val('');
+					showMessage(1, "发布成功！");
+				}
 				else{
 					if(response["msg"]==="user not login"){
 						var url = window.location.protocol+"//"
@@ -28,3 +31,22 @@ $(document).ready(function(){
 	});
 
 });
+
+function showMessage(success, content){
+	if(success==1){
+		var infoDiv = $("#postSuccess");
+		if(!infoDiv.length){
+			infoDiv = $(document.createElement("div"));
+			infoDiv.addClass("ui positive message message");
+			var p = $(document.createElement("p"));
+			p.append(content);
+			infoDiv.append(p);
+			infoDiv.hide();
+			infoDiv.appendTo("body");
+		}
+		infoDiv.transition('fade');
+		setTimeout(function(){
+			infoDiv.transition('fade');
+		},2000);
+	}
+}
