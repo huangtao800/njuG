@@ -4,7 +4,7 @@ $(document).ready(function(){
 			dataType: "json",
 			headers: { "X-CSRFToken": $.cookie("csrftoken") },
 			type: 'POST',
-			contentType: "application/json; charset=utf-8",
+			data: {"content": $("#postArea").val()},
 			success: function(response){
 				var result = response['result'];
 				if(result==1){

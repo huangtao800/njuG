@@ -13,7 +13,7 @@
 					{% csrf_token %}
 				  <div class="field">
 				    <label>说点儿什么吧...</label>
-				    <textarea rows="2" class="poststate" placeholder="What's on you mind" required></textarea>
+				    <textarea id="postArea" name="content" rows="2" class="poststate" placeholder="What's on you mind" required></textarea>
 				  </div>
 				  <div class="ui labeled icon blue basic button" id="postButton">
 	  				<i class="send icon"></i>
@@ -28,6 +28,32 @@
 			<div class="ui divider"></div>
 			
 			<div class="ui large feed">
+				{% for post in posts %}
+				<div class="event">
+					<div class="label">
+						<img src="{% static "img/avatar/small/elliot.jpg" %}">
+					</div>
+					<div class="content">
+						<div class="summary">
+							{{ post.user.username }} posted on his page
+							<div class="date">
+								{{ post.time }}
+							</div>
+						</div>
+						<div class="extra text">
+							{{ post.content }}
+						</div>
+						<div class="meta">
+							<a class="like">
+								<i class="like icon"></i> 5 Likes
+							</a>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+			
+			<!-- <div class="ui large feed">
 				  <div class="event">
 				    <div class="label">
 				      <img src="/images/avatar/small/elliot.jpg">
@@ -154,7 +180,7 @@
 				      </div>
 				    </div>
 				  </div>
-				</div>
+				</div> -->
 			
 		</div>
 		<div class="four wide column">
