@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Event(models.Model):
-    time = models.TimeField(auto_now=True)
+    time = models.DateTimeField(auto_now=True)
     
     class Meta:
         abstract = True
