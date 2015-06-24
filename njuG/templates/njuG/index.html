@@ -13,12 +13,12 @@
 					{% csrf_token %}
 				  <div class="field">
 				    <label>说点儿什么吧...</label>
-				    <textarea id="postArea" name="content" rows="2" class="poststate" placeholder="What's on you mind" required></textarea>
+				    <textarea id="postArea" name="content" rows="2" class="poststate" placeholder="What's on you mind" required=></textarea>
 				  </div>
-				  <div class="ui labeled icon blue basic button" id="postButton">
+				  <button class="ui labeled icon blue basic button" type="submit" id="postButton">
 	  				<i class="send icon"></i>
 	  				就这样吧
-				  </div>
+				  </button>
 				  <div class="ui labeled icon teal basic button">
 				  	<i class="file image outline icon"></i>
 					添加图片
@@ -52,14 +52,20 @@
 								{% endif %}
 							</a>
 						</div>
+						<div class="comment">
+							<div class="label" ><img class="ui avatar image" src="{% static "img/avatar/small/elliot.jpg" %}"></div>
+							<div class="commentContent"> <span>不错不错</span></div>
+						</div>
 						<div class="commentInput">
 							<img class="ui avatar image" src="{% static "img/avatar/small/elliot.jpg" %}">
+							<form class="ui form commentForm" >
 							<div class="ui action input">
-							  <input type="text" placeholder="评论...">
-							  <button class="ui icon button">
+							  <input type="text" name="commentContent" placeholder="评论..." required>
+							  <button class="ui icon button" type="submit" postid="{{ post.id }}">
 							    <i class="send icon"></i>
 							  </button>
 							</div>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -206,7 +212,7 @@
 
 {% block loadJs %}
 <script src="{% static "js/createEvent.js" %}"></script>
-<script>
+<!-- <script>
 	$(document).ready(function(){
 		$(".like").click(function(){
 			var postid = $(this).attr("postid");
@@ -259,6 +265,6 @@
 			}
 		});
 	});
-</script>
+</script> -->
 {% endblock %}
 

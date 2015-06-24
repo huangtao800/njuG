@@ -8,7 +8,6 @@ def index(request):
 	if(request.user.is_authenticated()):
 		posts = Post.objects.all()
 		likedPosts = [x.post.id for x in Like.objects.filter(user=request.user)]
-		print likedPosts[0]
 		context = {'posts': posts, 'likedPosts':likedPosts}
 	else:
 		posts = Post.objects.all()
@@ -74,8 +73,4 @@ def notLikePost(request):
 # 		try:
 # 			postid = request.POST['postid']
 # 			content = request.POST['content']
-# 			post = Post.objects.get(pk=postid)
-# 			comment = Comment(user=request.user, content=content, post = post, time=timezone.now())
-# 			comment.save()
-# 			responseDict = {'result':1, 'msg':comment.id}
-# 			return JsonResponse(responseDict)
+# 			

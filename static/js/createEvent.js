@@ -26,10 +26,62 @@ $(document).ready(function(){
 		return false;
 	});
 	
-	$('#postButton').click(function(){
-		$("#postForm").submit();
+	
+	$(".commentForm").submit(function(){
+		
+		return false;
 	});
 
+	$(".like").click(function(){
+		var postid = $(this).attr("postid");
+		var like = $(this);
+		if(!postid===parseInt(postid, 10))	return;
+		if(like.children("i").first().hasClass("liked")){
+			$.ajax({
+				url: "/njuG/notLikePost",
+				dataType: "json",
+				headers: { "X-CSRFToken": $.cookie("csrftoken") },
+				type: 'POST',
+				data: {"postid": postid},
+				success: function(response){
+					var result = response['result'];
+					if(result==1){
+						var likeCount = like.children("i.likeCount").first();
+						likeCount.html(parseInt(likeCount.text())-1);
+						like.children("i").first().removeClass("liked");
+					}else{
+						if(response["msg"]==="user not login"){
+							var url = window.location.protocol+"//"
+								+window.location.host+"/accounts/login";
+							window.location = url;
+						}
+			}
+				},
+			});
+		}else{
+			$.ajax({
+				url: "/njuG/likePost",
+				dataType: "json",
+				headers: { "X-CSRFToken": $.cookie("csrftoken") },
+				type: 'POST',
+				data: {"postid": postid},
+				success: function(response){
+					var result = response['result'];
+					if(result==1){
+						var likeCount = like.children("i.likeCount").first();
+						likeCount.html(parseInt(likeCount.text())+1);
+						like.children("i").first().addClass("liked");
+					}else{
+						if(response["msg"]==="user not login"){
+							var url = window.location.protocol+"//"
+								+window.location.host+"/accounts/login";
+							window.location = url;
+						}
+			}
+				},
+			});				
+		}
+	});
 });
 
 function showMessage(success, content){

@@ -3,12 +3,38 @@
 	max-height: 6em;
 }
 
-.commentInput{
+.commentInput, .comment{
 	margin-top: 10px;
+}
+
+.comment{
+	display: table;
+}
+
+.content>.comment>.label{
+	display: table-cell;
+	width: 2.5em;
+	height: 2.5em;
+	vertical-align: top;
+	text-align: left;
+}
+
+.commentContent{
+	display: table-cell;
+	padding-top: 0.5em;
+  	padding-right: 0px;
+  	padding-bottom: 0.5em;
+  	padding-left: 0.75em;
+}
+
+.commentInput>form{
+	display: inline-flex;
 }
 
 .ui.action.input{
 	display: inline-flex;
+	min-width: 350px;
+	padding-left: 0.75em;
 }
 
 .liked{
