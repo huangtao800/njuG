@@ -25,6 +25,7 @@
   	padding-right: 0px;
   	padding-bottom: 0.5em;
   	padding-left: 0.75em;
+  	font-size: 0.9em;
 }
 
 .commentInput>form{
@@ -37,6 +38,16 @@
 	padding-left: 0.75em;
 }
 
+.ui.feed>.event>.content>.comment>.date {
+  display: inline-block;
+  float: none;
+  font-weight: 400;
+  font-size: .875em;
+  font-style: normal;
+  margin: 0 0 0 .5em;
+  padding: 0;
+  color: rgba(0,0,0,.4);
+}
 .liked{
 	color: #ff2733;
 }

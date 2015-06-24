@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from njuG.models import Post, Like, Comment
 from django.http import JsonResponse
+from django.utils import timezone
 
 # Create your views here.
 def index(request):
@@ -16,7 +17,6 @@ def index(request):
 
 
 def post(request):
-	from django.utils import timezone
 	if(request.method == 'POST' and request.user.is_authenticated()):
 		try:
 			postContent = request.POST['content']
@@ -68,9 +68,19 @@ def notLikePost(request):
 	else:
 		return JsonResponse({'result':0, 'msg':'user not login'})
 	
-# def comment(request):
-# 	if(request.method=='POST' and request.user.is_authenticated()):
-# 		try:
-# 			postid = request.POST['postid']
-# 			content = request.POST['content']
-# 			
+def postComment(request):
+	if(request.method=='POST' and request.user.is_authenticated()):
+		try:
+			postid = request.POST['postid']
+			content = request.POST['content']
+			post = Post.objects.get(pk=postid)
+ 			comment = Comment(content=content, user=request.user, post=post, time=timezone.now())
+ 			comment.save()
+ 			responseDict={'result':1, 'msg':''}
+ 			return JsonResponse(responseDict)
+ 		except Exception as e:
+ 			print e.message
+ 			responseDict = {'result':0, 'msg':e.message}
+ 			return JsonResponse(responseDict)
+ 	else:
+ 		return JsonResponse({'result':0, 'msg':'user not login'})

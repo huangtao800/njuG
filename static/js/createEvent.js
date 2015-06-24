@@ -28,7 +28,28 @@ $(document).ready(function(){
 	
 	
 	$(".commentForm").submit(function(){
-		
+		var commentContent = $(this).find("input").first();
+		var postid = $(this).find("button").first().attr("postid");
+		$(this).ajaxSubmit({
+			url: "/njuG/postComment",
+			dataType:"json",
+			headers: { "X-CSRFToken": $.cookie("csrftoken") },
+			type: "POST",
+			data: {"content": commentContent.val(), "postid":postid},
+			success: function(response){
+				result=response['result'];
+				if(result==1){
+					commentContent.val('');
+					showMessage(1,"评论成功！");
+				}else{
+					if(response["msg"]==="user not login"){
+						var url = window.location.protocol+"//"
+							+window.location.host+"/accounts/login";
+						window.location = url;
+					}
+				}
+			},		
+		});
 		return false;
 	});
 

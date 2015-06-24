@@ -52,10 +52,16 @@
 								{% endif %}
 							</a>
 						</div>
+						{% for comment in post.comments %}
 						<div class="comment">
 							<div class="label" ><img class="ui avatar image" src="{% static "img/avatar/small/elliot.jpg" %}"></div>
-							<div class="commentContent"> <span>不错不错</span></div>
-						</div>
+							<div class="commentContent"> <span>{{ comment.content }}</span></div>
+							<div class="date">
+								{{ comment.time }}
+							</div>
+							
+						</div>						
+						{% endfor %}
 						<div class="commentInput">
 							<img class="ui avatar image" src="{% static "img/avatar/small/elliot.jpg" %}">
 							<form class="ui form commentForm" >
