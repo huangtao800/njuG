@@ -1,13 +1,15 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from njuG.models import Post, Like
+from njuG.models import Post, Like, Comment
 from django.http import JsonResponse
 
 # Create your views here.
 def index(request):
 	if(request.user.is_authenticated()):
 		posts = Post.objects.all()
-		context = {'posts': posts}
+		likedPosts = [x.post.id for x in Like.objects.filter(user=request.user)]
+		print likedPosts[0]
+		context = {'posts': posts, 'likedPosts':likedPosts}
 	else:
 		posts = Post.objects.all()
 		context = {'posts': posts}	
@@ -47,7 +49,7 @@ def likePost(request):
 			responseDict = {'result':0, 'msg':e.message}
 			return JsonResponse(responseDict)
 	else:
-		return JsonResonse({'result':0, 'msg':'user not login'})
+		return JsonResponse({'result':0, 'msg':'user not login'})
 	
 def notLikePost(request):
 	if(request.method=='POST' and request.user.is_authenticated()):
@@ -65,4 +67,15 @@ def notLikePost(request):
 			responseDict = {'result':0, 'msg':e.message}
 			return JsonResponse(responseDict)
 	else:
-		return JsonResonse({'result':0, 'msg':'user not login'})
+		return JsonResponse({'result':0, 'msg':'user not login'})
+	
+# def comment(request):
+# 	if(request.method=='POST' and request.user.is_authenticated()):
+# 		try:
+# 			postid = request.POST['postid']
+# 			content = request.POST['content']
+# 			post = Post.objects.get(pk=postid)
+# 			comment = Comment(user=request.user, content=content, post = post, time=timezone.now())
+# 			comment.save()
+# 			responseDict = {'result':1, 'msg':comment.id}
+# 			return JsonResponse(responseDict)

@@ -24,4 +24,6 @@ class Like(Event):
     user = models.ForeignKey(User)
     post = models.ForeignKey(Post)
     
+    class Meta:
+        unique_together = ('user', 'post',) # one user cannot like a post repeatedly
     

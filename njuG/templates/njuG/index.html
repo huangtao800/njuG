@@ -45,7 +45,11 @@
 						</div>
 						<div class="meta">
 							<a class="like" postid="{{ post.id }}">
+								{% if post.id in likedPosts %}
+								<i class="like icon liked"></i> <i class="likeCount">{{post.likes}}</i> Likes
+								{% else %}						
 								<i class="like icon"></i> <i class="likeCount">{{post.likes}}</i> Likes
+								{% endif %}
 							</a>
 						</div>
 						<div class="commentInput">
@@ -221,7 +225,13 @@
 							var likeCount = like.children("i.likeCount").first();
 							likeCount.html(parseInt(likeCount.text())-1);
 							like.children("i").first().removeClass("liked");
-						}
+						}else{
+							if(response["msg"]==="user not login"){
+								var url = window.location.protocol+"//"
+									+window.location.host+"/accounts/login";
+								window.location = url;
+							}
+				}
 					},
 				});
 			}else{
@@ -237,30 +247,18 @@
 							var likeCount = like.children("i.likeCount").first();
 							likeCount.html(parseInt(likeCount.text())+1);
 							like.children("i").first().addClass("liked");
-						}
+						}else{
+							if(response["msg"]==="user not login"){
+								var url = window.location.protocol+"//"
+									+window.location.host+"/accounts/login";
+								window.location = url;
+							}
+				}
 					},
 				});				
 			}
 		});
 	});
-	
-	function likePost(response){
-		var result = response['result'];
-		if(result==1){
-			var likeCount = like.children("i.likeCount").first();
-			likeCount.html(parseInt(likeCount.text())+1);
-			like.children("i").first().addClass("liked");
-		}		
-	}
-	
-	function notLikePost(response){
-		var result = response['result'];
-		if(result==1){
-			var likeCount = like.children("i.likeCount").first();
-			likeCount.html(parseInt(likeCount.text())-1);
-			like.children("i").first().removeClass("liked");
-		}
-	}
 </script>
 {% endblock %}
 
