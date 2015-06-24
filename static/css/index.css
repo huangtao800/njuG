@@ -10,3 +10,7 @@
 .ui.action.input{
 	display: inline-flex;
 }
+
+.liked{
+	color: #ff2733;
+}

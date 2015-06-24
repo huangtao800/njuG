@@ -44,8 +44,8 @@
 							{{ post.content }}
 						</div>
 						<div class="meta">
-							<a class="like">
-								<i class="like icon"></i> 5 Likes
+							<a class="like" postid="{{ post.id }}">
+								<i class="like icon"></i> <i class="likeCount">{{post.likes}}</i> Likes
 							</a>
 						</div>
 						<div class="commentInput">
@@ -202,4 +202,65 @@
 
 {% block loadJs %}
 <script src="{% static "js/createEvent.js" %}"></script>
+<script>
+	$(document).ready(function(){
+		$(".like").click(function(){
+			var postid = $(this).attr("postid");
+			var like = $(this);
+			if(!postid===parseInt(postid, 10))	return;
+			if(like.children("i").first().hasClass("liked")){
+				$.ajax({
+					url: "/njuG/notLikePost",
+					dataType: "json",
+					headers: { "X-CSRFToken": $.cookie("csrftoken") },
+					type: 'POST',
+					data: {"postid": postid},
+					success: function(response){
+						var result = response['result'];
+						if(result==1){
+							var likeCount = like.children("i.likeCount").first();
+							likeCount.html(parseInt(likeCount.text())-1);
+							like.children("i").first().removeClass("liked");
+						}
+					},
+				});
+			}else{
+				$.ajax({
+					url: "/njuG/likePost",
+					dataType: "json",
+					headers: { "X-CSRFToken": $.cookie("csrftoken") },
+					type: 'POST',
+					data: {"postid": postid},
+					success: function(response){
+						var result = response['result'];
+						if(result==1){
+							var likeCount = like.children("i.likeCount").first();
+							likeCount.html(parseInt(likeCount.text())+1);
+							like.children("i").first().addClass("liked");
+						}
+					},
+				});				
+			}
+		});
+	});
+	
+	function likePost(response){
+		var result = response['result'];
+		if(result==1){
+			var likeCount = like.children("i.likeCount").first();
+			likeCount.html(parseInt(likeCount.text())+1);
+			like.children("i").first().addClass("liked");
+		}		
+	}
+	
+	function notLikePost(response){
+		var result = response['result'];
+		if(result==1){
+			var likeCount = like.children("i.likeCount").first();
+			likeCount.html(parseInt(likeCount.text())-1);
+			like.children("i").first().removeClass("liked");
+		}
+	}
+</script>
 {% endblock %}
+
