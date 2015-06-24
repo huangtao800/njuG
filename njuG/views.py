@@ -8,7 +8,9 @@ def index(request):
 	if(request.user.is_authenticated()):
 		posts = Post.objects.all()
 		context = {'posts': posts}
-		
+	else:
+		posts = Post.objects.all()
+		context = {'posts': posts}	
 	return render(request, 'njuG/index.html', context)
 
 
