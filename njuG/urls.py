@@ -8,4 +8,9 @@ urlpatterns = [
     url(r'^likePost', views.likePost, name='likePost'),
     url(r'^notLikePost', views.notLikePost, name='notLikePost'),
     url(r'^postComment', views.postComment, name='postComment'),
+    url(r'^uploadPicView$', views.PictureListView.as_view(), name='uploadPicView'),
+    url(r'^uploadPicNew/(?P<id>[0-9]+)/$', views.PictureListView.as_view(), name='uploadPicNew'),
+    #need to change view
+    
+    
 ]

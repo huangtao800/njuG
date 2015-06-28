@@ -61,7 +61,8 @@ $(function () {
         $.ajax({
             // Uncomment the following to send cross-domain cookies:
             //xhrFields: {withCredentials: true},
-            url: $('#fileupload').fileupload('option', 'url'),
+            // url: $('#fileupload').fileupload('option', 'url'),
+            url: '/njuG/uploadPicView',
             dataType: 'json',
             context: $('#fileupload')[0]
         }).always(function () {

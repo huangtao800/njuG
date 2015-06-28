@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from njuG.models import Post, Like, Comment
+from njuG.models import Post, Like, Comment, Picture
+from django.views.generic import CreateView, DeleteView, ListView
 from django.http import JsonResponse
 from django.utils import timezone
 
@@ -84,3 +85,14 @@ def postComment(request):
  			return JsonResponse(responseDict)
  	else:
  		return JsonResponse({'result':0, 'msg':'user not login'})
+ 	
+ 	
+class PictureListView(ListView):
+    model = Picture
+
+    def render_to_response(self, context, **response_kwargs):
+        files = [ serialize(p) for p in self.get_queryset() ]
+        data = {'files': files}
+        response = JsonResponse(data)
+        response['Content-Disposition'] = 'inline; filename=files.json'
+        return response
