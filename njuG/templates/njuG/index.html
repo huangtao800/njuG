@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% load upload_tag %}
 {% block loadCss %}
 <link rel="stylesheet" type="text/css" href="{% static "css/index.css" %}">
 {% endblock %}
@@ -22,7 +23,7 @@
 				  <label class="ui labeled icon teal basic button">
 				  	<i class="file image outline icon"></i>
 					添加图片
-					<input type="file" multiple id="file" style="display:none">
+					<input id="fileupload" type="file" multiple style="display:none">
 				  </label>
 			    </form>
 			</div>
@@ -217,7 +218,9 @@
 
 {% endblock %}
 
+
 {% block loadJs %}
+{% upload_js %}
 <script src="{% static "js/createEvent.js" %}"></script>
 
 <!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
