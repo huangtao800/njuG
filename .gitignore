@@ -59,3 +59,7 @@ target/
 .settings/
 .project
 .pydevproject
+
+# Node Modules
+node_modules/
+
