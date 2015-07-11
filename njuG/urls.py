@@ -12,5 +12,7 @@ urlpatterns = [
     url(r'^uploadPicNew/(?P<id>[0-9]+)/$', views.PictureListView.as_view(), name='uploadPicNew'),
     #need to change view
     
+    url(r'^discussion/', views.discussion, name="discussion"),
+    
     
 ]

@@ -96,3 +96,7 @@ class PictureListView(ListView):
         response = JsonResponse(data)
         response['Content-Disposition'] = 'inline; filename=files.json'
         return response
+
+
+def discussion(request):
+	return render(request, 'njuG/discussion.html')
