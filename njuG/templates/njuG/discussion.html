@@ -1,30 +1,60 @@
 {% extends "base.html" %}
+{% load staticfiles %}
+
+{% block loadCss %}
+<link rel="stylesheet" type="text/css" href="{% static "css/discussion.css" %}">
+{% endblock %}
 
 {% block content %}
-<div class="ui items">
-  <div class="item">
-    <div class="ui tiny image">
-      <img src="/images/wireframe/image.png">
+<div class="ui grid">
+    <div class="row">
+        <div class="three wide column">
+            
+        </div>
+        <div class="ten wide column">
+            
+        </div>
+        <div class="three wide column">
+            
+        </div>
     </div>
-    <div class="middle aligned content">
-      <a class="header">12 Years a Slave</a>
-    </div>
-  </div>
-  <div class="item">
-    <div class="ui tiny image">
-      <img src="/images/wireframe/image.png">
-    </div>
-    <div class="middle aligned content">
-      <a class="header">My Neighbor Totoro</a>
-    </div>
-  </div>
-  <div class="item">
-    <div class="ui tiny image">
-      <img src="/images/wireframe/image.png">
-    </div>
-    <div class="middle aligned content">
-      <a class="header">Watchmen</a>
-    </div>
-  </div>
 </div>
+<div class="discussionPanel">
+    <div class="ui items">
+      <div class="item">
+        <a class="ui tiny image">
+          <img class="ui avatar image" src="{% static "img/avatar/small/elliot.jpg" %}">
+        </a>
+        <div class="content">
+          <a class="header">Stevie Feliciano</a>
+          <div class="description">
+            <p>Stevie Feliciano is a <a>library scientist</a> living in New York City. She likes to spend her time reading, running, and writing.</p>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <a class="ui tiny image">
+          <label><img class="avatar" src="{% static "img/avatar/small/helen.jpg" %}"></label>
+        </a>
+        <div class="content">
+          <a class="header">Veronika Ossi</a>
+          <div class="description">
+            <p>Veronika Ossi is a set designer living in New York who <a>enjoys</a> kittens, music, and partying.</p>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <a class="ui tiny image">
+          <label><img class="avatar" src="/images/avatar/large/jenny.jpg"></label>
+        </a>
+        <div class="content">
+          <a class="header">Jenny Hess</a>
+          <div class="description">
+            <p>Jenny is a student studying Media Management at <a>the New School</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>    
+</div>
+
 {% endblock %}
