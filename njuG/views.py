@@ -100,3 +100,7 @@ class PictureListView(ListView):
 
 def discussion(request):
 	return render(request, 'njuG/discussion.html')
+
+def postDiscussion(request):
+	if(request.method=='GET'):
+		return render(request, 'njuG/postDiscussion.html')

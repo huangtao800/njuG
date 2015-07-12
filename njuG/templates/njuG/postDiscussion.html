@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block loadCss %}
+<link rel="stylesheet" type="text/css" href="{% static "css/discussion.css" %}">
+{% endblock %}
+
+{% block content %}
+<div class="discussionPanel">
+    
+</div>
+
+
+<script>
+    $(document).ready(function(){
+        $(".launch.item").removeClass("active");
+        $(".launch.item").eq(1).addClass("active");
+    });
+</script>
+{% endblock %}

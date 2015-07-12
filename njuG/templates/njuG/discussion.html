@@ -6,20 +6,13 @@
 {% endblock %}
 
 {% block content %}
-<div class="ui grid">
-    <div class="row">
-        <div class="three wide column">
-            
-        </div>
-        <div class="ten wide column">
-            
-        </div>
-        <div class="three wide column">
-            
-        </div>
-    </div>
-</div>
 <div class="discussionPanel">
+    <div>
+        <a class="ui basic button" target="_blank" href="{% url 'postDiscussion' %}">
+            <i class="icon user"></i>
+            发布讨论贴
+        </a>
+    </div>
     <div class="ui items">
       <div class="item">
         <a class="ui tiny image">

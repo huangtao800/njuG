@@ -13,6 +13,6 @@ urlpatterns = [
     #need to change view
     
     url(r'^discussion/', views.discussion, name="discussion"),
-    
+    url(r'^postDiscussion/', views.postDiscussion, name="postDiscussion"),
     
 ]
