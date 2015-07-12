@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block loadCss %}
+<link rel="stylesheet" type="text/css" href="{% static "css/discussion.css" %}">
+{% endblock %}
+
+{% block content %}
+<div class="discussionPanel">
+    <h2>大家对学霸怎么看</h2>
+    <div class="ui feed">
+        <div class="event">
+            <div class="label"><img src="{% static "img/avatar/small/elliot.jpg" %}"></div>
+            <div class="content">
+                <div class="date">
+                    3 days ago
+                </div>
+                <div class="summary">
+                    <a>Jack</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p>
+    央视网消息（新闻联播）：国家主席习近平同俄罗斯总统普京、哈萨克斯坦总统纳扎尔巴耶夫、吉尔吉斯斯坦总统阿坦巴耶夫、塔吉克斯坦总统拉赫蒙、乌兹别克斯坦总统卡里莫夫出席会议。
+    习近平在会上发表重要讲话强调，要加快步伐，切实行动，打造本地区命运共同体，共同维护成员国安全和稳定，充实务实合作内容，巩固世代睦邻友好，保持开放互鉴，在新起点上推动上海合作组织实现新跨越。
+    成员国元首先举行小范围会谈，随后邀请观察员国阿富汗总统加尼、蒙古国总统额勒贝格道尔吉、印度总理莫迪、巴基斯坦总理谢里夫以及有关国际和地区组织代表参加大范围会谈。普京主持会议。会议总结了2014年杜尚别峰会以来上海合作组织主要工作成果。与会各方围绕上海合作组织发展现状和前景及当前重大国际和地区问题交换意见，达成广泛共识。
+    </p>
+    
+    <div class="ui comments">
+      <h3 class="ui dividing header">评论</h3>
+      <div class="comment">
+        <a class="avatar">
+          <img src="{% static "img/avatar/small/elliot.jpg" %}">
+        </a>
+        <div class="content">
+          <a class="author">Matt</a>
+          <div class="metadata">
+            <span class="date">Today at 5:42PM</span>
+          </div>
+          <div class="text">
+            How artistic!
+          </div>
+          <div class="actions">
+            <a class="reply">Reply</a>
+          </div>
+        </div>
+      </div>
+      <div class="comment">
+        <a class="avatar">
+          <img src="{% static "img/avatar/small/elliot.jpg" %}">
+        </a>
+        <div class="content">
+          <a class="author">Elliot Fu</a>
+          <div class="metadata">
+            <span class="date">Yesterday at 12:30AM</span>
+          </div>
+          <div class="text">
+            <p>This has been very useful for my research. Thanks as well!</p>
+          </div>
+          <div class="actions">
+            <a class="reply">Reply</a>
+          </div>
+        </div>
+        <div class="comments">
+          <div class="comment">
+            <a class="avatar">
+              <img src="{% static "img/avatar/small/elliot.jpg" %}">
+            </a>
+            <div class="content">
+              <a class="author">Jenny Hess</a>
+              <div class="metadata">
+                <span class="date">Just now</span>
+              </div>
+              <div class="text">
+                Elliot you are always so right :)
+              </div>
+              <div class="actions">
+                <a class="reply">Reply</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="comment">
+        <a class="avatar">
+          <img src="{% static "img/avatar/small/elliot.jpg" %}">
+        </a>
+        <div class="content">
+          <a class="author">Joe Henderson</a>
+          <div class="metadata">
+            <span class="date">5 days ago</span>
+          </div>
+          <div class="text">
+            Dude, this is awesome. Thanks so much
+          </div>
+          <div class="actions">
+            <a class="reply">Reply</a>
+          </div>
+        </div>
+      </div>
+      <form class="ui reply form">
+        <div class="field">
+          <textarea></textarea>
+        </div>
+        <div class="ui blue labeled submit icon button">
+          <i class="icon edit"></i> Add Reply
+        </div>
+      </form>
+    </div>
+    
+</div>
+
+
+<script>
+    $(document).ready(function(){
+        $(".launch.item").removeClass("active");
+        $(".launch.item").eq(1).addClass("active");
+        
+    });
+</script>
+{% endblock %}

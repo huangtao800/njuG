@@ -104,3 +104,7 @@ def discussion(request):
 def postDiscussion(request):
 	if(request.method=='GET'):
 		return render(request, 'njuG/postDiscussion.html')
+
+def viewDiscussion(request):
+	if(request.method=='GET'):
+		return render(request, 'njuG/viewDiscussion.html')
