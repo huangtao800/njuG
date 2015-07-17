@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from njuG.models import Post, Like, Comment, Picture
+from njuG.models import Post, Like, Comment, Picture, Blog
 from django.views.generic import CreateView, DeleteView, ListView
 from django.http import JsonResponse, HttpResponseRedirect
 from django.utils import timezone
@@ -102,11 +102,18 @@ class PictureListView(ListView):
 def discussion(request):
 	return render(request, 'njuG/discussion.html')
 
+@login_required
 def postDiscussion(request):
 	if(request.method=='POST'):
 		form = BlogForm(request.POST)
 		print form.errors
 		if form.is_valid():
+			title = form.cleaned_data['title']
+			content = form.cleaned_data['content']
+			isAnonymous = form.cleaned_data['isAnonymous']
+			user = request.user
+			blog = Blog(title=title,content=content,isAnonymous=isAnonymous,user=user, time=timezone.now())
+			blog.save()
 			return HttpResponseRedirect("/njuG/discussion")
 	else:
 		form = BlogForm()

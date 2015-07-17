@@ -31,6 +31,9 @@
             {{ form.isAnonymous }}
           <!-- <input type="checkbox" tabindex="0" class="hidden"> -->
           <label>匿名发布</label>
+        {% for error in form.isAnonymous.errors %}
+            {{error}}
+        {% endfor %}
         </div>
       </div>
       <button class="ui labeled icon blue basic button" type="submit">
