@@ -2,8 +2,9 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from njuG.models import Post, Like, Comment, Picture
 from django.views.generic import CreateView, DeleteView, ListView
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.utils import timezone
+from njuG.forms.myForms import BlogForm
 
 # Create your views here.
 def index(request):
@@ -102,8 +103,14 @@ def discussion(request):
 	return render(request, 'njuG/discussion.html')
 
 def postDiscussion(request):
-	if(request.method=='GET'):
-		return render(request, 'njuG/postDiscussion.html')
+	if(request.method=='POST'):
+		form = BlogForm(request.POST)
+		print form.errors
+		if form.is_valid():
+			return HttpResponseRedirect("/njuG/discussion")
+	else:
+		form = BlogForm()
+	return render(request, 'njuG/postDiscussion.html',{'form': form})
 
 def viewDiscussion(request):
 	if(request.method=='GET'):

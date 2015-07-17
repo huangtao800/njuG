@@ -6,19 +6,30 @@
 {% endblock %}
 
 {% block content %}
+
 <div class="discussionPanel">
     <form class="ui form" method="post">
+        {% csrf_token %}
       <div class="field">
-        <label>标题</label>
-        <input type="text" name="title" placeholder="标题" required>
+        <label for="{{ form.title.id_for_label }}">标题</label>
+        {{ form.title }}
+        {% for error in form.title.errors %}
+            {{error}}
+        {% endfor %}
+        <!-- <input type="text" name="title" placeholder="标题" required> -->
       </div>
       <div class="field">
-        <label>内容</label>
-        <textarea name="content" rows="12" required></textarea>
+        <label for="{{ form.content.id_for_label }}">内容</label>
+        {{ form.content }}
+        {% for error in form.content.errors %}
+            {{error}}
+        {% endfor %}
+        <!-- <textarea name="content" rows="12" required></textarea> -->
       </div>
       <div class="inline field">
         <div class="ui toggle checkbox">
-          <input type="checkbox" tabindex="0" class="hidden">
+            {{ form.isAnonymous }}
+          <!-- <input type="checkbox" tabindex="0" class="hidden"> -->
           <label>匿名发布</label>
         </div>
       </div>
