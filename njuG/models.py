@@ -56,4 +56,10 @@ class Picture(models.Model):
         """delete -- Remove to leave file."""
         self.file.delete(False)
         super(Picture, self).delete(*args, **kwargs)
-    
+        
+        
+class Blog(Event):
+    title = models.CharField(max_length=300)
+    content = models.TextField()
+    user = models.ForeignKey(User)
+    isAnonymous = models.BooleanField(default=False)
