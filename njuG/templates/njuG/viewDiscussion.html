@@ -28,7 +28,27 @@
     
     <div class="ui comments">
       <h3 class="ui dividing header">评论</h3>
+      {% for comment in blogComments %}
       <div class="comment">
+          <a class="avatar">
+              <img src="{% static "img/avatar/small/elliot.jpg" %}">
+          </a>
+          <div class="content">
+              <a class="author">{{ comment.user.username}}</a>
+              <div class="metadata">
+                  <span class="date">{{ comment.time }}</span>
+              </div>
+              <div class="text">
+                  {{comment.content}}
+              </div>
+              <div class="actions">
+                  <a class="reply">Reply</a>
+              </div>
+          </div>
+      </div>
+      {% endfor %}
+      
+      <!-- <div class="comment">
         <a class="avatar">
           <img src="{% static "img/avatar/small/elliot.jpg" %}">
         </a>
@@ -97,7 +117,7 @@
             <a class="reply">Reply</a>
           </div>
         </div>
-      </div>
+      </div> -->
       <form class="ui reply form" id="blogCommentForm" blogid="{{blog.id}}">
         <div class="field">
           <textarea id="blogComment" name="blogComment"></textarea>
@@ -124,6 +144,12 @@
                 type: 'POST',
                 url: "/njuG/commentBlog/",
                 data: {"content": $("#blogComment").val(), "blogid": blogid},
+                success: function(response){
+                    showMessage(1,"评论成功！");
+                },
+                complete: function(response){
+                    $("#blogComment").val('');
+                },
             });
             return false;
         });

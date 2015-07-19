@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from njuG.models import Post, Like, Comment, Picture, Blog
+from njuG.models import Post, Like, Comment, Picture, Blog, BlogComment
 from django.views.generic import CreateView, DeleteView, ListView
 from django.http import JsonResponse, HttpResponseRedirect
 from django.utils import timezone
@@ -124,5 +124,17 @@ def postDiscussion(request):
 def viewDiscussion(request, id):
 	if(request.method=='GET'):
 		blog = Blog.objects.get(pk=id)
-		context = {'blog':blog}
+		blogComments = blog.blogcomment_set.all()
+		context = {'blog':blog, 'blogComments': blogComments}
 		return render(request, 'njuG/viewDiscussion.html', context)
+
+@login_required
+def commentBlog(request):
+	if(request.method=='POST'):
+		blogid = request.POST['blogid']
+		content = request.POST['content']
+		user = request.user
+		blog = Blog.objects.get(pk=blogid)
+		blogComment = BlogComment(content=content, user=user, blog=blog)
+		blogComment.save()
+		return JsonResponse({'result':1, 'msg':''})
