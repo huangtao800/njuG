@@ -121,6 +121,8 @@ def postDiscussion(request):
 		form = BlogForm()
 	return render(request, 'njuG/postDiscussion.html',{'form': form})
 
-def viewDiscussion(request):
+def viewDiscussion(request, id):
 	if(request.method=='GET'):
-		return render(request, 'njuG/viewDiscussion.html')
+		blog = Blog.objects.get(pk=id)
+		context = {'blog':blog}
+		return render(request, 'njuG/viewDiscussion.html', context)

@@ -14,5 +14,5 @@ urlpatterns = [
     
     url(r'^discussion/', views.discussion, name="discussion"),
     url(r'^postDiscussion/', views.postDiscussion, name="postDiscussion"),
-    url(r'^viewDiscussion/', views.viewDiscussion, name="viewDiscussion"),
+    url(r'^viewDiscussion/(?P<id>[0-9]+)/$', views.viewDiscussion, name="viewDiscussion"),
 ]

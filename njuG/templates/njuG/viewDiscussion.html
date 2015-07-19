@@ -7,25 +7,23 @@
 
 {% block content %}
 <div class="discussionPanel">
-    <h2>大家对学霸怎么看</h2>
+    <h2>{{ blog.title }}</h2>
     <div class="ui comments">
       <div class="comment">
         <a class="avatar">
           <img src="{% static "img/avatar/small/elliot.jpg" %}">
         </a>
         <div class="content">
-          <a class="author">Joe Henderson</a>
+          <a class="author">{{blog.user.username}}</a>
           <div class="text date" style="color: rgba(0,0,0,.4);">
-            <span class="date">5 days ago</span>
+            <span class="date">{{ blog.time }}</span>
           </div>
         </div>
       </div>
     </div>
     
     <p>
-    央视网消息（新闻联播）：国家主席习近平同俄罗斯总统普京、哈萨克斯坦总统纳扎尔巴耶夫、吉尔吉斯斯坦总统阿坦巴耶夫、塔吉克斯坦总统拉赫蒙、乌兹别克斯坦总统卡里莫夫出席会议。
-    习近平在会上发表重要讲话强调，要加快步伐，切实行动，打造本地区命运共同体，共同维护成员国安全和稳定，充实务实合作内容，巩固世代睦邻友好，保持开放互鉴，在新起点上推动上海合作组织实现新跨越。
-    成员国元首先举行小范围会谈，随后邀请观察员国阿富汗总统加尼、蒙古国总统额勒贝格道尔吉、印度总理莫迪、巴基斯坦总理谢里夫以及有关国际和地区组织代表参加大范围会谈。普京主持会议。会议总结了2014年杜尚别峰会以来上海合作组织主要工作成果。与会各方围绕上海合作组织发展现状和前景及当前重大国际和地区问题交换意见，达成广泛共识。
+        {{ blog.content }}
     </p>
     
     <div class="ui comments">
@@ -100,13 +98,13 @@
           </div>
         </div>
       </div>
-      <form class="ui reply form">
+      <form class="ui reply form" id="blogCommentForm" blogid="{{blog.id}}">
         <div class="field">
-          <textarea></textarea>
+          <textarea id="blogComment" name="blogComment"></textarea>
         </div>
-        <div class="ui blue labeled submit icon button">
+        <button class="ui blue labeled submit icon button">
           <i class="icon edit"></i> Add Reply
-        </div>
+        </button>
       </form>
     </div>
     
@@ -118,6 +116,19 @@
         $(".launch.item").removeClass("active");
         $(".launch.item").eq(1).addClass("active");
         
+        $("#blogCommentForm").submit(function(){
+            var blogid=$(this).attr("blogid");
+            $(this).ajaxSubmit({
+                dataType: "json",
+                headers: { "X-CSRFToken": $.cookie("csrftoken") },
+                type: 'POST',
+                url: "/njuG/commentBlog/",
+                data: {"content": $("#blogComment").val(), "blogid": blogid},
+            });
+            return false;
+        });
     });
+    
+    $()
 </script>
 {% endblock %}

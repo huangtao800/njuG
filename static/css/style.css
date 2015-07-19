@@ -61,3 +61,10 @@ body > .segment{
 	left: 50%;
 	top: 10%;
 }
+
+.cutoff{
+	width: 300px;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+}
