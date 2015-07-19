@@ -100,7 +100,9 @@ class PictureListView(ListView):
 
 
 def discussion(request):
-	return render(request, 'njuG/discussion.html')
+	blogs = Blog.objects.all()
+	context = {'blogs': blogs}
+	return render(request, 'njuG/discussion.html', context)
 
 @login_required
 def postDiscussion(request):

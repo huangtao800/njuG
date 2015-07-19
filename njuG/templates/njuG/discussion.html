@@ -14,9 +14,20 @@
         </a>
     </div>
     <div class="ui items">
-      <div class="item">
-        <a class="ui tiny image">
-          <img class="ui avatar image" src="{% static "img/avatar/small/elliot.jpg" %}">
+        {% for blog in blogs %}
+        <div class="item">
+            <a class="ui image xtiny">
+                <img class="ui image" src="{% static "img/avatar/small/elliot.jpg" %}">
+            </a>
+            <div class="content">
+                <a class="header">{{blog.title}}</a>
+                <div class="description">{{blog.content}}</div>
+            </div>
+        </div>
+        {% endfor %}
+      <!-- <div class="item">
+        <a class="ui image xtiny">
+          <img class="ui image" src="{% static "img/avatar/small/elliot.jpg" %}">
         </a>
         <div class="content">
           <a class="header">Stevie Feliciano</a>
@@ -46,7 +57,7 @@
             <p>Jenny is a student studying Media Management at <a>the New School</a>.</p>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>    
 </div>
 

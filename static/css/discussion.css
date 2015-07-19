@@ -2,3 +2,15 @@
 	padding-left: 10%;
 	padding-right: 10%;
 }
+
+.ui.items>.item>.image>img{
+	display: block;
+	width: auto;
+    height: auto;
+    border-radius: .25rem;
+    border: none;
+}
+
+.xtiny{
+	width: 60px;
+}
