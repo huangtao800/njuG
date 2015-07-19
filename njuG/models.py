@@ -21,7 +21,8 @@ class Comment(Event):
     content = models.CharField(max_length=500)
     user = models.ForeignKey(User)
     post = models.ForeignKey(Post)
-    replyFrom = models.ForeignKey("self", null=True)   # a comment might reply another
+    replyFrom = models.ForeignKey("self", null=True)   # a comment might reply another0
+    
     
 class Like(Event):
     user = models.ForeignKey(User)
@@ -63,3 +64,8 @@ class Blog(Event):
     content = models.TextField()
     user = models.ForeignKey(User)
     isAnonymous = models.BooleanField(default=False)
+    
+class BlogComment(Event):
+    content = models.CharField(max_length=500)
+    user = models.ForeignKey(User)
+    blog = models.ForeignKey(Blog)
