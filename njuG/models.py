@@ -69,3 +69,4 @@ class BlogComment(Event):
     content = models.CharField(max_length=500)
     user = models.ForeignKey(User)
     blog = models.ForeignKey(Blog)
+    replyTo = models.ForeignKey("self", null=True, blank=True)  ## reply someone's comment
