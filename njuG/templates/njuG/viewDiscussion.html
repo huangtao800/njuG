@@ -30,16 +30,18 @@
     <div class="ui comments">
       <h3 class="ui dividing header">评论</h3>
       {% for comment in blogComments %}
+      {% if not comment.replyTo %}
       <div class="comment">
           <a class="avatar">
               <img src="{% static "img/avatar/small/elliot.jpg" %}">
           </a>
           <div class="content">
-              {% if comment.replyTo %}
+              <a class="author">{{ comment.user.username}}</a>
+              <!-- {% if comment.replyTo %}
               <a class="author">{{ comment.user.username }}</a>回复<a class="author">{{ comment.replyTo.user.username}}</a>
               {% else %}
               <a class="author">{{ comment.user.username}}</a>
-              {% endif %}
+              {% endif %} -->
               <div class="metadata">
                   <span class="date">{{ comment.time }}</span>
               </div>
@@ -47,8 +49,8 @@
                   {{comment.content}}
               </div>
               <div class="actions">
-                  <a class="reply">Reply</a>
-                  <form class="ui form replyCommentForm" style="display: none" commentid="{{ comment.id }}" blogid="{{ blog.id }}">
+                  <a class="reply">回复</a>
+                  <form class="ui form replyCommentForm" style="display: none" commentid="{{ comment.id }}" blogid="{{ blog.id }}" masterCommentid="{{comment.id}}">
                       <div class="field">
                           <textarea rows="2" name="content" required></textarea>
                       </div>
@@ -59,7 +61,40 @@
                   </form>
               </div>
           </div>
-      </div>
+          {% if comment.first_blog_comment.all %}
+          <div class="comments">
+              {% for reply in comment.first_blog_comment.all %}
+              <div class="comment">
+                  <a class="avatar">
+                      <img src="{% static "img/avatar/small/elliot.jpg" %}">
+                  </a>
+                  <div class="content">
+                      <a class="author">{{ reply.user.username }}</a>回复<a class="author">{{ reply.replyTo.user.username }}</a>
+                      <div class="metadata">
+                          <span class="date">{{ reply.time }}</span>
+                      </div>
+                      <div class="text">
+                          {{ reply.content }}
+                      </div>
+                      <div class="actions">
+                          <a class="reply">回复</a>
+                          <form class="ui form replyCommentForm" style="display: none" commentid="{{ comment.id }}" blogid="{{ blog.id }}" masterCommentid="{{comment.id}}">
+                              <div class="field">
+                                  <textarea rows="2" name="content" required></textarea>
+                              </div>
+                              <button class="ui labeled icon tiny basic button" type="submit">
+                                  <i class="send icon"></i>
+                                  回复
+                              </button>
+                          </form>
+                      </div>
+                  </div>
+              </div>
+              {% endfor%}
+          </div>
+          {% endif %}
+      </div>  <!--comment ends!-->
+      {% endif %}
       {% endfor %}
 
       <form class="ui reply form" id="blogCommentForm" blogid="{{blog.id}}">
@@ -67,10 +102,11 @@
           <textarea id="blogComment" name="blogComment"></textarea>
         </div>
         <button class="ui blue labeled submit icon button">
-          <i class="icon edit"></i> Add Reply
+          <i class="icon edit"></i> 发表评论
         </button>
       </form>
     </div>
+    
     
 </div>
 
@@ -105,13 +141,14 @@
         $(".replyCommentForm").submit(function(){
             var blogid = $(this).attr("blogid");
             var commentid = $(this).attr("commentid");
+            var masterCommentid = $(this).attr("masterCommentid");
             var content = $(this).find("textarea").first().val();
             $(this).ajaxSubmit({
                 dataType: "json",
                 headers: { "X-CSRFToken": $.cookie("csrftoken") },
                 type: "POST",
                 url: "/njuG/replyBlogComment/",
-                data: {"blogid": blogid, "commentid": commentid, "content": content},
+                data: {"blogid": blogid, "commentid": commentid, "content": content, "masterCommentid":masterCommentid},
                 success: function(response){
                     showMessage(1,"回复成功！");
                 }

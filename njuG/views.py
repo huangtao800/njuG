@@ -144,10 +144,13 @@ def replyBlogComment(request):
 	if(request.method=='POST'):
 		blogid = request.POST['blogid']
 		commentid = request.POST['commentid']
+		masterCommentid = request.POST['masterCommentid']
+		print masterCommentid
 		content = request.POST['content']
 		user = request.user
 		blog = Blog.objects.get(pk=blogid)
 		replyTo = BlogComment.objects.get(pk=commentid)
-		blogComment = BlogComment(content=content, user=user, blog=blog, replyTo=replyTo)
+		masterComment = BlogComment.objects.get(pk=masterCommentid)
+		blogComment = BlogComment(content=content, user=user, blog=blog, replyTo=replyTo, masterComment=masterComment)
 		blogComment.save()
 		return JsonResponse({'result':1, 'msg':''})

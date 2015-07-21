@@ -8,6 +8,7 @@ class Event(models.Model):
     
     class Meta:
         abstract = True
+        ordering = ['-time']
 
 class Post(Event):
     content = models.CharField(max_length=300)
@@ -70,3 +71,4 @@ class BlogComment(Event):
     user = models.ForeignKey(User)
     blog = models.ForeignKey(Blog)
     replyTo = models.ForeignKey("self", null=True, blank=True)  ## reply someone's comment
+    masterComment = models.ForeignKey("self", null=True, blank=True, related_name="first_blog_comment")    ## the first comment of a group of related blogComments
