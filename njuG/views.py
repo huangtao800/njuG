@@ -138,3 +138,16 @@ def commentBlog(request):
 		blogComment = BlogComment(content=content, user=user, blog=blog)
 		blogComment.save()
 		return JsonResponse({'result':1, 'msg':''})
+
+@login_required
+def replyBlogComment(request):
+	if(request.method=='POST'):
+		blogid = request.POST['blogid']
+		commentid = request.POST['commentid']
+		content = request.POST['content']
+		user = request.user
+		blog = Blog.objects.get(pk=blogid)
+		replyTo = BlogComment.objects.get(pk=commentid)
+		blogComment = BlogComment(content=content, user=user, blog=blog, replyTo=replyTo)
+		blogComment.save()
+		return JsonResponse({'result':1, 'msg':''})

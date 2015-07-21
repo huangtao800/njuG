@@ -47,9 +47,11 @@
                   {{comment.content}}
               </div>
               <div class="actions">
-                  <a class="reply" commentid="{{ comment.id }}">Reply</a>
-                  <form class="ui form" style="display: none">
-                      <div class="field"><textarea rows="2" required></textarea></div>
+                  <a class="reply">Reply</a>
+                  <form class="ui form replyCommentForm" style="display: none" commentid="{{ comment.id }}" blogid="{{ blog.id }}">
+                      <div class="field">
+                          <textarea rows="2" name="content" required></textarea>
+                      </div>
                       <button class="ui labeled icon tiny basic button" type="submit">
                           <i class="send icon"></i>
                           回复
@@ -98,6 +100,23 @@
         
         $("a.reply").click(function(){
             $(this).next().slideToggle("fast");
+        });
+        
+        $(".replyCommentForm").submit(function(){
+            var blogid = $(this).attr("blogid");
+            var commentid = $(this).attr("commentid");
+            var content = $(this).find("textarea").first().val();
+            $(this).ajaxSubmit({
+                dataType: "json",
+                headers: { "X-CSRFToken": $.cookie("csrftoken") },
+                type: "POST",
+                url: "/njuG/replyBlogComment/",
+                data: {"blogid": blogid, "commentid": commentid, "content": content},
+                success: function(response){
+                    showMessage(1,"回复成功！");
+                }
+            });
+            return false;
         });
     });
     
