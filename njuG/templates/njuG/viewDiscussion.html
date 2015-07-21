@@ -3,6 +3,7 @@
 
 {% block loadCss %}
 <link rel="stylesheet" type="text/css" href="{% static "css/discussion.css" %}">
+<link rel="stylesheet" type="text/css" href="{% static "css/viewDiscussion.css" %}">
 {% endblock %}
 
 {% block content %}
@@ -34,7 +35,11 @@
               <img src="{% static "img/avatar/small/elliot.jpg" %}">
           </a>
           <div class="content">
+              {% if comment.replyTo %}
+              <a class="author">{{ comment.user.username }}</a>回复<a class="author">{{ comment.replyTo.user.username}}</a>
+              {% else %}
               <a class="author">{{ comment.user.username}}</a>
+              {% endif %}
               <div class="metadata">
                   <span class="date">{{ comment.time }}</span>
               </div>
@@ -42,82 +47,19 @@
                   {{comment.content}}
               </div>
               <div class="actions">
-                  <a class="reply">Reply</a>
+                  <a class="reply" commentid="{{ comment.id }}">Reply</a>
+                  <form class="ui form" style="display: none">
+                      <div class="field"><textarea rows="2" required></textarea></div>
+                      <button class="ui labeled icon tiny basic button" type="submit">
+                          <i class="send icon"></i>
+                          回复
+                      </button>
+                  </form>
               </div>
           </div>
       </div>
       {% endfor %}
-      
-      <!-- <div class="comment">
-        <a class="avatar">
-          <img src="{% static "img/avatar/small/elliot.jpg" %}">
-        </a>
-        <div class="content">
-          <a class="author">Matt</a>
-          <div class="metadata">
-            <span class="date">Today at 5:42PM</span>
-          </div>
-          <div class="text">
-            How artistic!
-          </div>
-          <div class="actions">
-            <a class="reply">Reply</a>
-          </div>
-        </div>
-      </div>
-      <div class="comment">
-        <a class="avatar">
-          <img src="{% static "img/avatar/small/elliot.jpg" %}">
-        </a>
-        <div class="content">
-          <a class="author">Elliot Fu</a>
-          <div class="metadata">
-            <span class="date">Yesterday at 12:30AM</span>
-          </div>
-          <div class="text">
-            <p>This has been very useful for my research. Thanks as well!</p>
-          </div>
-          <div class="actions">
-            <a class="reply">Reply</a>
-          </div>
-        </div>
-        <div class="comments">
-          <div class="comment">
-            <a class="avatar">
-              <img src="{% static "img/avatar/small/elliot.jpg" %}">
-            </a>
-            <div class="content">
-              <a class="author">Jenny Hess</a>
-              <div class="metadata">
-                <span class="date">Just now</span>
-              </div>
-              <div class="text">
-                Elliot you are always so right :)
-              </div>
-              <div class="actions">
-                <a class="reply">Reply</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="comment">
-        <a class="avatar">
-          <img src="{% static "img/avatar/small/elliot.jpg" %}">
-        </a>
-        <div class="content">
-          <a class="author">Joe Henderson</a>
-          <div class="metadata">
-            <span class="date">5 days ago</span>
-          </div>
-          <div class="text">
-            Dude, this is awesome. Thanks so much
-          </div>
-          <div class="actions">
-            <a class="reply">Reply</a>
-          </div>
-        </div>
-      </div> -->
+
       <form class="ui reply form" id="blogCommentForm" blogid="{{blog.id}}">
         <div class="field">
           <textarea id="blogComment" name="blogComment"></textarea>
@@ -152,6 +94,10 @@
                 },
             });
             return false;
+        });
+        
+        $("a.reply").click(function(){
+            $(this).next().slideToggle("fast");
         });
     });
     
