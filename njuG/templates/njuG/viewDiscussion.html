@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load staticfiles %}
-
+{% load filters %}
 {% block loadCss %}
 <link rel="stylesheet" type="text/css" href="{% static "css/discussion.css" %}">
 <link rel="stylesheet" type="text/css" href="{% static "css/viewDiscussion.css" %}">
@@ -37,11 +37,6 @@
           </a>
           <div class="content">
               <a class="author">{{ comment.user.username}}</a>
-              <!-- {% if comment.replyTo %}
-              <a class="author">{{ comment.user.username }}</a>回复<a class="author">{{ comment.replyTo.user.username}}</a>
-              {% else %}
-              <a class="author">{{ comment.user.username}}</a>
-              {% endif %} -->
               <div class="metadata">
                   <span class="date">{{ comment.time }}</span>
               </div>
@@ -63,7 +58,7 @@
           </div>
           {% if comment.first_blog_comment.all %}
           <div class="comments">
-              {% for reply in comment.first_blog_comment.all %}
+              {% for reply in comment.first_blog_comment.all|order_by:"time" %}
               <div class="comment">
                   <a class="avatar">
                       <img src="{% static "img/avatar/small/elliot.jpg" %}">
