@@ -67,7 +67,7 @@ class Blog(Event):
     isAnonymous = models.BooleanField(default=False)
     
 class BlogComment(Event):
-    content = models.CharField(max_length=500)
+    content = models.TextField()
     user = models.ForeignKey(User)
     blog = models.ForeignKey(Blog)
     replyTo = models.ForeignKey("self", null=True, blank=True)  ## reply someone's comment
