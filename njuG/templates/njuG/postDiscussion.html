@@ -3,6 +3,7 @@
 
 {% block loadCss %}
 <link rel="stylesheet" type="text/css" href="{% static "css/discussion.css" %}">
+<link rel="stylesheet" href="{% static "jquery/Trumbowyg-2.0.0/dist/ui/trumbowyg.min.css" %}">
 {% endblock %}
 
 {% block content %}
@@ -19,7 +20,7 @@
         <!-- <input type="text" name="title" placeholder="标题" required> -->
       </div>
       <div class="field">
-        <label for="{{ form.content.id_for_label }}">内容</label>
+        <label for="{{ form.content.id_for_label }}">文章内容</label>
         {{ form.content }}
         {% for error in form.content.errors %}
             {{error}}
@@ -43,13 +44,42 @@
     </form>
 </div>
 
+{% block loadJs %}
+<script src="{% static "jquery/Trumbowyg-2.0.0/dist/trumbowyg.min.js" %}"></script>
+<script src="{% static "jquery/Trumbowyg-2.0.0/dist/plugins/base64/trumbowyg.base64.min.js" %}"></script>
+{% endblock %}
 
 <script>
     $(document).ready(function(){
+        
         $(".launch.item").removeClass("active");
         $(".launch.item").eq(1).addClass("active");
         
         $('.ui.checkbox').checkbox();
+        
+        $("#id_content").trumbowyg({
+            // btnsAdd: ['base64'],
+            btnsDef:{
+                insertImages:{
+                    dropdown: ['insertImage','base64'],
+                    ico: 'insertImage'
+                }
+            },
+            btns:['viewHTML',
+                '|', 'formatting',
+                '|', 'btnGrp-design',
+                '|', 'link',
+                '|', 'insertImages',
+                '|', 'btnGrp-justify',
+                '|', 'btnGrp-lists',
+                '|', 'horizontalRule']
+            
+        });
+        
+        $(".trumbowyg-base64-dropdown-button, .trumbowyg-insertImage-dropdown-button").mousedown(function(){
+            $(".trumbowyg-modal-box label input").css({"width": "340px", "border-radius": "0em"});
+        });
+        
     });
 </script>
 {% endblock %}
