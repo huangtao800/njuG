@@ -23,9 +23,9 @@
       </div>
     </div>
     
-    <p>
-        {{ blog.content }}
-    </p>
+    <div>
+        {% autoescape off %}{{ blog.content }}{% endautoescape %}
+    </div>
     
     <div class="ui comments">
       <h3 class="ui dividing header">评论</h3>

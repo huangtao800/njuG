@@ -21,7 +21,7 @@
             </a>
             <div class="content">
                 <a class="header" href="{% url 'viewDiscussion' blog.id %}">{{blog.title}}</a>
-                <div class="description cutoff">{{blog.content}}</div>
+                <div class="description cutoff">{{blog.content|striptags}}</div>
             </div>
         </div>
         {% endfor %}
