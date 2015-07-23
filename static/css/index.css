@@ -48,6 +48,20 @@
   padding: 0;
   color: rgba(0,0,0,.4);
 }
+
+.ui.feed>.event>.label img {
+	border-radius: 0.25em;
+}
+.ui.feed>.event>.label+.content{
+	margin-top: 0em;
+}
+.ui.feed>.event>.content .extra{
+	margin-top: 0.25em;
+}
+.ui.feed>.event>.label{
+	padding-top: 0.25em;
+}
+
 .liked{
 	color: #ff2733;
 }
