@@ -68,10 +68,15 @@
 
 .ui.comments{
 	margin-top: 0.5em;
+	margin-bottom: 0px;
 }
 .ui.comments .comment .avatar img{
 	width: 90%;
 	height: 90%;
+}
+
+.ui.action.input{
+	padding-left: 0px;
 }
 
 .liked{
