@@ -103,4 +103,18 @@ $(document).ready(function(){
 			});				
 		}
 	});
+	
+	
+	$("#fileupload").fileupload({
+		dataType: "json",
+		url: "/njuG/postUploadImg/",
+		add: function(e, data){
+			data.contenxt = $("<button/>").text("Upload")
+				.appendTo(document.body)
+				.click(function(){
+					data.context = $("<p/>").text("Uploading").replaceAll($(this));
+					data.submit();
+				});
+		},
+	});
 });

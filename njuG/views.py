@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from njuG.models import Post, Like, Comment, Picture, Blog, BlogComment
+from njuG.models import Post, Like, Comment, Picture, Blog, BlogComment, Image
 from django.views.generic import CreateView, DeleteView, ListView
 from django.http import JsonResponse, HttpResponseRedirect
 from django.utils import timezone
@@ -17,7 +17,7 @@ def index(request):
 		context = {'posts': posts}	
 	return render(request, 'njuG/index.html', context)
 
-
+# @login_required
 def post(request):
 	if(request.method == 'POST' and request.user.is_authenticated()):
 		try:
@@ -32,7 +32,8 @@ def post(request):
 			return JsonResponse(responseDict)
 	else:
 		return JsonResponse({'result':0,'msg':'user not login'})
-	
+
+# @login_required	
 def likePost(request):
 	if(request.method=='POST' and request.user.is_authenticated()):
 		try:
@@ -51,7 +52,8 @@ def likePost(request):
 			return JsonResponse(responseDict)
 	else:
 		return JsonResponse({'result':0, 'msg':'user not login'})
-	
+
+# @login_required	
 def notLikePost(request):
 	if(request.method=='POST' and request.user.is_authenticated()):
 		try:
@@ -69,7 +71,8 @@ def notLikePost(request):
 			return JsonResponse(responseDict)
 	else:
 		return JsonResponse({'result':0, 'msg':'user not login'})
-	
+
+# @login_required	
 def postComment(request):
 	if(request.method=='POST' and request.user.is_authenticated()):
 		try:
@@ -86,6 +89,39 @@ def postComment(request):
  			return JsonResponse(responseDict)
  	else:
  		return JsonResponse({'result':0, 'msg':'user not login'})
+ 	
+
+# @login_required
+def postUploadImg(request):
+	from django.core.files.uploadedfile import UploadedFile
+	from sorl.thumbnail import get_thumbnail
+	if request.method == 'POST':
+		if request.FILES == None:
+			return HttpResponseBadRequest('Must have files attached!')
+		
+		file = request.FILES[u'files[]']
+		filename = file.name
+		filesize = file.size
+		
+		image = Image()
+		image.file = file
+# 		image.save()
+		
+		file_delete_url = '/delete'
+		file_url = '/'
+		
+		im = get_thumbnail(image, "80x80", quality=50)
+		thumb_url = im.url
+		
+		imgList = []
+		imgList.append({"name": filename,
+						"size": filesize,
+						"url": file_url,
+						"thumbnail_url": thumb_url,
+						"delete_url": file_delete_url + str(image.pk) + '/',
+						"delete_type": "POST"})
+		
+		return JsonResponse({"files": imgList});
  	
  	
 class PictureListView(ListView):
