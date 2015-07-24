@@ -105,7 +105,7 @@ def postUploadImg(request):
 		
 		image = Image()
 		image.file = file
-# 		image.save()
+		image.save()
 		
 		file_delete_url = '/delete'
 		file_url = '/'
