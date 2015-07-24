@@ -63,3 +63,5 @@ target/
 # Node Modules
 node_modules/
 
+# Django Media
+media/
