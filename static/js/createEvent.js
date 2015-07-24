@@ -108,13 +108,28 @@ $(document).ready(function(){
 	$("#fileupload").fileupload({
 		dataType: "json",
 		url: "/njuG/postUploadImg/",
-		add: function(e, data){
-			data.contenxt = $("<button/>").text("Upload")
-				.appendTo(document.body)
-				.click(function(){
-					data.context = $("<p/>").text("Uploading").replaceAll($(this));
-					data.submit();
-				});
-		},
+		// add: function(e, data){
+			// data.contenxt = $("<button/>").text("Upload")
+				// .appendTo($(".imgPreview"))
+				// .click(function(){
+					// data.context = $("<p/>").text("Uploading").replaceAll($(this));
+					// data.submit();
+				// });
+		// },
+		// done: function(e, data){
+			// data.context = $("<button/>").text("Delete")
+			// .appendTo($(".imgPreview"))
+			// .click(function(){
+				// alert("delete");
+			// });
+		// }
+	}).on('fileuploadadded',function(e, data){
+		$(".imgPreview").append(
+			$("<button/>").text("Upload").attr("index", data.index).click(function(){
+			$("<p/>").text("Uploading").attr("index",data.index).replaceAll($(this));
+			data.submit();
+		}));
+	}).on("fileuploadprocessalways", function(e, data){
+		console.log(data.index);
 	});
 });
