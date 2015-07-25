@@ -1,8 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from njuG.models import Post, Like, Comment, Picture, Blog, BlogComment, Image
 from django.views.generic import CreateView, DeleteView, ListView
-from django.http import JsonResponse, HttpResponseRedirect
+from django.http import JsonResponse,HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.utils import timezone
 from njuG.forms.myForms import BlogForm
 
@@ -95,7 +95,7 @@ def postComment(request):
 def postUploadImg(request):
 	from django.core.files.uploadedfile import UploadedFile
 	from sorl.thumbnail import get_thumbnail
-	if request.method == 'POST':
+	if request.method == 'POST' and request.user.is_authenticated():
 		if request.FILES == None:
 			return HttpResponseBadRequest('Must have files attached!')
 		
@@ -105,9 +105,10 @@ def postUploadImg(request):
 		
 		image = Image()
 		image.file = file
+		image.user = request.user
 		image.save()
 		
-		file_delete_url = '/delete'
+		file_delete_url = '/njuG/deletePostImg/'
 		file_url = '/'
 		
 		im = get_thumbnail(image, "80x80", quality=50)
@@ -118,10 +119,21 @@ def postUploadImg(request):
 						"size": filesize,
 						"url": file_url,
 						"thumbnail_url": thumb_url,
-						"delete_url": file_delete_url + str(image.pk) + '/',
-						"delete_type": "POST"})
+						"deleteUrl": file_delete_url + str(image.pk) + '/',
+						"deleteType": "POST"})
 		
 		return JsonResponse({"files": imgList});
+	
+def deletePostImg(request, pk):
+	if request.method == 'POST':
+		image = get_object_or_404(Image, pk=pk)
+		if(image.user.username == request.user.username):
+			image.delete()
+			return HttpResponse(str(pk))
+		else:
+			return HttpResponseBadRequest('You can only delete your images')
+	else:
+		return HttpResponseBadRequest('Only POST accepted')
  	
  	
 class PictureListView(ListView):
