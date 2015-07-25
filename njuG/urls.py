@@ -11,8 +11,7 @@ urlpatterns = [
     
     url(r'^postUploadImg', views.postUploadImg, name='postUploadImg'),
     url(r'^deletePostImg/(?P<pk>[0-9]+)/$', views.deletePostImg, name='deletePostImg'),
-    url(r'^uploadPicView$', views.PictureListView.as_view(), name='uploadPicView'),
-    url(r'^uploadPicNew/(?P<id>[0-9]+)/$', views.PictureListView.as_view(), name='uploadPicNew'),
+
     #need to change view
     
     url(r'^discussion/', views.discussion, name="discussion"),

@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from njuG.models import Post, Like, Comment, Picture, Blog, BlogComment, Image
+from njuG.models import Post, Like, Comment, Blog, BlogComment, Image
 from django.views.generic import CreateView, DeleteView, ListView
 from django.http import JsonResponse,HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.utils import timezone
@@ -134,17 +134,6 @@ def deletePostImg(request, pk):
 			return HttpResponseBadRequest('You can only delete your images')
 	else:
 		return HttpResponseBadRequest('Only POST accepted')
- 	
- 	
-class PictureListView(ListView):
-    model = Picture
-
-    def render_to_response(self, context, **response_kwargs):
-        files = [ serialize(p) for p in self.get_queryset() ]
-        data = {'files': files}
-        response = JsonResponse(data)
-        response['Content-Disposition'] = 'inline; filename=files.json'
-        return response
 
 
 def discussion(request):
