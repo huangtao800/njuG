@@ -109,7 +109,7 @@
         $(".launch.item").eq(0).addClass("active");
         $("#fileupload").change(function(e){
             var fileNum = $("#fileupload").prop("files").length + $("table").find("tr").length;
-            if(fileNum > 2 ){
+            if(fileNum > 3 ){
                 alert("抱歉！一条状态至多可以关联3张图片。");
                 e.stopImmediatePropagation();
             }

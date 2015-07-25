@@ -65,7 +65,7 @@ def upload_js():
             <span class="size">{%=o.formatFileSize(file.size)%}</span>
         </td>
         <td>
-            <button class="ui labeled icon red button delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
+            <button class="ui labeled icon red button delete" data-imgpk="{%=file.imgPk%}" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
                 <i class="remove icon"></i>
                 <span>{%=locale.fileupload.destroy%}</span>
             </button>

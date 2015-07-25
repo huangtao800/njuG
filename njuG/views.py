@@ -22,7 +22,14 @@ def post(request):
 	if(request.method == 'POST' and request.user.is_authenticated()):
 		try:
 			postContent = request.POST['content']
+			imgPkList = request.POST.getlist('imgPkList[]')
 			post = Post(user=request.user, content=postContent, time=timezone.now())
+			for idx, val in enumerate(imgPkList):
+				attrName = "img" + str(idx);
+				img = get_object_or_404(Image, pk=val)
+				setattr(post, attrName, img)
+				print img.pk
+			
 			post.save()
 			responseDict = {'result':1, 'msg':''}
 			return JsonResponse(responseDict)
@@ -118,6 +125,7 @@ def postUploadImg(request):
 		imgList.append({"name": filename,
 						"size": filesize,
 						"url": file_url,
+						"imgPk": image.pk,
 						"thumbnail_url": thumb_url,
 						"deleteUrl": file_delete_url + str(image.pk) + '/',
 						"deleteType": "POST"})

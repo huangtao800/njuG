@@ -1,10 +1,14 @@
 $(document).ready(function(){
 	$("#postForm").submit(function(){
+		var imgPkList = new Array();
+		$.each($("button.delete"), function(){
+			imgPkList.push($(this).attr("data-imgpk"));
+		});
 		$(this).ajaxSubmit({
 			dataType: "json",
 			headers: { "X-CSRFToken": $.cookie("csrftoken") },
 			type: 'POST',
-			data: {"content": $("#postArea").val()},
+			data: {"content": $("#postArea").val(), "imgPkList[]": imgPkList},
 			success: function(response){
 				var result = response['result'];
 				if(result==1){
