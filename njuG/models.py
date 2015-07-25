@@ -4,6 +4,15 @@ from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
 
 # Create your models here.
+class Image(models.Model):
+    file = models.ImageField(upload_to="images")
+    user = models.ForeignKey(User)
+
+@receiver(pre_delete, sender=Image)
+def image_delete(sender, instance, **kwargs):
+    # Pass false so FileField doesn't save the model.
+    if(instance.file):
+        instance.file.delete(False)
 
 class Event(models.Model):
     time = models.DateTimeField(auto_now=True)
@@ -16,6 +25,9 @@ class Post(Event):
     content = models.CharField(max_length=300)
     user = models.ForeignKey(User)
     likes = models.BigIntegerField(default=0)
+    img1 = models.ForeignKey(Image, blank=True, null=True, related_name="img1")
+    img2 = models.ForeignKey(Image, blank=True, null=True, related_name="img2")
+    img3 = models.ForeignKey(Image, blank=True, null=True, related_name="img3")
     
     def comments(self):
         return self.comment_set.all().order_by("-time")
@@ -61,15 +73,6 @@ class Picture(models.Model):
         self.file.delete(False)
         super(Picture, self).delete(*args, **kwargs)
 
-class Image(models.Model):
-    file = models.ImageField(upload_to="images")
-    user = models.ForeignKey(User)
-
-@receiver(pre_delete, sender=Image)
-def image_delete(sender, instance, **kwargs):
-    # Pass false so FileField doesn't save the model.
-    if(instance.file):
-        instance.file.delete(False)
         
         
 class Blog(Event):
