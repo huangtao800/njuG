@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django import template
 
 register = template.Library()
@@ -26,14 +27,14 @@ def upload_js():
         </td>
         <td>
             {% if (!o.files.error && !i && !o.options.autoUpload) { %}
-                <button class="btn btn-primary start">
-                    <i class="glyphicon glyphicon-upload"></i>
+                <button class="ui labeled icon blue button start">
+                    <i class="cloud upload icon"></i>
                     <span>{%=locale.fileupload.start%}</span>
                 </button>
             {% } %}
             {% if (!i) { %}
-                <button class="btn btn-warning cancel">
-                    <i class="glyphicon glyphicon-ban-circle"></i>
+                <button class="ui labeled icon button cancel">
+                    <i class="ban icon"></i>
                     <span>{%=locale.fileupload.cancel%}</span>
                 </button>
             {% } %}
@@ -64,8 +65,8 @@ def upload_js():
             <span class="size">{%=o.formatFileSize(file.size)%}</span>
         </td>
         <td>
-            <button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
-                <i class="glyphicon glyphicon-trash"></i>
+            <button class="ui labeled icon red button delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
+                <i class="remove icon"></i>
                 <span>{%=locale.fileupload.destroy%}</span>
             </button>
             <input type="checkbox" name="delete" value="1" class="toggle">
