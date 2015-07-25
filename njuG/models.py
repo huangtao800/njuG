@@ -61,6 +61,7 @@ class Picture(models.Model):
 
 class Image(models.Model):
     file = models.ImageField(upload_to="images")
+    user = models.ForeignKey(User)
         
         
 class Blog(Event):
