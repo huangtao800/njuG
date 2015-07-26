@@ -2,12 +2,13 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
+from sorl.thumbnail import ImageField
 
 # Create your models here.
 class Image(models.Model):
-    file = models.ImageField(upload_to="images")
+    file = ImageField(upload_to="images")
     user = models.ForeignKey(User)
-
+ 
 @receiver(pre_delete, sender=Image)
 def image_delete(sender, instance, **kwargs):
     # Pass false so FileField doesn't save the model.
