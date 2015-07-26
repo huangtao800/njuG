@@ -25,7 +25,7 @@ def post(request):
 			imgPkList = request.POST.getlist('imgPkList[]')
 			post = Post(user=request.user, content=postContent, time=timezone.now())
 			for idx, val in enumerate(imgPkList):
-				attrName = "img" + str(idx);
+				attrName = "img" + str(idx+1);
 				img = get_object_or_404(Image, pk=val)
 				setattr(post, attrName, img)
 				print img.pk

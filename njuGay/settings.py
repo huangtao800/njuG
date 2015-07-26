@@ -23,6 +23,7 @@ SECRET_KEY = 'g16ma3^__ftr8@9f2v*_r6h_^&v(2qk&v*x-%e!shqo8k)gzmi'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+THUMBNAIL_DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -71,7 +72,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
 
-                # `allauth` specific context processors
+#                 # `allauth` specific context processors
 #                 'allauth.account.context_processors.account',
 #                 'allauth.socialaccount.context_processors.socialaccount',
             ],
@@ -112,7 +113,7 @@ USE_TZ = True
 
 #media settings
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/').replace('\\','/')
-MEDIA_URL = '/site_media/'
+MEDIA_URL = '/media/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
@@ -133,6 +134,7 @@ AUTHENTICATION_BACKENDS = (
     # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
 )
+
 
 #django-allauth settings
 ACCOUNT_EMAIL_VERIFICATION = ("mandatory")

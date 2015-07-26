@@ -1,6 +1,9 @@
 {% extends "base.html" %}
+
 {% load staticfiles %}
 {% load upload_tag %}
+{% load thumbnail %}
+
 {% block loadCss %}
 <link rel="stylesheet" type="text/css" href="{% static "css/index.css" %}">
 {% endblock %}
@@ -27,7 +30,7 @@
 				  </label>
 			    </form>
 			</div>
-			<table class="files ui very basic table"></table>
+			<table class="files ui very basic table" id="imgPreviewTable"></table>
 			<div class="ui divider"></div>
 			
 			<div class="ui large feed">
@@ -45,6 +48,13 @@
 						</div>
 						<div class="extra text">
 							{{ post.content }}
+						</div>
+						<div>
+						    {% if post.img1 %}
+						      {% thumbnail post.img1.file "150x120" crop="center" as im %}
+						      <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+						      {% endthumbnail %}
+						    {% endif %}
 						</div>
 						<div class="meta">
 							<a class="like" postid="{{ post.id }}">

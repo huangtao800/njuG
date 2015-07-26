@@ -16,6 +16,9 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
+from django.conf import settings
+from django.conf.urls.static import static
+
 from forms.myForms import LoginForm
 
 urlpatterns = [
@@ -23,4 +26,4 @@ urlpatterns = [
     url(r'^njuG/', include('njuG.urls')),
     url(r'^accounts/', include('allauth.urls')),
     #url(r'^njuG/login/$', auth_views.login, {'authentication_form': LoginForm}),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

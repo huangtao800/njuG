@@ -13,6 +13,7 @@ $(document).ready(function(){
 				var result = response['result'];
 				if(result==1){
 					$("#postForm textarea").val('');
+					$("#imgPreviewTable").empty();
 					showMessage(1, "发布成功！");
 				}
 				else{
