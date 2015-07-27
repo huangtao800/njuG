@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import pre_delete
@@ -61,3 +62,25 @@ class BlogComment(Event):
     blog = models.ForeignKey(Blog)
     replyTo = models.ForeignKey("self", null=True, blank=True)  ## reply someone's comment
     masterComment = models.ForeignKey("self", null=True, blank=True, related_name="first_blog_comment")    ## the first comment of a group of related blogComments
+    
+class Profile(models.Model):
+    user = models.OneToOneField(User)
+    NJU = 'NJU'
+    OTHER = 'OTHER'
+    SCHOOL_CHOICES = (
+        (NJU, '南京大学'),
+        (OTHER, '其他学校'))
+    school = models.CharField(max_length=10, choices=SCHOOL_CHOICES, default=NJU)
+    
+    BOTTOM = 0
+    TOP = 1
+    VERS = 2
+    NOROLE = 3
+    ROLE_CHOICES = (
+        (BOTTOM, 0),
+        (TOP, 1),
+        (VERS, 2),
+        (NOROLE, 3))
+    
+    role = models.IntegerField(choices = ROLE_CHOICES, default = NOROLE)
+    
