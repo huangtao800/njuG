@@ -49,12 +49,28 @@
 						<div class="extra text">
 							{{ post.content }}
 						</div>
-						<div>
+						<div class="imgPreview">
 						    {% if post.img1 %}
-						      {% thumbnail post.img1.file "150x120" crop="center" as im %}
+						    <a href="#" class="previewImage">
+						      {% thumbnail post.img1.file "180x150" as im %}
 						      <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
 						      {% endthumbnail %}
+						    </a>
 						    {% endif %}
+                            {% if post.img2 %}
+                            <a href="#" class="previewImage">
+                              {% thumbnail post.img2.file "180x150" as im %}
+                              <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+                              {% endthumbnail %}
+                            </a>
+                            {% endif %}
+                            {% if post.img3 %}
+                            <a href="#" class="previewImage">
+                              {% thumbnail post.img3.file "180x150" as im %}
+                              <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+                              {% endthumbnail %}
+                            </a>
+                            {% endif %}                            
 						</div>
 						<div class="meta">
 							<a class="like" postid="{{ post.id }}">
