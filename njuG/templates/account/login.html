@@ -45,4 +45,27 @@
 	</div>	
 </div>
 
+<script>
+    function getUrlParameter(sParam){
+        var sPageURL = window.location.search.substring(1);
+        var sURLVariables = sPageURL.split('&');
+        for (var i = 0; i < sURLVariables.length; i++) 
+        {
+            var sParameterName = sURLVariables[i].split('=');
+            if (sParameterName[0] == sParam) 
+            {
+                return sParameterName[1];
+            }
+        }
+    }
+    
+    $(document).ready(function(){
+        var action = $("form").attr("action");
+        var next = getUrlParameter('next');
+        if(next){
+            var newAction = action + "?next=" + next;
+            $("form").attr("action", newAction);
+        }
+    }); 
+</script>
 {% endblock %}
