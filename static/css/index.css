@@ -89,3 +89,8 @@
 .imgPreview{
 	margin-top: 0.75em;
 }
+
+img{
+	max-width: 780px;
+	max-height: 480px;
+}

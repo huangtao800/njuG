@@ -51,21 +51,21 @@
 						</div>
 						<div class="imgPreview">
 						    {% if post.img1 %}
-						    <a href="#" class="previewImage">
+						    <a href="{{post.img1.file.url}}" class="previewImage" index="0" postid="{{post.id}}">
 						      {% thumbnail post.img1.file "180x150" as im %}
 						      <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
 						      {% endthumbnail %}
 						    </a>
 						    {% endif %}
                             {% if post.img2 %}
-                            <a href="#" class="previewImage">
+                            <a href="{{post.img2.file.url}}" class="previewImage" index="1" postid="{{post.id}}">
                               {% thumbnail post.img2.file "180x150" as im %}
                               <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
                               {% endthumbnail %}
                             </a>
                             {% endif %}
                             {% if post.img3 %}
-                            <a href="#" class="previewImage">
+                            <a href="{{post.img3.file.url}}" class="previewImage" index="2" postid="{{post.id}}">
                               {% thumbnail post.img3.file "180x150" as im %}
                               <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
                               {% endthumbnail %}
@@ -129,6 +129,26 @@
 	</div>	
 </div>
 
+
+<div class="ui basic modal">
+  <i class="close icon"></i>
+  <div id="modalImage" class="content" align="center" style="height: 500px;">
+    <!-- <img src="/media/images/2015-07-19_080617_TbYIi3N.png" > -->
+  </div>
+  <div class="actions">
+    <div class="two fluid ui inverted buttons">
+      <button id="previousButton" class="ui red basic inverted button">
+        <i class="angle left icon"></i>
+        Previous
+      </button>
+      <button id="nextButton" class="ui green basic inverted button">
+        Next
+        <i class="angle right icon"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
 <script>
     $(document).ready(function(){
         $(".launch.item").removeClass("active");
@@ -139,6 +159,78 @@
                 alert("抱歉！一条状态至多可以关联3张图片。");
                 e.stopImmediatePropagation();
             }
+        });
+        
+        $(".previewImage").click(function(){
+            var currentImgUrl = $(this).attr("href");
+            var previousImgUrl = "";
+            var nextImgUrl = "";
+            
+            $("#previousButton").prop("disabled", false);
+            $("#nextButton").prop("disabled", false);
+            if($(this).prev().length!=0){
+                previousImgUrl = $(this).prev().attr("href");
+            }else{
+                $("#previousButton").prop("disabled", true);
+            }
+            if($(this).next().length!=0){
+                nextImgUrl = $(this).next().attr("href");
+            }else{
+                $("#nextButton").prop("disabled", true);
+            }
+            
+            var content = $(".ui.basic.modal").find(".content");
+            
+            content.empty();
+            var img = $("<img/>").attr("src", currentImgUrl).attr("index",$(this).attr("index")).attr("postid", $(this).attr("postid"));
+            content.append(img);
+            $('.ui.basic.modal').modal('show');
+            return false;
+        });
+        
+        $("#previousButton").click(function(){
+            var content = $("#modalImage");
+            var img = content.children("img");
+            var index = img.attr("index");
+            var prevIndex = parseInt(index) - 1;
+            var postid = img.attr("postid");
+            
+            var prevA = $('a[index="'+prevIndex+'"][postid="'+postid+'"]');
+            var prevImg = $("<img/>").attr("src", prevA.attr("href")).attr("index", prevIndex).attr("postid", postid);
+            
+            content.empty();
+            content.append(prevImg);
+            
+            if(prevIndex==0){
+                $("#previousButton").prop("disabled", true);
+            }else{
+                $("#previousButton").prop("disabled", false);
+            }
+            
+            $("#nextButton").prop("disabled", false);
+        });
+        
+        $("#nextButton").click(function(){
+            var content = $("#modalImage");
+            var img = content.children("img");
+            var index = img.attr("index");
+            var nextIndex = parseInt(index) + 1;
+            var postid = img.attr("postid");
+            
+            var nextA = $('a[index="'+nextIndex+'"][postid="'+postid+'"]');
+            var nextImg = $("<img/>").attr("src", nextA.attr("href")).attr("index", nextIndex).attr("postid", postid);
+            
+            content.empty();
+            content.append(nextImg);
+            
+            var nextNextIndex = nextIndex+1;
+            if($('a[index="'+nextNextIndex+'"][postid="'+postid+'"]').length==0){
+                $("#nextButton").prop("disabled", true);
+            }else{
+                $("#nextButton").prop("disabled", false);
+            }
+            
+            $("#previousButton").prop("disabled", false);
         });
     });
 </script>
