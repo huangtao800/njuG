@@ -199,3 +199,8 @@ def replyBlogComment(request):
 		blogComment = BlogComment(content=content, user=user, blog=blog, replyTo=replyTo, masterComment=masterComment)
 		blogComment.save()
 		return JsonResponse({'result':1, 'msg':''})
+	
+	
+@login_required
+def profile(request):
+	return render(request, 'njuG/profile.html')
