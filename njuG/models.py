@@ -65,6 +65,7 @@ class BlogComment(Event):
     
 class Profile(models.Model):
     user = models.OneToOneField(User)
+    nickName = models.CharField(max_length=30, default="无昵称")
     NJU = 'NJU'
     OTHER = 'OTHER'
     SCHOOL_CHOICES = (
@@ -72,15 +73,23 @@ class Profile(models.Model):
         (OTHER, '其他学校'))
     school = models.CharField(max_length=10, choices=SCHOOL_CHOICES, default=NJU)
     
-    BOTTOM = 0
     TOP = 1
-    VERS = 2
-    NOROLE = 3
+    BOTTOM = 2
+    VERS = 3
+    NOROLE = 4
     ROLE_CHOICES = (
-        (BOTTOM, 0),
-        (TOP, 1),
-        (VERS, 2),
-        (NOROLE, 3))
-    
+        (BOTTOM, '受'),
+        (TOP, '攻'),
+        (VERS, '不限'),
+        (NOROLE, '-'))
     role = models.IntegerField(choices = ROLE_CHOICES, default = NOROLE)
+    
+    UNDERGRAD = 0
+    GRAD = 1
+    POSTGRAD = 2
+    DEGREE_CHOICES = (
+        (UNDERGRAD, '本科'),
+        (GRAD, '硕士'),
+        (POSTGRAD, '博士'))
+    degree = models.IntegerField(choices = DEGREE_CHOICES, default = UNDERGRAD)
     
