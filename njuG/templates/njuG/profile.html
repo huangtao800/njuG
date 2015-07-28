@@ -1,1 +1,42 @@
 {% extends "base.html" %}
+
+{% load filters %}
+
+{% block content %}
+<div class="ui grid">
+    <div class="row">
+        <div class="three wide column"></div>
+        <div class="ten wide column">
+            <form class="ui form" method="post" >
+                {% csrf_token %}
+              <div class="field">
+                <label for="{{form.nickName.id_for_label}}">昵称</label>
+                {{ form.nickName }}
+              </div>
+              <div class="field">
+                <label for="{{form.school.id_for_school}}">学校</label>
+                {{ form.school|addCSS:"ui dropdown" }}
+              </div>
+              
+              <div class="field">
+                  <label for="{{form.degree.id_for_degree}}">学历</label>
+                  {{ form.degree|addCSS:"ui dropdown "}}
+              </div>
+              
+              <div class="field">
+                  <label for="{{form.role.id_for_role}}">角色</label>
+                  {{ form.role|addCSS:"ui dropdown "}}
+              </div>
+              <button class="ui button blue" type="submit">保存</button>
+            </form>
+        </div>
+        <div class="three wide column"></div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        $(".ui.dropdown").dropdown();
+    });
+</script>
+{% endblock %}

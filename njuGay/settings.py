@@ -139,6 +139,8 @@ AUTHENTICATION_BACKENDS = (
 #django-allauth settings
 ACCOUNT_EMAIL_VERIFICATION = ("mandatory")
 ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login'
 LOGIN_REDIRECT_URL = "/njuG/profile"
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/njuG/profile'

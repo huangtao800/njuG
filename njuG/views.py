@@ -1,10 +1,13 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from njuG.models import Post, Like, Comment, Blog, BlogComment, Image
+from django.dispatch import receiver
+
+from njuG.models import Post, Like, Comment, Blog, BlogComment, Image, Profile
 from django.views.generic import CreateView, DeleteView, ListView
 from django.http import JsonResponse,HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.utils import timezone
-from njuG.forms.myForms import BlogForm
+from njuG.forms.myForms import BlogForm, ProfileForm
+from allauth.account.signals import user_signed_up
 
 # Create your views here.
 def index(request):
@@ -199,8 +202,28 @@ def replyBlogComment(request):
 		blogComment = BlogComment(content=content, user=user, blog=blog, replyTo=replyTo, masterComment=masterComment)
 		blogComment.save()
 		return JsonResponse({'result':1, 'msg':''})
-	
+
+@receiver(user_signed_up)
+def createProfile(sender, **kwargs):
+    user = kwargs['user']
+    profile = Profile(user=user, nickName=user.username)
+    profile.save()
 	
 @login_required
 def profile(request):
-	return render(request, 'njuG/profile.html')
+	if(request.method == "GET"):
+		profile = request.user.profile
+		profileForm = ProfileForm(initial={'nickName': profile.nickName, 'school':profile.school, 'role': profile.role})
+		return render(request, 'njuG/profile.html', {'form': profileForm})
+	else:
+		profileForm = ProfileForm(request.POST)
+		print profileForm.errors
+		if profileForm.is_valid():
+			profile = request.user.profile
+			profile.nickName = profileForm.cleaned_data['nickName']
+			profile.school = profileForm.cleaned_data['school']
+			profile.degree = profileForm.cleaned_data['degree']
+			profile.role = profileForm.cleaned_data['role']
+			profile.save()
+			return render(request, 'njuG/profile.html', {'form': profileForm})
+		
