@@ -1,12 +1,26 @@
 {% extends "base.html" %}
 
+{% load staticfiles %}
 {% load filters %}
+
+{% block loadCss %}
+<link rel="stylesheet" type="text/css" href="{% static "css/profile.css" %}">
+<link rel="stylesheet" type="text/css" href="{% static "jquery/cropper/out/cropper.min.css" %}">
+{% endblock %}
 
 {% block content %}
 <div class="ui grid">
     <div class="row">
-        <div class="three wide column"></div>
-        <div class="ten wide column">
+        <div class="two wide column"></div>
+        <div class="four wide column">
+            <img id="avatarImg" src="" >
+            <button id="changeAvatar" class="ui basic button">修改头像</button>
+            <!-- <div class="avatarPreview">
+                <img id="avatarImg" src="" >
+            </div>
+            <input id="avatarInput" type="file" /> -->
+        </div>
+        <div class="eight wide column">
             <form class="ui form" method="post" >
                 {% csrf_token %}
               <div class="field">
@@ -30,13 +44,55 @@
               <button class="ui button blue" type="submit">保存</button>
             </form>
         </div>
-        <div class="three wide column"></div>
+        <div class="two wide column"></div>
     </div>
+</div>
+
+<div class="ui modal">
+  <i class="close icon"></i>
+  <div class="header">
+    Profile Picture
+  </div>
+  <div class="image content">
+    <div class="ui large image">
+        <div class="cropContainer">
+            <img id="cropImg" src="">
+        </div>
+        <label class="ui labeled icon blue button">
+          <i class="file image outline icon"></i>
+          选择头像
+          <input id="avatarInput" type="file" multiple style="display:none">
+        </label>
+    </div>
+
+    <div class="description">
+      <div class="ui header">We've auto-chosen a profile image for you.</div>
+      <p>We've grabbed the following image from the <a href="https://www.gravatar.com" target="_blank">gravatar</a> image associated with your registered e-mail address.</p>
+      <p>Is it okay to use this photo?</p>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui black deny button">
+      Nope
+    </div>
+    <div class="ui positive right labeled icon button">
+      Yep, that's me
+      <i class="checkmark icon"></i>
+    </div>
+  </div>
 </div>
 
 <script>
     $(document).ready(function(){
         $(".ui.dropdown").dropdown();
+        $("#changeAvatar").click(function(){
+            $('.ui.modal').modal('show');
+        });
     });
 </script>
+{% endblock %}
+
+{% block loadJs %}
+<script src="{% static "jquery/cropper/out/cropper.min.js" %}"></script>
+<script src="{% static "js/cropAvatar.js" %}"></script>
 {% endblock %}

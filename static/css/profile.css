@@ -1,0 +1,23 @@
+#avatarImg{
+	width: 150px;
+	height: 150px;
+}
+
+#cropImg{
+	width: 450px;
+	height: 400px;
+}
+
+.ui .image > .button{
+	margin-top: 1.5em;
+}
+
+.ui.large.image{
+	width: 450px;
+	height: 450px;
+}
+
+.cropContainer{
+	width: 450px;
+	height: 400px;	
+}
