@@ -21,3 +21,22 @@
 	width: 450px;
 	height: 400px;	
 }
+
+.largeAvatar{
+	width: 80px;
+	height: 80px;
+}
+
+.middleAvatar{
+	width: 50px;
+	height: 50px;
+}
+
+.smallAvatar{
+	width: 40px;
+	height: 40px;
+}
+
+.avatarPreview{
+	margin-right: 1em;
+}
