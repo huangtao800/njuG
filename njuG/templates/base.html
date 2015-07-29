@@ -36,7 +36,17 @@
         </div>
 
         <div class="right menu">
-          <a href="/info" class="item">Info</a>
+          <div id="homeDropdown" class="ui dropdown item">
+            <i class="user icon"></i>
+            Home
+            <i class="dropdown icon"></i>
+            <div class="menu">
+              <a class="item" href="{% url 'profile' %}"><i class="edit icon"></i> Edit Profile</a>
+              <a class="item"><i class="globe icon"></i> Choose Language</a>
+              <a class="item"><i class="settings icon"></i> Account Settings</a>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -64,6 +74,12 @@
       </div><a href="https://github.com/Anachron/satisfy" class="item">Homepage</a>
     </div>
   </div>
+
+<script>
+    $(document).ready(function(){
+        $("#homeDropdown").dropdown();
+    });
+</script>
 
 </body>
 
