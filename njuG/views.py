@@ -261,4 +261,8 @@ def postAvatar(request):
 		request.user.profile.hasAvatar = True
 		request.user.profile.save()
 		return JsonResponse({'result': 1, 'msg':''})
+	
+def activity(request):
+	if(request.method=='GET'):
+		return render(request, 'njuG/activity.html')
 				

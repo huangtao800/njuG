@@ -22,4 +22,6 @@ urlpatterns = [
     
     url(r'^profile/', views.profile, name="profile"),
     url(r'^postAvatar/', views.postAvatar, name="postAvatar"),
+    
+    url(r'^activity/', views.activity, name="activity"),
 ]
