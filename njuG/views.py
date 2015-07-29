@@ -215,7 +215,11 @@ def profile(request):
 	if(request.method == "GET"):
 		profile = request.user.profile
 		profileForm = ProfileForm(initial={'nickName': profile.nickName, 'school':profile.school, 'role': profile.role})
-		return render(request, 'njuG/profile.html', {'form': profileForm})
+		if(profile.hasAvatar):
+			avatar_path = "/static/img/avatar/" + request.user.username
+		else:
+			avatar_path = "/static/img/avatar/" + "Default-Avatar.jpg"
+		return render(request, 'njuG/profile.html', {'form': profileForm,'avatar_path': avatar_path})
 	else:
 		profileForm = ProfileForm(request.POST)
 		print profileForm.errors
@@ -250,9 +254,11 @@ def postAvatar(request):
 		pic.seek(0)
 		
 		largeAvatar = image.crop((x,y,x+width,y+height))
-		size = (128, 128)
+		size = (150, 150)
 		largeAvatar.thumbnail(size)
 		
 		largeAvatar.save(settings.AVATAR_PATH+username, image.format)
+		request.user.profile.hasAvatar = True
+		request.user.profile.save()
 		return JsonResponse({'result': 1, 'msg':''})
 				

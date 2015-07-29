@@ -92,4 +92,6 @@ class Profile(models.Model):
         (GRAD, '硕士'),
         (POSTGRAD, '博士'))
     degree = models.IntegerField(choices = DEGREE_CHOICES, default = UNDERGRAD)
+    hasAvatar = models.BooleanField(default=False)
+    avatarType = models.CharField(max_length=6, default='jpg')
     
