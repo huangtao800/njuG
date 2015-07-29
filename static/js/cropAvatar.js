@@ -40,6 +40,28 @@ function cropImage(){
 	});
 }
 
+function uplpadAvatar(){
+	if($("#cropImg").attr("src")){
+		var x = $("#cropImg").cropper("getData")['x'];
+		var y = $("#cropImg").cropper("getData")['y'];
+		var width = $("#cropImg").cropper("getData")['width'];
+		var height = $("#cropImg").cropper("getData")['height'];
+		var imgContent = $("#cropImg").attr("src");
+		var imgName = $("#avatarInput").val().split('\\').pop();
+		$.ajax({
+			url: "/njuG/postAvatar/",
+			dataType: "json",
+			headers: { "X-CSRFToken": $.cookie("csrftoken") },
+			type: 'POST',
+			data: {"x": x, "y":y, "width":width, "height":height, "imgName": imgName, "imgContent": imgContent},
+			success: function(response){
+				alert("success");
+			},
+		});
+	}
+	return false;
+}
+
 $(document).ready(function(){
     $("#avatarInput").change(function(){
 		removeCropperContainer();

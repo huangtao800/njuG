@@ -87,7 +87,11 @@
     $(document).ready(function(){
         $(".ui.dropdown").dropdown();
         $("#changeAvatar").click(function(){
-            $('.ui.modal').modal('show');
+            $('.ui.modal')
+            .modal({
+                onApprove: uplpadAvatar,
+            })
+            .modal('show');
             if(! $("#cropImg").attr("src") ){
                 $("#cropBtn").prop("disabled",true);
                 $("#uploadAvatarBtn").prop("disabled",true);

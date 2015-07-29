@@ -8,6 +8,10 @@
 	height: 400px;
 }
 
+#changeAvatar{
+	margin-top:1em;
+}
+
 .ui .image > .button{
 	margin-top: 1.5em;
 }

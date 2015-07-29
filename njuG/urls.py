@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^replyBlogComment/', views.replyBlogComment, name="replyBlogComment"),
     
     url(r'^profile/', views.profile, name="profile"),
+    url(r'^postAvatar/', views.postAvatar, name="postAvatar"),
 ]

@@ -226,4 +226,27 @@ def profile(request):
 			profile.role = profileForm.cleaned_data['role']
 			profile.save()
 			return render(request, 'njuG/profile.html', {'form': profileForm})
+
+@login_required
+def postAvatar(request):
+	from PIL import Image as PILImage
+	import cStringIO, base64, re
+	if(request.method=='POST'):
+		x = request.POST['x']
+		y = request.POST['y']
+		width = request.POST['width']
+		height = request.POST['height']
+		imgContent = request.POST['imgContent']
+		imgData = re.sub('^data:image/.+;base64,', '', imgContent)
+		imgName = request.POST['imgName']
 		
+		pic = cStringIO.StringIO()
+		image_string = cStringIO.StringIO(base64.b64decode(imgData))
+		image = PILImage.open(image_string)
+		image.save("/home/tao/Documents/websites/njuG/static/avatar/"+imgName, image.format, quality = 100)
+		pic.seek(0)
+# 		file = open('/home/tao/Documents/websites/njuG/static/avatar/'+imgName,'w+b')
+# 		file.write(imgContent.decode('base64'))
+# 		file.close()
+		return JsonResponse({'result': 1, 'msg':''})
+				
