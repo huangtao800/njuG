@@ -61,7 +61,36 @@ $(document).ready(function(){
     });
     
     $("#cropBtn").click(function(){
-    	var data = $("#cropImg").cropper("getData");
-    	alert(data);
+    	$("img.avatarPreview").attr("src", $("#cropImg").attr("src"));
+    	
+    	var cropBoxWidth = $("#cropImg").cropper("getCropBoxData")['width'];
+    	var cropBoxTop = $("#cropImg").cropper("getCropBoxData")['top'] - $("#cropImg").cropper("getCanvasData")['top'];
+    	var cropBoxLeft = $("#cropImg").cropper("getCropBoxData")['left'] - $("#cropImg").cropper("getCanvasData")['left'];
+    	
+    	var imgNaturalWidth = $("#cropImg").cropper("getImageData")['naturalWidth'];
+    	var imgNaturalHeight = $("#cropImg").cropper("getImageData")['naturalHeight'];
+    	var imgWidth = $("#cropImg").cropper("getImageData")['width'];
+    	var imgHeight = $("#cropImg").cropper("getImageData")['height'];
+    	
+    	var largeRatio = $(".largeAvatar").width() / cropBoxWidth;
+    	var largeImgWidth = largeRatio * imgWidth;
+    	var largeImgHeight = largeRatio * imgHeight;
+    	$(".largeAvatarImg").width("" + largeImgWidth + "px");
+    	$(".largeAvatarImg").height("" + largeImgHeight + "px");
+    	$(".largeAvatarImg").css({top: "-"+largeRatio*cropBoxTop+"px", left:"-"+largeRatio*cropBoxLeft+"px"});
+    	
+    	var middleRatio = $(".middleAvatar").width() / cropBoxWidth;
+    	var middleImgWidth = middleRatio * imgWidth;
+    	var middleImgHeight = middleRatio * imgHeight;
+    	$(".middleAvatarImg").width("" + middleImgWidth + "px");
+    	$(".middleAvatarImg").height("" + middleImgHeight + "px");
+    	$(".middleAvatarImg").css({top: "-"+middleRatio*cropBoxTop+"px", left:"-"+middleRatio*cropBoxLeft+"px"});
+    	
+    	var smallRatio = $(".smallAvatar").width() / cropBoxWidth;
+    	var smallImgWidth = smallRatio * imgWidth;
+    	var smallImgHeight = smallRatio * imgHeight;
+    	$(".smallAvatarImg").width("" + smallImgWidth + "px");
+    	$(".smallAvatarImg").height("" + smallImgHeight + "px");
+    	$(".smallAvatarImg").css({top: "-"+smallRatio*cropBoxTop+"px", left:"-"+smallRatio*cropBoxLeft+"px"});    	
     });
 });

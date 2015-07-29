@@ -37,6 +37,16 @@
 	height: 40px;
 }
 
+.avatarWrapper{
+	position: relative;
+	overflow: hidden;
+}
+
 .avatarPreview{
+	position: absolute;
+}
+
+div.inline { 
+	float:left;
 	margin-right: 1em;
 }
