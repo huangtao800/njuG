@@ -75,6 +75,10 @@
 	height: 90%;
 }
 
+.ui.comments > .comment > .commentAvatar{
+	margin-top: 0px;
+}
+
 .ui.action.input{
 	padding-left: 0px;
 }

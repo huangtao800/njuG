@@ -114,7 +114,7 @@
 						{% endfor %}
 						
     						<div class="comment">
-    						    <a class="avatar">
+    						    <a class="avatar commentAvatar">
                                     {% if request.user.profile.hasAvatar %}
                                     <img src="{% static request.user.username|getAvatarPath %}">
                                     {% else %}
