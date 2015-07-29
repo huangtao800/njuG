@@ -144,3 +144,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login'
 LOGIN_REDIRECT_URL = "/njuG/profile"
 ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/njuG/profile'
+
+
+# Avatar settings
+AVATAR_ORIGIN_PATH = os.path.join(BASE_DIR, 'static/img/avatar/origin/')
+AVATAR_PATH = os.path.join(BASE_DIR, 'static/img/avatar/')

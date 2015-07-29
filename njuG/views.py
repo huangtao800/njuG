@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.dispatch import receiver
+from django.conf import settings
 
 from njuG.models import Post, Like, Comment, Blog, BlogComment, Image, Profile
 from django.views.generic import CreateView, DeleteView, ListView
@@ -231,22 +232,27 @@ def profile(request):
 def postAvatar(request):
 	from PIL import Image as PILImage
 	import cStringIO, base64, re
+	
 	if(request.method=='POST'):
-		x = request.POST['x']
-		y = request.POST['y']
-		width = request.POST['width']
-		height = request.POST['height']
+		x = int(float(request.POST['x']))
+		y = int(float(request.POST['y']))
+		width = int(float(request.POST['width']))
+		height = int(float(request.POST['height']))
 		imgContent = request.POST['imgContent']
 		imgData = re.sub('^data:image/.+;base64,', '', imgContent)
 		imgName = request.POST['imgName']
+		username = request.user.username
 		
 		pic = cStringIO.StringIO()
 		image_string = cStringIO.StringIO(base64.b64decode(imgData))
 		image = PILImage.open(image_string)
-		image.save("/home/tao/Documents/websites/njuG/static/avatar/"+imgName, image.format, quality = 100)
+		image.save(settings.AVATAR_ORIGIN_PATH + username, image.format, quality = 100)
 		pic.seek(0)
-# 		file = open('/home/tao/Documents/websites/njuG/static/avatar/'+imgName,'w+b')
-# 		file.write(imgContent.decode('base64'))
-# 		file.close()
+		
+		largeAvatar = image.crop((x,y,x+width,y+height))
+		size = (128, 128)
+		largeAvatar.thumbnail(size)
+		
+		largeAvatar.save(settings.AVATAR_PATH+username, image.format)
 		return JsonResponse({'result': 1, 'msg':''})
 				
