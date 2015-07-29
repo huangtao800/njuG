@@ -6,65 +6,71 @@
 {% endblock %}
 
 {% block content %}
-<div class="discussionPanel">
-    <div>
-        <a class="ui basic button" target="_blank" href="{% url 'postDiscussion' %}">
-            <i class="icon user"></i>
-            发布讨论贴
-        </a>
-    </div>
-    <div class="ui items">
-        {% for blog in blogs %}
-        <div class="item">
-            <a class="ui image xtiny">
-                {% if request.user.profile.hasAvatar %}
-                <img class="ui image" src="{% static request.user.username|getAvatarPath %}">
-                {% else %}
-                <img class="ui image" src="{% static ''|getAvatarPath %}">
-                {% endif %}
-            </a>
-            <div class="content">
-                <a class="header" href="{% url 'viewDiscussion' blog.id %}">{{blog.title}}</a>
-                <div class="date">{{ blog.time }}</div>
-                <div class="responseView">[1 / 2]</div>
-                <div class="description cutoff">{{blog.content|striptags}}</div>
+<div class="ui grid">
+    <div class="row">
+        <div class="two wide column"></div>
+        <div class="twelve wide column">
+            <div>
+                <a class="ui basic button" target="_blank" href="{% url 'postDiscussion' %}">
+                    <i class="icon user"></i>
+                    发布讨论贴
+                </a>
+            </div>
+            <div class="ui items">
+                {% for blog in blogs %}
+                <div class="item">
+                    <a class="ui image xtiny">
+                        {% if request.user.profile.hasAvatar %}
+                        <img class="ui image" src="{% static request.user.username|getAvatarPath %}">
+                        {% else %}
+                        <img class="ui image" src="{% static ''|getAvatarPath %}">
+                        {% endif %}
+                    </a>
+                    <div class="content">
+                        <a class="header" href="{% url 'viewDiscussion' blog.id %}">{{blog.title}}</a>
+                        <div class="date">{{ blog.time }}</div>
+                        <div class="responseView">[1 / 2]</div>
+                        <div class="description cutoff">{{blog.content|striptags}}</div>
+                    </div>
+                </div>
+                {% endfor %}
+              <!-- <div class="item">
+                <a class="ui image xtiny">
+                  <img class="ui image" src="{% static "img/avatar/small/elliot.jpg" %}">
+                </a>
+                <div class="content">
+                  <a class="header">Stevie Feliciano</a>
+                  <div class="description">
+                    <p>Stevie Feliciano is a <a>library scientist</a> living in New York City. She likes to spend her time reading, running, and writing.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <a class="ui tiny image">
+                  <label><img class="avatar" src="{% static "img/avatar/small/helen.jpg" %}"></label>
+                </a>
+                <div class="content">
+                  <a class="header">Veronika Ossi</a>
+                  <div class="description">
+                    <p>Veronika Ossi is a set designer living in New York who <a>enjoys</a> kittens, music, and partying.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <a class="ui tiny image">
+                  <label><img class="avatar" src="/images/avatar/large/jenny.jpg"></label>
+                </a>
+                <div class="content">
+                  <a class="header">Jenny Hess</a>
+                  <div class="description">
+                    <p>Jenny is a student studying Media Management at <a>the New School</a>.</p>
+                  </div>
+                </div>
+              </div> -->
             </div>
         </div>
-        {% endfor %}
-      <!-- <div class="item">
-        <a class="ui image xtiny">
-          <img class="ui image" src="{% static "img/avatar/small/elliot.jpg" %}">
-        </a>
-        <div class="content">
-          <a class="header">Stevie Feliciano</a>
-          <div class="description">
-            <p>Stevie Feliciano is a <a>library scientist</a> living in New York City. She likes to spend her time reading, running, and writing.</p>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <a class="ui tiny image">
-          <label><img class="avatar" src="{% static "img/avatar/small/helen.jpg" %}"></label>
-        </a>
-        <div class="content">
-          <a class="header">Veronika Ossi</a>
-          <div class="description">
-            <p>Veronika Ossi is a set designer living in New York who <a>enjoys</a> kittens, music, and partying.</p>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <a class="ui tiny image">
-          <label><img class="avatar" src="/images/avatar/large/jenny.jpg"></label>
-        </a>
-        <div class="content">
-          <a class="header">Jenny Hess</a>
-          <div class="description">
-            <p>Jenny is a student studying Media Management at <a>the New School</a>.</p>
-          </div>
-        </div>
-      </div> -->
-    </div>    
+        <div class="two wide column"></div>
+    </div>
 </div>
 
 
