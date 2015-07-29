@@ -265,4 +265,9 @@ def postAvatar(request):
 def activity(request):
 	if(request.method=='GET'):
 		return render(request, 'njuG/activity.html')
+
+@login_required
+def home(request, **kwargs):
+	if(request.method=='GET'):
+		return render(request, 'njuG/home.html')
 				
