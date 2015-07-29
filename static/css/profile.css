@@ -8,7 +8,7 @@
 	height: 400px;
 }
 
-#changeAvatar{
+#changeAvatar, #removeAvatar{
 	margin-top:1em;
 }
 

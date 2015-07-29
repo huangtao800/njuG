@@ -2,6 +2,7 @@
 
 {% load staticfiles %}
 {% load upload_tag %}
+{% load filters %}
 {% load thumbnail %}
 
 {% block loadCss %}
@@ -37,7 +38,11 @@
 				{% for post in posts %}
 				<div class="event">
 					<div class="label">
-						<img src="{% static "img/avatar/small/elliot.jpg" %}">
+					    {% if request.user.profile.hasAvatar %}
+						<img src="{% static request.user.username|getAvatarPath %}">
+						{% else %}
+						<img src="{% static ''|getAvatarPath %}">
+						{% endif %}
 					</div>
 					<div class="content">
 						<div class="summary">
@@ -85,7 +90,13 @@
 						<div class="ui comments">
 						{% for comment in post.comments %}
     						<div class="comment">
-    						    <a class="avatar"><img src="{% static "img/avatar/small/elliot.jpg" %}"></a>
+    						    <a class="avatar">
+    						        {% if comment.user.profile.hasAvatar %}
+    						        <img src="{% static comment.user.username|getAvatarPath %}">
+    						        {% else %}
+    						        <img src="{% static ''|getAvatarPath %}">
+    						        {% endif %}
+    						    </a>
     						    <div class="content">
     						        <a class="author">{{ comment.user.username }}</a>
     						        <div class="metadata">
@@ -103,7 +114,13 @@
 						{% endfor %}
 						
     						<div class="comment">
-    						    <a class="avatar"><img src="{% static "img/avatar/small/elliot.jpg" %}"></a>
+    						    <a class="avatar">
+                                    {% if request.user.profile.hasAvatar %}
+                                    <img src="{% static request.user.username|getAvatarPath %}">
+                                    {% else %}
+                                    <img src="{% static ''|getAvatarPath %}">
+                                    {% endif %}
+    						    </a>
     						    <div class="content">
     						        <form class="ui form commentForm">
     						            <div class="ui action input">

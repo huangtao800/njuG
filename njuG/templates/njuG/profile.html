@@ -12,20 +12,21 @@
 <div class="ui grid">
     <div class="row">
         <div class="two wide column"></div>
-        <div class="four wide column">
+        <div class="three wide column">
             <img id="avatarImg" src="{% static avatar_path %}" >
-            <button id="changeAvatar" class="ui basic button">修改头像</button>
-            <!-- <div class="avatarPreview">
-                <img id="avatarImg" src="" >
-            </div>
-            <input id="avatarInput" type="file" /> -->
+            <button id="changeAvatar" class="ui basic button">修改头像</button><br />
+            <button id="removeAvatar" class="ui red button">删除头像</button>
         </div>
-        <div class="eight wide column">
+        <div class="nine wide column">
             <form class="ui form" method="post" >
                 {% csrf_token %}
               <div class="field">
                 <label for="{{form.nickName.id_for_label}}">昵称</label>
                 {{ form.nickName }}
+              </div>
+              <div class="field">
+                <label for="{{form.nickName.id_for_label}}">登陆名</label>
+                <input type="text" value="{{request.user.username}}" disabled="true" />
               </div>
               <div class="field">
                 <label for="{{form.school.id_for_school}}">学校</label>
@@ -48,7 +49,7 @@
     </div>
 </div>
 
-<div class="ui modal">
+<div id="uploadAvatarModal" class="ui modal">
   <i class="close icon"></i>
   <div class="header">
     Profile Picture
@@ -83,11 +84,31 @@
   </div>
 </div>
 
+<div id="removeAvatarModal" class="ui basic modal">
+  <i class="close icon"></i>
+
+  <div class="content">
+      <p>确定要删除头像吗？</p>
+  </div>
+  <div class="actions">
+    <div class="two fluid ui inverted buttons">
+      <div class="ui red basic inverted button">
+        <i class="remove icon"></i>
+        No
+      </div>
+      <div class="ui green basic inverted button">
+        <i class="checkmark icon"></i>
+        Yes
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
     $(document).ready(function(){
         $(".ui.dropdown").dropdown();
         $("#changeAvatar").click(function(){
-            $('.ui.modal')
+            $('#uploadAvatarModal')
             .modal({
                 onApprove: uplpadAvatar,
             })
@@ -96,6 +117,11 @@
                 $("#cropBtn").prop("disabled",true);
                 $("#uploadAvatarBtn").prop("disabled",true);
             }
+        });
+        
+        $("#removeAvatar").click(function(){
+            $("#removeAvatarModal")
+            .modal('show');
         });
     });
 </script>
