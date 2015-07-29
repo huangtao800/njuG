@@ -17,8 +17,14 @@
 
 .date{
 	color: rgba(0,0,0,.4);
+	display:inline-block;
+}
+
+.responseView{
+	color: rgba(0,0,0,.4);
+	margin-top: 0.2em;
 }
 
 .ui.items>.item>.content>.description{
-	margin-top: 0.35em;
+	margin-top: 0.3em;
 }

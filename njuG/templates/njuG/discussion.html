@@ -26,6 +26,7 @@
             <div class="content">
                 <a class="header" href="{% url 'viewDiscussion' blog.id %}">{{blog.title}}</a>
                 <div class="date">{{ blog.time }}</div>
+                <div class="responseView">[1 / 2]</div>
                 <div class="description cutoff">{{blog.content|striptags}}</div>
             </div>
         </div>
