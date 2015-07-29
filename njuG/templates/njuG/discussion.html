@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load staticfiles %}
-
+{% load filters %}
 {% block loadCss %}
 <link rel="stylesheet" type="text/css" href="{% static "css/discussion.css" %}">
 {% endblock %}
@@ -17,10 +17,15 @@
         {% for blog in blogs %}
         <div class="item">
             <a class="ui image xtiny">
-                <img class="ui image" src="{% static "img/avatar/small/elliot.jpg" %}">
+                {% if request.user.profile.hasAvatar %}
+                <img class="ui image" src="{% static request.user.username|getAvatarPath %}">
+                {% else %}
+                <img class="ui image" src="{% static ''|getAvatarPath %}">
+                {% endif %}
             </a>
             <div class="content">
                 <a class="header" href="{% url 'viewDiscussion' blog.id %}">{{blog.title}}</a>
+                <div class="date">{{ blog.time }}</div>
                 <div class="description cutoff">{{blog.content|striptags}}</div>
             </div>
         </div>

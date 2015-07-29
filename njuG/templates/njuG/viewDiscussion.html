@@ -12,7 +12,12 @@
     <div class="ui comments">
       <div class="comment">
         <a class="avatar">
-          <img src="{% static "img/avatar/small/elliot.jpg" %}">
+            {% if request.user.profile.hasAvatar %}
+            <img src="{% static request.user.username|getAvatarPath %}">
+            {% else %}
+            <img src="{% static ''|getAvatarPath %}">
+            {% endif %}
+          <!-- <img src="{% static "img/avatar/small/elliot.jpg" %}"> -->
         </a>
         <div class="content">
           <a class="author">{{blog.user.username}}</a>
@@ -33,7 +38,11 @@
       {% if not comment.replyTo %}
       <div class="comment">
           <a class="avatar">
-              <img src="{% static "img/avatar/small/elliot.jpg" %}">
+            {% if comment.user.profile.hasAvatar %}
+            <img class="ui image" src="{% static comment.user.username|getAvatarPath %}">
+            {% else %}
+            <img class="ui image" src="{% static ''|getAvatarPath %}">
+            {% endif %}
           </a>
           <div class="content">
               <a class="author">{{ comment.user.username}}</a>

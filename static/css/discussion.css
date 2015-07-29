@@ -1,6 +1,6 @@
 .discussionPanel{
-	padding-left: 10%;
-	padding-right: 10%;
+	padding-left: 15%;
+	padding-right: 15%;
 }
 
 .ui.items>.item>.image>img{
@@ -13,4 +13,12 @@
 
 .xtiny{
 	width: 60px;
+}
+
+.date{
+	color: rgba(0,0,0,.4);
+}
+
+.ui.items>.item>.content>.description{
+	margin-top: 0.35em;
 }
