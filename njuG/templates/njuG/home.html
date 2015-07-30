@@ -37,7 +37,7 @@
             {% for post in target|getPosts %}
             <div class="event">
                 <div class="label">
-                    {% if request.user.profile.hasAvatar %}
+                    {% if target.profile.hasAvatar %}
                     <img src="{% static target.username|getAvatarPath %}">
                     {% else %}
                     <img src="{% static ''|getAvatarPath %}">
