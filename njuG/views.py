@@ -14,8 +14,8 @@ from allauth.account.signals import user_signed_up
 def index(request):
 	if(request.user.is_authenticated()):
 		posts = Post.objects.all()
-		likedPosts = [x.post.id for x in Like.objects.filter(user=request.user)]
-		context = {'posts': posts, 'likedPosts':likedPosts}
+		
+		context = {'posts': posts}
 	else:
 		posts = Post.objects.all()
 		context = {'posts': posts}	

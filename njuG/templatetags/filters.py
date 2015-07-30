@@ -24,3 +24,10 @@ def getAvatarPath(username):
 def getPosts(user):
     posts = Post.objects.filter(user = user)
     return posts
+
+@register.filter_function
+def isLikePost(user, post):
+    like = Like.objects.filter(user=user,post=post).first()
+    if(like):
+        return True
+    return False
