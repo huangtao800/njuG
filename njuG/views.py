@@ -51,7 +51,7 @@ def likePost(request):
 			postid = request.POST['postid']
 			post = Post.objects.get(pk=postid)
 			user = request.user
-			like = Like(user=user, post = post)
+			like = Like(user=user, post = post, time=timezone.now())
 			like.save()
 			post.likes = post.likes+1;
 			post.save();
@@ -269,5 +269,9 @@ def activity(request):
 @login_required
 def home(request, **kwargs):
 	if(request.method=='GET'):
-		return render(request, 'njuG/home.html')
+		if('id' in kwargs):
+			pass
+		else:
+			target = request.user
+			return render(request, 'njuG/home.html', {"target": target})
 				

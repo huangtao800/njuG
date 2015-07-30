@@ -55,6 +55,7 @@
 						<div class="extra text">
 							{{ post.content }}
 						</div>
+						{% if post.img1 %}
 						<div class="imgPreview">
 						    {% if post.img1 %}
 						    <a href="{{post.img1.file.url}}" class="previewImage" index="0" postid="{{post.id}}">
@@ -78,6 +79,7 @@
                             </a>
                             {% endif %}                            
 						</div>
+						{% endif %}
 						<div class="meta">
 							<a class="like" postid="{{ post.id }}">
 								{% if post.id in likedPosts %}
@@ -169,6 +171,15 @@
 
 <script>
     $(document).ready(function(){
+        $("#fileupload").fileupload({
+            dataType: "json",
+            url: "/njuG/postUploadImg/",
+            filesContainer: $('table.files'),
+            uploadTemplateId: 'template-upload',
+            downloadTemplateId: "template-download",
+            
+        }); 
+        
         $(".launch.item").removeClass("active");
         $(".launch.item").eq(0).addClass("active");
         $("#fileupload").change(function(e){

@@ -1,4 +1,5 @@
 from django import template
+from njuG.models import Post, Like, Comment, Blog, BlogComment, Image, Profile
 
 register = template.Library()
 
@@ -18,3 +19,8 @@ def getAvatarPath(username):
         return "/static/img/avatar/" + username
     else:
         return "/static/img/avatar/Default-Avatar.jpg"
+    
+@register.filter_function
+def getPosts(user):
+    posts = Post.objects.filter(user = user)
+    return posts

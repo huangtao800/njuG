@@ -108,14 +108,5 @@ $(document).ready(function(){
 			});				
 		}
 	});
-
-	$("#fileupload").fileupload({
-		dataType: "json",
-		url: "/njuG/postUploadImg/",
-		filesContainer: $('table.files'),
-		uploadTemplateId: 'template-upload',
-		downloadTemplateId: "template-download",
-		
-	});	
 	
 });

@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load filters %}
+
+{% block loadCss %}
+<link rel="stylesheet" type="text/css" href="{% static "css/home.css" %}">
+{% endblock %}
+
+{% block content %}
+<div class="ui grid">
+    <div class="row">
+        <div class="two wide column"></div>
+        <div class="twelve wide column">
+            <div class="ui grid">
+                <div class="row">
+                     <div class="four wide column">
+                         <div class="ui card">
+                            <div class="image">
+                                {% if target.profile.hasAvatar %}
+                                <img src="{% static request.user.username|getAvatarPath %}">
+                                {% else %}
+                                <img src="{% static ''|getAvatarPath %}">
+                                {% endif %}
+                            </div>
+                            <div class="content">
+                                 <span class="header">{{ target.profile.nickName }}</soan>
+                            </div>
+                        </div>                       
+                    </div>
+                    <div class="eight wide column">
+                        <div class="field">
+                            <div class="label"><label>昵称: </label></div>
+                            <div class="value"><span>{{ target.profile.nickName }}</span></div>
+                        </div>
+                        <div class="field">
+                            <div class="label"><label>就读学校: </label></div>
+                            <div class="value"><span>{{ target.profile.school }}</span></div>
+                        </div>
+                        <div class="field">
+                            <div class="label"><label>学历: </label></div>
+                            <div class="value"><span>{{ target.profile.degree }}</span></div>
+                        </div>
+                        <div class="field">
+                            <div class="label"><label>角色: </label></div>
+                            <div class="value"><span>{{ target.profile.role }}</span></div>
+                        </div>                        
+                    </div>                  
+                </div>
+                
+                <div class="row">
+                  <div class="four wide column">
+                      {% block tab_menu %}
+                
+                      {% endblock %}
+                  </div>
+                  {% block tab_content %}
+                  {% endblock %}
+                </div>
+            </div>
+
+
+        </div>
+        <div class="two wide column"></div>
+    </div>
+</div>
+{% endblock %}
