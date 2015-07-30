@@ -17,7 +17,7 @@ def image_delete(sender, instance, **kwargs):
         instance.file.delete(False)
 
 class Event(models.Model):
-    time = models.DateTimeField(auto_now=True)
+    time = models.DateTimeField(auto_now=False)
     
     class Meta:
         abstract = True
