@@ -30,11 +30,9 @@
 {% endblock %}
 
 {% block tab_content %}
-  <div class="twelve wide column">
-    <div class="ui segment">
+
     {% include "njuG/feeds.html" with posts=target|getPosts %}
-    </div>
-  </div>
+
 {% endblock %}
 
 {% block loadJs %}

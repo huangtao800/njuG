@@ -3,6 +3,7 @@
 {% load staticfiles %}
 {% load filters %}
 
+
 {% block tab_menu %}
 <div class="ui vertical fluid tabular menu">
     {% if request.user.username == target.username %}
@@ -21,4 +22,7 @@
       Links
     </a>
 </div>
+{% endblock %}
+
+{% block tab_content %}
 {% endblock %}
