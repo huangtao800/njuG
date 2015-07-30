@@ -1,0 +1,21 @@
+.field .label > label{
+	font-size: 1.2em;
+	font-weight: 500;
+}
+
+.field .value, .field .label{
+	display:inline-block;
+}
+
+.field .label{
+	width:80px;
+}
+
+.field .value{
+	margin-left: 0.6em;
+}
+
+.field{
+	margin-top: 0.6em;
+	margin-left: 1em;
+}
