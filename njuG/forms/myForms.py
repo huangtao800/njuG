@@ -9,9 +9,9 @@ class LoginForm(AuthenticationForm):
 class ProfileForm(forms.Form):
     nickName = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'placeholder':'昵称','required':'true'}),
                                required=True, error_messages={'required': '请填写昵称'})
-    school = forms.ChoiceField(((1,'南京大学'), (2,'其他学校')), initial = 1)
-    degree = forms.ChoiceField(((1,'本科'), (2,'硕士'), (3, '博士')), initial = 1)
-    role = forms.ChoiceField(((1,'攻'), (2,'受'), (3,'不限'), (4, '-')), initial = 4)
+    school = forms.ChoiceField((('南京大学','南京大学'), ('其他学校','其他学校')), initial = '南京大学')
+    degree = forms.ChoiceField((('本科','本科'), ('硕士','硕士'), ('博士', '博士')), initial = '本科')
+    role = forms.ChoiceField((('攻','攻'), ('受','受'), ('不限','不限'), ('保密', '保密')), initial = 4)
     
 class BlogForm(forms.Form):
     title = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder':'标题','required':'true'}), 

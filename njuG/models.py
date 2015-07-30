@@ -73,25 +73,25 @@ class Profile(models.Model):
         (OTHER, '其他学校'))
     school = models.CharField(max_length=10, choices=SCHOOL_CHOICES, default=NJU)
     
-    TOP = 1
-    BOTTOM = 2
-    VERS = 3
-    NOROLE = 4
+    TOP = '攻'
+    BOTTOM = '受'
+    VERS = '不限'
+    NOROLE = '保密'
     ROLE_CHOICES = (
         (BOTTOM, '受'),
         (TOP, '攻'),
         (VERS, '不限'),
         (NOROLE, '-'))
-    role = models.IntegerField(choices = ROLE_CHOICES, default = NOROLE)
+    role = models.CharField(max_length=5 ,choices = ROLE_CHOICES, default = NOROLE)
     
-    UNDERGRAD = 0
-    GRAD = 1
-    POSTGRAD = 2
+    UNDERGRAD = '本科'
+    GRAD = '硕士'
+    POSTGRAD = '博士'
     DEGREE_CHOICES = (
         (UNDERGRAD, '本科'),
         (GRAD, '硕士'),
         (POSTGRAD, '博士'))
-    degree = models.IntegerField(choices = DEGREE_CHOICES, default = UNDERGRAD)
+    degree = models.CharField(max_length=3, choices = DEGREE_CHOICES, default = UNDERGRAD)
     hasAvatar = models.BooleanField(default=False)
     avatarType = models.CharField(max_length=6, default='jpg')
     
