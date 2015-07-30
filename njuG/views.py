@@ -275,3 +275,8 @@ def home(request, **kwargs):
 			target = request.user
 			return render(request, 'njuG/home.html', {"target": target})
 				
+@login_required
+def message(request):
+	if(request.method=='GET'):
+		target = request.user
+		return render(request, 'njuG/message.html', {"target": target})

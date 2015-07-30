@@ -1,0 +1,24 @@
+{% extends "njuG/home_base.html" %}
+
+{% load staticfiles %}
+{% load filters %}
+
+{% block tab_menu %}
+<div class="ui vertical fluid tabular menu">
+    {% if request.user.username == target.username %}
+    <a href="{% url 'myHome' %}" class="item">
+      我的发布
+    </a>
+    <a href="{% url 'message' %}" class="item active">
+      我的消息
+      <div class="ui teal pointing left label">1</div>
+    </a>
+    {% endif %}
+    <a class="item">
+      Companies
+    </a>
+    <a class="item">
+      Links
+    </a>
+</div>
+{% endblock %}

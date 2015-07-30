@@ -12,10 +12,10 @@
 {% block tab_menu %}
 <div class="ui vertical fluid tabular menu">
     {% if request.user.username == target.username %}
-    <a class="item active">
+    <a href="{% url 'myHome' %}" class="item active">
       我的发布
     </a>
-    <a class="item">
+    <a href="{% url 'message' %}" class="item">
       我的消息
       <div class="ui teal pointing left label">1</div>
     </a>
