@@ -35,112 +35,7 @@
 			<table class="files ui very basic table" id="imgPreviewTable"></table>
 			<div class="ui divider"></div>
 			
-			<div class="ui large feed">
-				{% for post in posts %}
-				<div class="event">
-					<div class="label">
-					    {% if request.user.profile.hasAvatar %}
-						<img src="{% static request.user.username|getAvatarPath %}">
-						{% else %}
-						<img src="{% static ''|getAvatarPath %}">
-						{% endif %}
-					</div>
-					<div class="content">
-						<div class="summary">
-							{{ post.user.username }} posted on his page
-							<div class="date">
-								{{ post.time }}
-							</div>
-						</div>
-						<div class="extra text">
-							{{ post.content }}
-						</div>
-						{% if post.img1 %}
-						<div class="imgPreview">
-						    {% if post.img1 %}
-						    <a href="{{post.img1.file.url}}" class="previewImage" index="0" postid="{{post.id}}">
-						      {% thumbnail post.img1.file "180x150" as im %}
-						      <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
-						      {% endthumbnail %}
-						    </a>
-						    {% endif %}
-                            {% if post.img2 %}
-                            <a href="{{post.img2.file.url}}" class="previewImage" index="1" postid="{{post.id}}">
-                              {% thumbnail post.img2.file "180x150" as im %}
-                              <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
-                              {% endthumbnail %}
-                            </a>
-                            {% endif %}
-                            {% if post.img3 %}
-                            <a href="{{post.img3.file.url}}" class="previewImage" index="2" postid="{{post.id}}">
-                              {% thumbnail post.img3.file "180x150" as im %}
-                              <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
-                              {% endthumbnail %}
-                            </a>
-                            {% endif %}                            
-						</div>
-						{% endif %}
-						<div class="meta">
-							<a class="like" postid="{{ post.id }}">
-								{% if post.id in likedPosts %}
-								<i class="like icon liked"></i> <i class="likeCount">{{post.likes}}</i> Likes
-								{% else %}						
-								<i class="like icon"></i> <i class="likeCount">{{post.likes}}</i> Likes
-								{% endif %}
-							</a>
-						</div>
-						
-						<div class="ui comments">
-						{% for comment in post.comments %}
-    						<div class="comment">
-    						    <a class="avatar">
-    						        {% if comment.user.profile.hasAvatar %}
-    						        <img src="{% static comment.user.username|getAvatarPath %}">
-    						        {% else %}
-    						        <img src="{% static ''|getAvatarPath %}">
-    						        {% endif %}
-    						    </a>
-    						    <div class="content">
-    						        <a class="author">{{ comment.user.username }}</a>
-    						        <div class="metadata">
-    						            <span class="date">{{ comment.time }}</span>
-    						        </div>
-    						        <div class="text">
-    						            {{ comment.content }}
-    						        </div>
-    						        <div class="actions">
-    						            <a class="reply">回复</a>
-    						        </div>
-    						    </div>
-    							
-    						</div>						
-						{% endfor %}
-						
-    						<div class="comment">
-    						    <a class="avatar commentAvatar">
-                                    {% if request.user.profile.hasAvatar %}
-                                    <img src="{% static request.user.username|getAvatarPath %}">
-                                    {% else %}
-                                    <img src="{% static ''|getAvatarPath %}">
-                                    {% endif %}
-    						    </a>
-    						    <div class="content">
-    						        <form class="ui form commentForm">
-    						            <div class="ui action input">
-    						                <input type="text" name="commentContent" placeholder="评论..." required>
-    						                <button class="ui icon button" type="submit" postid="{{ post.id }}">
-    						                    <i class="send icon"></i>
-    						                </button>
-    						            </div>
-    						        </form>
-    						    </div>
-    						</div>
-						</div>
-						
-					</div>
-				</div>
-				{% endfor %}
-			</div>
+			{% include "njuG/feeds.html" %}
 			
 		</div>
 		<div class="two wide column">
@@ -171,6 +66,8 @@
 
 <script>
     $(document).ready(function(){
+        $(".ui.feed").addClass("large");
+        
         $("#fileupload").fileupload({
             dataType: "json",
             url: "/njuG/postUploadImg/",
