@@ -18,7 +18,7 @@
     <a href="{% url 'message' %}" class="item active">
       我的消息
       {% if request.user.profile.unreadMessageCount > 0 %}
-      <div class="ui teal pointing left label">{{request.user.profile.unreadMessageCount}}</div>
+      <div class="ui teal pointing left label messageCount">{{request.user.profile.unreadMessageCount}}</div>
       {% endif %}
     </a>
     {% endif %}
@@ -66,8 +66,8 @@
             <div class="ui comments">
                 <div class="comment">
                     <div class="actions">
-                        <a class="reply postCommentReply">回复</a>
-                        <a class="actions">已读</a>
+                        <a class="reply postCommentReply" messageid="{{message.id}}">回复</a>
+                        <a class="read" messageid="{{message.id}}">已读</a>
                         {% if message|isPostComment or message|isReplyPostComment %} 
                         <form class="ui form postCommentReplyForm" style="display: none" 
                         commentid="{{ message.postComment.id}}", postid="{{ message.masterPost.id}}">
@@ -94,6 +94,31 @@
     {% endfor %}
 </div>
 
+<script>
+    $(document).ready(function(){
+        $(".actions").children("a").click(function(){
+            var messageid = $(this).attr("messageid");
+            $.ajax({
+                url: "/njuG/setMessageRead/",
+                dataType: "json",
+                headers: { "X-CSRFToken": $.cookie("csrftoken") },
+                type: 'POST',
+                data: {"messageid": messageid},
+                success: function(response){
+                    if(response['result']==1){
+                        var messageCount = $(".messageCount").first().text();
+                        messageCount = parseInt(messageCount);
+                        messageCount -= 1;
+                        $(".messageCount").text(messageCount);
+                        if(messageCount==0){
+                            $(".messageCount").remove();
+                        }
+                    }
+                },
+            });
+        });
+    });
+</script>
 {% endblock %}
 
 {% block loadJs %}

@@ -29,4 +29,7 @@ urlpatterns = [
     url(r'^home/message/$', views.message, name="message"),
     url(r'^home/$', views.home, name="myHome"),
     url(r'^home/(?P<id>[0-9]+)/$', views.home, name="home"),
+    
+    url(r'^setMessageRead/$', views.setMessageRead, name="setMessageRead"),
+    
 ]

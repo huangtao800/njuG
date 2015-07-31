@@ -335,3 +335,20 @@ def message(request):
 		target = request.user
 		messages = Message.objects.filter(target=request.user)
 		return render(request, 'njuG/message.html', {"target": target,"messages":messages})
+
+@login_required
+def setMessageRead(request):
+	if(request.method=="POST"):
+		messageid = request.POST['messageid']
+		message = Message.objects.get(pk=messageid)
+		if not message.isRead:
+			message.isRead = True
+			request.user.profile.unreadMessageCount-=1
+			if request.user.profile.unreadMessageCount < 0:
+				request.user.profile.unreadMessageCount = 0
+			message.save()
+			request.user.profile.save()
+			return JsonResponse({'result': 1, 'msg':''})
+		else:
+			return JsonResponse({'result': 0, 'msg':''})
+			
