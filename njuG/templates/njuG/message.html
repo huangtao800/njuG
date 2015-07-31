@@ -63,27 +63,30 @@
             </div>
             
             
-            <!-- <div class="ui comments">
+            <div class="ui comments">
                 <div class="comment">
-                    <a class="avatar commentAvatar">
-                        {% if request.user.profile.hasAvatar %}
-                        <img src="{% static request.user.username|getAvatarPath %}">
-                        {% else %}
-                        <img src="{% static ''|getAvatarPath %}">
+                    <div class="actions">
+                        <a class="reply postCommentReply">回复</a>
+                        <a class="actions">已读</a>
+                        {% if message|isPostComment or message|isReplyPostComment %} 
+                        <form class="ui form postCommentReplyForm" style="display: none" 
+                        commentid="{{ message.postComment.id}}", postid="{{ message.masterPost.id}}">
+                        {% elif message|isBlogComment or message|isReplyBlogComment %}
+                        <form class="ui form postCommentReplyForm" style="display: none" 
+                        commentid="{{ message.blogComment.id}}", blogid="{{ message.masterBlog.id}}">
                         {% endif %}
-                    </a>
-                    <div class="content">
-                        <form class="ui form commentForm">
-                            <div class="ui action input">
-                                <input type="text" name="commentContent" placeholder="评论..." required>
-                                <button class="ui icon button" type="submit" postid="{{ post.id }}">
-                                    <i class="send icon"></i>
-                                </button>
+                            <div class="field">
+                                <textarea rows="2" name="content" required></textarea>
                             </div>
+                            <button class="ui labeled icon tiny basic button" type="submit">
+                                <i class="send icon"></i>
+                                回复
+                            </button>
                         </form>
-                    </div>
+                    </div>                
                 </div>
-            </div> -->
+            </div>
+
             
         </div>
     </div>
@@ -92,3 +95,7 @@
 </div>
 
 {% endblock %}
+
+{% block loadJs %}
+<script src="{% static "js/createEvent.js" %}"></script>
+{% endblock%}

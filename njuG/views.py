@@ -96,7 +96,9 @@ def postComment(request):
  			responseDict={'result':1, 'msg':''}
  			
  			target = post.user
- 			utils.createMessage(request.user, target, type=Message.POST_COMMENT, post=post, content=content)
+ 			if target.id != request.user.id:
+	 			utils.createMessage(request.user, target, type=Message.POST_COMMENT,
+						 post=post, content=content, postComment=comment)
  			return JsonResponse(responseDict)
  		except Exception as e:
  			print e.message
@@ -118,11 +120,15 @@ def replyPostComment(request):
 		replyComment.save()
 		responseDict={'result':1, 'msg':''}
 		
-		target1 = post.user
-		target2 = comment.user
-		utils.createMessage(request.user, target1, type=Message.REPLY_POST_COMMENT, post=post, content=content)
- 		if target1.id != target2.id:
- 			utils.createMessage(request.user, target2, type=Message.REPLY_POST_COMMENT, post=post, content=content)
+		target1 = post.user	# topic owner
+		target2 = comment.user	# comment owner
+		if target1.id != request.user.id:
+			utils.createMessage(request.user, target1, type=Message.REPLY_POST_COMMENT, 
+				post=post, content=content, postComment=replyComment)
+			
+ 		if target1.id != target2.id and target2.id!=request.user.id:
+ 			utils.createMessage(request.user, target2, type=Message.REPLY_POST_COMMENT, 
+				post=post, content=content, postComment=replyComment)
  		return JsonResponse(responseDict)
 
 # @login_required
@@ -212,7 +218,9 @@ def commentBlog(request):
 			blogComment.save()
 			
 			target = blog.user
-			utils.createMessage(request.user, target, type=Message.BLOG_COMMENT, blog=blog, content=content)
+			if target.id != request.user.id:
+				utils.createMessage(request.user, target, type=Message.BLOG_COMMENT, 
+						blog=blog, content=content, blogComment=blogComment)
 			return JsonResponse({'result':1, 'msg':''})
 		except Exception as e:
 			print e.message
@@ -235,8 +243,14 @@ def replyBlogComment(request):
 			blogComment = BlogComment(content=content, user=user, blog=blog, replyTo=replyTo, masterComment=masterComment)
 			blogComment.save()
 			
-			target = blog.user
-			utils.createMessage(request.user, target, type=Message.REPLY_BLOG_COMMENT, blog=blog, content=content)
+			target1 = blog.user
+			target2 = replyTo.user
+			if target1.id != request.user.id:
+				utils.createMessage(request.user, target1, type=Message.REPLY_BLOG_COMMENT, 
+								blog=blog, content=content, blogComment=blogComment)
+			if target2.id!=target1.id and target2.id!=request.user.id:
+				utils.createMessage(request.user, target2, type=Message.REPLY_BLOG_COMMENT, 
+								blog=blog, content=content, blogComment=blogComment)
 			return JsonResponse({'result':1, 'msg':''})
 		except Exception as e:
 			print e.message

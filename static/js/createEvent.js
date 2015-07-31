@@ -110,7 +110,7 @@ $(document).ready(function(){
 	});
 	
 	$(".postCommentReply").click(function(){
-		$(this).next().slideToggle("fast");
+		$(this).siblings("form").slideToggle("fast");
 	});
 	
 	$('.postCommentReplyForm').submit(function(){
