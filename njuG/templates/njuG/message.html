@@ -11,7 +11,7 @@
 
 {% block tab_menu %}
 <div class="ui vertical fluid tabular menu">
-    {% if request.user.username == target.username %}
+
     <a href="{% url 'myHome' %}" class="item">
       我的发布
     </a>
@@ -21,13 +21,7 @@
       <div class="ui teal pointing left label messageCount">{{request.user.profile.unreadMessageCount}}</div>
       {% endif %}
     </a>
-    {% endif %}
-    <a class="item">
-      Companies
-    </a>
-    <a class="item">
-      Links
-    </a>
+
 </div>
 {% endblock %}
 

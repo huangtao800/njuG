@@ -70,7 +70,11 @@
               {% for reply in comment.first_blog_comment.all|order_by:"time" %}
               <div class="comment">
                   <a class="avatar">
-                      <img src="{% static "img/avatar/small/elliot.jpg" %}">
+                      {% if reply.user.profile.hasAvatar %}
+                      <img src="{% static reply.user.username|getAvatarPath %}">
+                      {% else %}
+                      <img src="{% static ''|getAvatarPath %}">
+                      {% endif %}
                   </a>
                   <div class="content">
                       <a class="author">{{ reply.user.username }}</a>回复<a class="author">{{ reply.replyTo.user.username }}</a>

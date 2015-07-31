@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.dispatch import receiver
 from django.conf import settings
+from django.contrib.auth.models import User
 
 from njuG.models import Post, Like, Comment, Blog, BlogComment, Image, Profile, Message
 from django.views.generic import CreateView, DeleteView, ListView
@@ -324,7 +325,10 @@ def activity(request):
 def home(request, **kwargs):
 	if(request.method=='GET'):
 		if('id' in kwargs):
-			pass
+			id = kwargs['id']
+			user = User.objects.get(pk=id)
+			target = user
+			return render(request, 'njuG/home.html', {"target":target})
 		else:
 			target = request.user
 			return render(request, 'njuG/home.html', {"target": target})
