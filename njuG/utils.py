@@ -6,11 +6,13 @@ def createMessage(source, target, **kwargs):
     if(type==Message.POST_COMMENT or type==Message.REPLY_POST_COMMENT):
         content = kwargs['content']
         post = kwargs['post']
-        message = Message(source=source, target=target, masterPost=post, content=content, time=timezone.now())
+        message = Message(source=source, target=target, type=type, 
+                masterPost=post, content=content, time=timezone.now())
     elif(type==Message.BLOG_COMMENT or type==Message.REPLY_BLOG_COMMENT):
         content = kwargs['content']
         blog = kwargs['blog']
-        message = Message(source=source, target=target, masterBlog=blog, content=content, time=timezone.now())
+        message = Message(source=source, target=target, type=type, 
+                masterBlog=blog, content=content, time=timezone.now())
     target.profile.unreadMessageCount += 1
     target.profile.save()
     message.save()

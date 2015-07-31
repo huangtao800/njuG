@@ -300,4 +300,5 @@ def home(request, **kwargs):
 def message(request):
 	if(request.method=='GET'):
 		target = request.user
-		return render(request, 'njuG/message.html', {"target": target})
+		messages = Message.objects.filter(target=request.user)
+		return render(request, 'njuG/message.html', {"target": target,"messages":messages})

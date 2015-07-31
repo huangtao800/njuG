@@ -1,5 +1,5 @@
 from django import template
-from njuG.models import Post, Like, Comment, Blog, BlogComment, Image, Profile
+from njuG.models import Post, Like, Comment, Blog, BlogComment, Image, Profile, Message
 
 register = template.Library()
 
@@ -31,3 +31,19 @@ def isLikePost(user, post):
     if(like):
         return True
     return False
+
+@register.filter_function
+def isPostComment(message):
+    return message.type==Message.POST_COMMENT
+
+@register.filter_function
+def isReplyPostComment(message):
+    return message.type==Message.REPLY_POST_COMMENT
+
+@register.filter_function
+def isBlogComment(message):
+    return message.type==Message.BLOG_COMMENT
+
+@register.filter_function
+def isReplyBlogComment(message):
+    return message.type==Message.REPLY_BLOG_COMMENT

@@ -119,3 +119,6 @@ class Message(models.Model):
     masterBlog = models.ForeignKey(Blog, blank=True, null=True)
     content = models.TextField()
     
+    class Meta:
+        ordering=['-time']
+    

@@ -3,6 +3,10 @@
 {% load staticfiles %}
 {% load filters %}
 
+{% block loadCss %}
+<link rel="stylesheet" type="text/css" href="{% static "css/home.css" %}">
+<link rel="stylesheet" type="text/css" href="{% static "css/message.css" %}">
+{% endblock %}
 
 {% block tab_menu %}
 <div class="ui vertical fluid tabular menu">
@@ -27,4 +31,63 @@
 {% endblock %}
 
 {% block tab_content %}
+
+<div class="ui feed">
+    {% for message in messages %}
+    {% with source=message.source %}
+    <div class="event">
+        <div class="label">
+            {% if source.profile.hasAvatar %}
+            <img src="{% static message.source.username|getAvatarPath %}">
+            {% else %}
+            <img src="{% static ''|getAvatarPath %}">
+            {% endif %}
+        </div>
+        <div class="content">
+            <div class="summary">
+                <a>{{ source.username }}</a> 在
+                <span class="messageTopic">
+                    {% if message|isPostComment or message|isReplyPostComment %}
+                    {{ message.masterPost.content }}
+                    {% elif message|isBlogComment or message|isReplyBlogComment %}
+                    {{ message.masterBlog.title }}
+                    {% endif %}
+                </span>中评论你：
+                <div class="date">
+                    {{ message.time }}
+                </div>
+            </div>
+            <div class="extra text">
+                {{ message.content }}
+            </div>
+            
+            
+            <!-- <div class="ui comments">
+                <div class="comment">
+                    <a class="avatar commentAvatar">
+                        {% if request.user.profile.hasAvatar %}
+                        <img src="{% static request.user.username|getAvatarPath %}">
+                        {% else %}
+                        <img src="{% static ''|getAvatarPath %}">
+                        {% endif %}
+                    </a>
+                    <div class="content">
+                        <form class="ui form commentForm">
+                            <div class="ui action input">
+                                <input type="text" name="commentContent" placeholder="评论..." required>
+                                <button class="ui icon button" type="submit" postid="{{ post.id }}">
+                                    <i class="send icon"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div> -->
+            
+        </div>
+    </div>
+    {% endwith %}
+    {% endfor %}
+</div>
+
 {% endblock %}
