@@ -9,6 +9,7 @@
     white-space: nowrap;
     display: inline-block;
     vertical-align: middle;
+    padding-bottom: 0.25em;
 }
 
 .ui.feed>.event>.label img{

@@ -4,6 +4,7 @@
 {% load filters %}
 
 {% block loadCss %}
+<link rel="stylesheet" type="text/css" href="{% static "css/index.css" %}">
 <link rel="stylesheet" type="text/css" href="{% static "css/home.css" %}">
 <link rel="stylesheet" type="text/css" href="{% static "css/message.css" %}">
 {% endblock %}
@@ -52,7 +53,7 @@
                     {% elif message|isBlogComment or message|isReplyBlogComment %}
                     {{ message.masterBlog.title }}
                     {% endif %}
-                </span>中评论你：
+                </span> 中评论你：
                 <div class="date">
                     {{ message.time }}
                 </div>
