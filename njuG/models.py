@@ -116,7 +116,10 @@ class Message(models.Model):
         )
     type = models.IntegerField(choices = TYPE_CHOICES, default=POST_COMMENT)
     masterPost = models.ForeignKey(Post, blank=True, null=True)
+    postComment = models.ForeignKey(Comment, blank=True, null=True)
+    
     masterBlog = models.ForeignKey(Blog, blank=True, null=True)
+    blogComment = models.ForeignKey(BlogComment, blank=True, null=True)
     content = models.TextField()
     
     class Meta:
