@@ -8,6 +8,8 @@ urlpatterns = [
     url(r'^likePost', views.likePost, name='likePost'),
     url(r'^notLikePost', views.notLikePost, name='notLikePost'),
     url(r'^postComment', views.postComment, name='postComment'),
+    url(r'^replyPostComment', views.replyPostComment, name='replyPostComment'),
+    
     
     url(r'^postUploadImg', views.postUploadImg, name='postUploadImg'),
     url(r'^deletePostImg/(?P<pk>[0-9]+)/$', views.deletePostImg, name='deletePostImg'),

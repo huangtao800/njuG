@@ -104,7 +104,26 @@ def postComment(request):
  			return JsonResponse(responseDict)
  	else:
  		return JsonResponse({'result':0, 'msg':'user not login'})
- 	
+
+# @login_required 	
+def replyPostComment(request):
+	if(request.method=='POST' and request.user.is_authenticated()):
+		postid = request.POST['postid']
+		content = request.POST['content']
+		commentid = request.POST['commentid']
+		
+		post = Post.objects.get(pk=postid)
+		comment = Comment.objects.get(pk=commentid)
+		replyComment = Comment(content=content, user=request.user, post=post, replyTo=comment)
+		replyComment.save()
+		responseDict={'result':1, 'msg':''}
+		
+		target1 = post.user
+		target2 = comment.user
+		utils.createMessage(request.user, target1, type=Message.REPLY_POST_COMMENT, post=post, content=content)
+ 		if target1.id != target2.id:
+ 			utils.createMessage(request.user, target2, type=Message.REPLY_POST_COMMENT, post=post, content=content)
+ 		return JsonResponse(responseDict)
 
 # @login_required
 def postUploadImg(request):

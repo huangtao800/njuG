@@ -67,7 +67,12 @@
                         {% endif %}
                     </a>
                     <div class="content">
+                        {% if comment.replyTo %}
+                        <a class="author">{{ comment.user.username }}</a> 回复 
+                        <a class="author">{{ comment.replyTo.user.username }}</a>
+                        {% else %}
                         <a class="author">{{ comment.user.username }}</a>
+                        {% endif %}
                         <div class="metadata">
                             <span class="date">{{ comment.time }}</span>
                         </div>
@@ -75,7 +80,16 @@
                             {{ comment.content }}
                         </div>
                         <div class="actions">
-                            <a class="reply">回复</a>
+                            <a class="reply postCommentReply">回复</a>
+                            <form class="ui form postCommentReplyForm" style="display: none" commentid="{{comment.id}}", postid="{{post.id}}">
+                                <div class="field">
+                                    <textarea rows="2" name="content" required></textarea>
+                                </div>
+                                <button class="ui labeled icon tiny basic button" type="submit">
+                                    <i class="send icon"></i>
+                                    回复
+                                </button>
+                            </form>
                         </div>
                     </div>
                     

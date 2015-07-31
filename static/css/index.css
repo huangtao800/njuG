@@ -98,3 +98,7 @@ img{
 	max-width: 780px;
 	max-height: 480px;
 }
+
+.ui.form .field{
+	margin-top: 1em;
+}

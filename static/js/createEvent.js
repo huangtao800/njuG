@@ -109,4 +109,25 @@ $(document).ready(function(){
 		}
 	});
 	
+	$(".postCommentReply").click(function(){
+		$(this).next().slideToggle("fast");
+	});
+	
+	$('.postCommentReplyForm').submit(function(){
+		commentid = $(this).attr("commentid");
+		postid = $(this).attr("postid");
+		content = $(this).find("textarea").first().val();
+		
+		$(this).ajaxSubmit({
+			dataType: "json",
+			headers: { "X-CSRFToken": $.cookie("csrftoken") },
+			type: "POST",
+			url: "/njuG/replyPostComment",
+			data: {"commentid": commentid, "postid": postid, "content":content},
+			success: function(response){
+				showMessage(1,"回复成功！");
+			},
+		});
+		return false;
+	});
 });
