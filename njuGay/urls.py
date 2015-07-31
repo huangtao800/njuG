@@ -19,8 +19,6 @@ from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
 
-from forms.myForms import LoginForm
-
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^njuG/', include('njuG.urls')),
