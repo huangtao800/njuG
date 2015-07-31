@@ -47,8 +47,7 @@ class Like(Event):
     
     class Meta:
         unique_together = ('user', 'post',) # one user cannot like a post repeatedly
-        
-        
+
         
 class Blog(Event):
     title = models.CharField(max_length=300)
@@ -94,4 +93,28 @@ class Profile(models.Model):
     degree = models.CharField(max_length=3, choices = DEGREE_CHOICES, default = UNDERGRAD)
     hasAvatar = models.BooleanField(default=False)
     avatarType = models.CharField(max_length=6, default='jpg')
+    unreadMessageCount = models.IntegerField(default=0)
+
+class Message(models.Model):
+    time = models.DateTimeField(auto_now=False)
+    isRead = models.BooleanField(default=False)
+    source = models.ForeignKey(User, related_name="source")
+    target = models.ForeignKey(User, related_name="target")
+    
+    POST_COMMENT = 1
+    REPLY_POST_COMMENT = 2
+    BLOG_COMMENT = 3
+    REPLY_BLOG_COMMENT = 4
+    LIKE_POST = 5
+    TYPE_CHOICES = (
+        (POST_COMMENT, 1),
+        (REPLY_POST_COMMENT, 2),
+        (BLOG_COMMENT, 3),
+        (REPLY_BLOG_COMMENT, 4),
+        (LIKE_POST, 5)
+        )
+    type = models.IntegerField(choices = TYPE_CHOICES, default=POST_COMMENT)
+    masterPost = models.ForeignKey(Post, blank=True, null=True)
+    masterBlog = models.ForeignKey(Blog, blank=True, null=True)
+    content = models.TextField()
     

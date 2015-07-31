@@ -3,12 +3,13 @@ from django.contrib.auth.decorators import login_required
 from django.dispatch import receiver
 from django.conf import settings
 
-from njuG.models import Post, Like, Comment, Blog, BlogComment, Image, Profile
+from njuG.models import Post, Like, Comment, Blog, BlogComment, Image, Profile, Message
 from django.views.generic import CreateView, DeleteView, ListView
 from django.http import JsonResponse,HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.utils import timezone
 from njuG.forms.myForms import BlogForm, ProfileForm
 from allauth.account.signals import user_signed_up
+from . import utils
 
 # Create your views here.
 def index(request):
@@ -91,8 +92,11 @@ def postComment(request):
 			content = request.POST['content']
 			post = Post.objects.get(pk=postid)
  			comment = Comment(content=content, user=request.user, post=post, time=timezone.now())
- 			comment.save()
+			comment.save()
  			responseDict={'result':1, 'msg':''}
+ 			
+ 			target = post.user
+ 			utils.createMessage(request.user, target, type=Message.POST_COMMENT, post=post, content=content)
  			return JsonResponse(responseDict)
  		except Exception as e:
  			print e.message
