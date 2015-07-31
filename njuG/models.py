@@ -39,7 +39,7 @@ class Comment(Event):
     content = models.CharField(max_length=500)
     user = models.ForeignKey(User)
     post = models.ForeignKey(Post)
-    replyFrom = models.ForeignKey("self", null=True)   # a comment might reply another0
+    replyTo = models.ForeignKey("self", null=True)   # a comment might reply another
     
     
 class Like(Event):
