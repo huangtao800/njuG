@@ -48,7 +48,7 @@
             {% endif %}
             <div class="meta">
                 <a class="like" postid="{{ post.id }}">
-                    {% if user|isLikePost:post %}
+                    {% if request.user and request.user|isLikePost:post %}
                     <i class="like icon liked"></i> <i class="likeCount">{{post.likes}}</i> Likes
                     {% else %}                      
                     <i class="like icon"></i> <i class="likeCount">{{post.likes}}</i> Likes
