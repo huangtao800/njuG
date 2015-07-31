@@ -79,13 +79,15 @@
         $(".trumbowyg-base64-dropdown-button, .trumbowyg-insertImage-dropdown-button").mousedown(function(){
             $(".trumbowyg-modal-box label input").css({"width": "340px", "border-radius": "0em"});
         });
-        
-        
-        $("button[type='submit']").click(function(){
-            if(!$("#id_content").val()){
-                $("#id_content").val($(".trumbowyg-editor").text());
-            }
-        });
+//         
+//         
+        // $("button[type='submit']").click(function(){
+            // $(".trumbowyg-viewHTML-button").click();
+            // return false;
+            // if(!$("#id_content").val()){
+                // $("#id_content").val($(".trumbowyg-editor").text());
+            // }
+        // });
     });
 </script>
 {% endblock %}
