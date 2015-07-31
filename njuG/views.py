@@ -184,29 +184,46 @@ def viewDiscussion(request, id):
 @login_required
 def commentBlog(request):
 	if(request.method=='POST'):
-		blogid = request.POST['blogid']
-		content = request.POST['content']
-		user = request.user
-		blog = Blog.objects.get(pk=blogid)
-		blogComment = BlogComment(content=content, user=user, blog=blog)
-		blogComment.save()
-		return JsonResponse({'result':1, 'msg':''})
+		try:
+			blogid = request.POST['blogid']
+			content = request.POST['content']
+			user = request.user
+			blog = Blog.objects.get(pk=blogid)
+			blogComment = BlogComment(content=content, user=user, blog=blog, time=timezone.now())
+			blogComment.save()
+			
+			target = blog.user
+			utils.createMessage(request.user, target, type=Message.BLOG_COMMENT, blog=blog, content=content)
+			return JsonResponse({'result':1, 'msg':''})
+		except Exception as e:
+			print e.message
+			responseDict = {'result':0, 'msg':e.message}
+			return JsonResponse(responseDict)
 
 @login_required
 def replyBlogComment(request):
 	if(request.method=='POST'):
-		blogid = request.POST['blogid']
-		commentid = request.POST['commentid']
-		masterCommentid = request.POST['masterCommentid']
-		print masterCommentid
-		content = request.POST['content']
-		user = request.user
-		blog = Blog.objects.get(pk=blogid)
-		replyTo = BlogComment.objects.get(pk=commentid)
-		masterComment = BlogComment.objects.get(pk=masterCommentid)
-		blogComment = BlogComment(content=content, user=user, blog=blog, replyTo=replyTo, masterComment=masterComment)
-		blogComment.save()
-		return JsonResponse({'result':1, 'msg':''})
+		try:
+			blogid = request.POST['blogid']
+			commentid = request.POST['commentid']
+			masterCommentid = request.POST['masterCommentid']
+	# 		print masterCommentid
+			content = request.POST['content']
+			user = request.user
+			blog = Blog.objects.get(pk=blogid)
+			replyTo = BlogComment.objects.get(pk=commentid)
+			masterComment = BlogComment.objects.get(pk=masterCommentid)
+			blogComment = BlogComment(content=content, user=user, blog=blog, replyTo=replyTo, masterComment=masterComment)
+			blogComment.save()
+			
+			target = blog.user
+			utils.createMessage(request.user, target, type=Message.REPLY_BLOG_COMMENT, blog=blog, content=content)
+			return JsonResponse({'result':1, 'msg':''})
+		except Exception as e:
+			print e.message
+			responseDict = {'result':0, 'msg':e.message}
+			return JsonResponse(responseDict)
+			
 
 @receiver(user_signed_up)
 def createProfile(sender, **kwargs):

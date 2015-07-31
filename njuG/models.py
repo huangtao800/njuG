@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
+from django.utils import timezone
 from sorl.thumbnail import ImageField
 
 # Create your models here.
@@ -17,7 +18,7 @@ def image_delete(sender, instance, **kwargs):
         instance.file.delete(False)
 
 class Event(models.Model):
-    time = models.DateTimeField(auto_now=False)
+    time = models.DateTimeField(auto_now=False, default=timezone.now)
     
     class Meta:
         abstract = True

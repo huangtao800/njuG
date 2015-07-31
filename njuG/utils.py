@@ -10,7 +10,7 @@ def createMessage(source, target, **kwargs):
     elif(type==Message.BLOG_COMMENT or type==Message.REPLY_BLOG_COMMENT):
         content = kwargs['content']
         blog = kwargs['blog']
-        message = Message(source=user, target=target, masterBlpg=blog, content=content, time=timezone.now())
+        message = Message(source=source, target=target, masterBlog=blog, content=content, time=timezone.now())
     target.profile.unreadMessageCount += 1
     target.profile.save()
     message.save()
