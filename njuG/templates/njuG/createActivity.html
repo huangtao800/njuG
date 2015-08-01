@@ -8,7 +8,7 @@
         <div class="two wide column"></div>
         <div class="twelve wide column">
             
-            <form class="ui form">
+            <form id="createActivityForm" class="ui form">
                 {% csrf_token %}
               <div class="required field">
                 <label>活动名称</label>
@@ -47,10 +47,11 @@
                 {{ form.contact|addCSS:"ui selection dropdown"}}
               </div>
               
-              <div id="contact" class="field" style="display: none;">
+              <div id="detailContact" class="field" style="display: none;">
                   {{form.detailContact}}
               </div>
               <button class="ui button" type="submit">Submit</button>
+              <span id="error_message" style="color: red;"></span>
             </form>
         </div>
         <div class="two wide column"></div>
@@ -83,11 +84,16 @@
         
         $('#id_contact').change(function(){
             if($(this).val()=='微信'){
-                $('#contact').slideDown("fast");
+                $('#detailContact').slideDown("fast");
             }else{
-                $('#contact').slideUp("fast");
+                $('#detailContact').slideUp("fast");
             }
         });
+        
     });
 </script>
+{% endblock %}
+
+{% block loadJs %}
+<script src="{% static "js/createActivity.js" %}"></script>
 {% endblock %}

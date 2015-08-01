@@ -360,6 +360,6 @@ def setMessageRead(request):
 def createActivity(request):
 	if(request.method=='GET'):
 		activityForm = ActivityForm()
-		return render(request,'njuG/createActivaty.html',{'form': activityForm})
+		return render(request,'njuG/createActivity.html',{'form': activityForm})
 	else:
 		pass			
