@@ -21,6 +21,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^$', include('njuG.urls')),
     url(r'^njuG/', include('njuG.urls')),
     url(r'^accounts/', include('allauth.urls')),
     #url(r'^njuG/login/$', auth_views.login, {'authentication_form': LoginForm}),
