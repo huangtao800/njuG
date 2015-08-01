@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Django settings for njuGay project.
 
@@ -89,8 +90,8 @@ WSGI_APPLICATION = 'njuGay.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'yanzhufanchen$njuGay',
-        'USER': 'yanzhufanchen',
+        'NAME': 'njuGay',
+        'USER': 'django',
         'PASSWORD': 'Paul_1993',
         'HOST': '127.0.0.1',
         'PORT': '3306',
@@ -118,13 +119,12 @@ MEDIA_URL = '/media/'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
-STATIC_ROOT = '/home/yanzhufanchen/njuG/static/'
 STATIC_URL = '/static/'
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
-#STATICFILES_DIRS = ( os.path.join('static'), )
+STATICFILES_DIRS = ( os.path.join('static'), )
 
 #LOGIN_URL = '/njuG/login'
 
@@ -159,3 +159,6 @@ AVATAR_ORIGIN_PATH = os.path.join(BASE_DIR, 'static/img/avatar/origin/')
 AVATAR_PATH = os.path.join(BASE_DIR, 'static/img/avatar/')
 
 ALLOWED_HOSTS = ['yanzhufanchen.pythonanywhere.com']
+
+
+SCHOOL_LIST = [('南京大学','南京大学'),('河海大学','河海大学'),('东南大学','东南大学'), ('其他学校','其他学校')]

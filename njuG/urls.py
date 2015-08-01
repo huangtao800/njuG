@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^postAvatar/', views.postAvatar, name="postAvatar"),
     
     url(r'^activity/', views.activity, name="activity"),
+    url(r'^createActivity/', views.createActivity, name="createActivity"),
     url(r'^home/message/$', views.message, name="message"),
     url(r'^home/$', views.home, name="myHome"),
     url(r'^home/(?P<id>[0-9]+)/$', views.home, name="home"),

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
+from django.conf import settings
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(max_length=254, required=True)
@@ -18,3 +19,14 @@ class BlogForm(forms.Form):
                             required=True, error_messages={'required': '请填写标题'})
     content = forms.CharField(widget=forms.Textarea(attrs={'placeholder':'内容','required':'true'}),required=True)
     isAnonymous = forms.BooleanField(initial=False, required=False)
+    
+class ActivityForm(forms.Form):
+    title = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder':'找自习小伙伴 打球 爬山等','required':'true'}), 
+                            required=True, error_messages={'required': '请填写名称'})
+    content = forms.CharField(widget=forms.Textarea(attrs={'placeholder':'时间、地点等','required':'true'}),required=True)
+    onlyForSchool = forms.BooleanField(initial=True, required=True)
+    openToAll = forms.BooleanField(initial=True, required=False)
+    contact = forms.ChoiceField([('私信我','私信我'),('微信','微信')], initial="私信我", required=False)
+    detailContact = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'placeholder':'微信号'}), 
+                            required=False, error_messages={'required': '请填写微信号'})
+    openSchoolList = forms.MultipleChoiceField(settings.SCHOOL_LIST,initial=['南京大学'],required=False)

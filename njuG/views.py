@@ -8,7 +8,7 @@ from njuG.models import Post, Like, Comment, Blog, BlogComment, Image, Profile, 
 from django.views.generic import CreateView, DeleteView, ListView
 from django.http import JsonResponse,HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.utils import timezone
-from njuG.forms.myForms import BlogForm, ProfileForm
+from njuG.forms.myForms import BlogForm, ProfileForm, ActivityForm
 from allauth.account.signals import user_signed_up
 from . import utils
 
@@ -355,4 +355,11 @@ def setMessageRead(request):
 			return JsonResponse({'result': 1, 'msg':''})
 		else:
 			return JsonResponse({'result': 0, 'msg':''})
-			
+
+@login_required
+def createActivity(request):
+	if(request.method=='GET'):
+		activityForm = ActivityForm()
+		return render(request,'njuG/createActivaty.html',{'form': activityForm})
+	else:
+		pass			

@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load filters %}
+
+{% block content %}
+<div class="ui grid">
+    <div class="row">
+        <div class="two wide column"></div>
+        <div class="twelve wide column">
+            
+            <form class="ui form">
+                {% csrf_token %}
+              <div class="required field">
+                <label>活动名称</label>
+                {{form.title}}
+              </div>
+              <div class="required field">
+                <label>活动详情</label>
+                {{ form.content}}
+                
+              </div>
+              
+              <div class="required field">
+                  <label>活动范围</label>
+              </div>
+              <div class="inline field">
+                <div class="ui toggle checkbox">
+                  {{ form.onlyForSchool|addCSS:"hidden"}}
+                  <label>仅对本校开放 ({{request.user.profile.school}})</label>
+                </div>
+              </div>
+              
+              <div id="openToAll" style="display: none">
+                  <div class="inline field">
+                    <div class="ui toggle checkbox">
+                      {{ form.openToAll|addCSS:"hidden" }}
+                      <label>对所有人开放</label>
+                    </div>
+                  </div>
+                  <div id="selectSchool" class="field" style="display: none; margin-bottom: 1em;">
+                        {{ form.openSchoolList|addCSS:"ui fluid dropdown" }}
+                    </div>
+              </div>
+              
+              <div class="required field">
+                <label>联系方式</label>
+                {{ form.contact|addCSS:"ui selection dropdown"}}
+              </div>
+              
+              <div id="contact" class="field" style="display: none;">
+                  {{form.detailContact}}
+              </div>
+              <button class="ui button" type="submit">Submit</button>
+            </form>
+        </div>
+        <div class="two wide column"></div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function(){
+        $(".launch.item").removeClass("active");
+        $(".launch.item").eq(2).addClass("active");
+        $('.ui.checkbox').checkbox();
+        $('.ui.dropdown').dropdown();
+        
+        $('#id_onlyForSchool').change(function(){
+            if(!$(this).prop("checked")){
+                $('#openToAll').slideDown("fast");
+            }else{
+                $('#openToAll').slideUp("fast");
+            }
+        });
+        
+        $('#id_openToAll').change(function(){
+            if(!$(this).prop("checked")){
+                $("#selectSchool").slideDown("fast");
+            }else{
+                $("#selectSchool").slideUp("fast");
+            }
+        });
+        
+        $('#id_contact').change(function(){
+            if($(this).val()=='微信'){
+                $('#contact').slideDown("fast");
+            }else{
+                $('#contact').slideUp("fast");
+            }
+        });
+    });
+</script>
+{% endblock %}

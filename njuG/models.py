@@ -66,8 +66,8 @@ class BlogComment(Event):
 class Profile(models.Model):
     user = models.OneToOneField(User)
     nickName = models.CharField(max_length=30, default="无昵称")
-    NJU = 'NJU'
-    OTHER = 'OTHER'
+    NJU = '南京大学'
+    OTHER = '其他学校'
     SCHOOL_CHOICES = (
         (NJU, '南京大学'),
         (OTHER, '其他学校'))
