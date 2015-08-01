@@ -3,7 +3,7 @@
 
 {% block loadCss %}
 <link rel="stylesheet" type="text/css" href="{% static "css/discussion.css" %}">
-<link rel="stylesheet" href="{% static "jquery/Trumbowyg-2.0.0/dist/ui/trumbowyg.min.css" %}">
+<link rel="stylesheet" href="{% static "jquery/Trumbowyg-2.0.0/out/ui/trumbowyg.min.css" %}">
 {% endblock %}
 
 {% block content %}
@@ -45,8 +45,8 @@
 </div>
 
 {% block loadJs %}
-<script src="{% static "jquery/Trumbowyg-2.0.0/dist/trumbowyg.min.js" %}"></script>
-<script src="{% static "jquery/Trumbowyg-2.0.0/dist/plugins/base64/trumbowyg.base64.min.js" %}"></script>
+<script src="{% static "jquery/Trumbowyg-2.0.0/out/trumbowyg.min.js" %}"></script>
+<script src="{% static "jquery/Trumbowyg-2.0.0/out/plugins/base64/trumbowyg.base64.min.js" %}"></script>
 {% endblock %}
 
 <script>
