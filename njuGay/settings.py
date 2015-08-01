@@ -89,8 +89,8 @@ WSGI_APPLICATION = 'njuGay.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'njuGay',
-        'USER': 'django',
+        'NAME': 'yanzhufanchen$njuGay',
+        'USER': 'yanzhufanchen',
         'PASSWORD': 'Paul_1993',
         'HOST': '127.0.0.1',
         'PORT': '3306',
@@ -118,12 +118,13 @@ MEDIA_URL = '/media/'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
+STATIC_ROOT = '/home/yanzhufanchen/njuG/static/'
 STATIC_URL = '/static/'
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
-STATICFILES_DIRS = ( os.path.join('static'), )
+#STATICFILES_DIRS = ( os.path.join('static'), )
 
 #LOGIN_URL = '/njuG/login'
 
@@ -156,3 +157,5 @@ ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/njuG/profile'
 # Avatar settings
 AVATAR_ORIGIN_PATH = os.path.join(BASE_DIR, 'static/img/avatar/origin/')
 AVATAR_PATH = os.path.join(BASE_DIR, 'static/img/avatar/')
+
+ALLOWED_HOSTS = ['yanzhufanchen.pythonanywhere.com']
