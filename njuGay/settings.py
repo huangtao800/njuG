@@ -161,4 +161,4 @@ AVATAR_PATH = os.path.join(BASE_DIR, 'static/img/avatar/')
 ALLOWED_HOSTS = ['yanzhufanchen.pythonanywhere.com']
 
 
-SCHOOL_LIST = [('南京大学','南京大学'),('河海大学','河海大学'),('东南大学','东南大学'), ('其他学校','其他学校')]
+SCHOOL_LIST = [(u'南京大学',u'南京大学'),(u'河海大学',u'河海大学'),(u'东南大学',u'东南大学'), (u'其他学校',u'其他学校')]

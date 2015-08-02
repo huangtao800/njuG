@@ -66,31 +66,31 @@ class BlogComment(Event):
 class Profile(models.Model):
     user = models.OneToOneField(User)
     nickName = models.CharField(max_length=30, default="无昵称")
-    NJU = '南京大学'
-    OTHER = '其他学校'
+    NJU = u'南京大学'
+    OTHER = u'其他学校'
     SCHOOL_CHOICES = (
-        (NJU, '南京大学'),
-        (OTHER, '其他学校'))
+        (NJU, u'南京大学'),
+        (OTHER, u'其他学校'))
     school = models.CharField(max_length=10, choices=SCHOOL_CHOICES, default=NJU)
     
-    TOP = '攻'
-    BOTTOM = '受'
-    VERS = '不限'
-    NOROLE = '保密'
+    TOP = u'攻'
+    BOTTOM = u'受'
+    VERS = u'不限'
+    NOROLE = u'保密'
     ROLE_CHOICES = (
-        (BOTTOM, '受'),
-        (TOP, '攻'),
-        (VERS, '不限'),
+        (BOTTOM, u'受'),
+        (TOP, u'攻'),
+        (VERS, u'不限'),
         (NOROLE, '-'))
     role = models.CharField(max_length=5 ,choices = ROLE_CHOICES, default = NOROLE)
     
-    UNDERGRAD = '本科'
-    GRAD = '硕士'
-    POSTGRAD = '博士'
+    UNDERGRAD = u'本科'
+    GRAD = u'硕士'
+    POSTGRAD = u'博士'
     DEGREE_CHOICES = (
-        (UNDERGRAD, '本科'),
-        (GRAD, '硕士'),
-        (POSTGRAD, '博士'))
+        (UNDERGRAD, u'本科'),
+        (GRAD, u'硕士'),
+        (POSTGRAD, u'博士'))
     degree = models.CharField(max_length=3, choices = DEGREE_CHOICES, default = UNDERGRAD)
     hasAvatar = models.BooleanField(default=False)
     avatarType = models.CharField(max_length=6, default='jpg')
@@ -136,10 +136,13 @@ class Activity(models.Model):
     onlyForSchool = models.BooleanField(default=True)
     openToAll = models.BooleanField(default=False, blank=True)
     
-    PRIVATE_MESSAGE = '私信我'
-    WECHAT = '微信'
-    CONTACT_LIST = ((PRIVATE_MESSAGE,'私信我'),(WECHAT,'微信'))
+    PRIVATE_MESSAGE = u'私信我'
+    WECHAT = u'微信'
+    CONTACT_LIST = ((PRIVATE_MESSAGE,u'私信我'),(WECHAT,u'微信'))
     contact = models.CharField(max_length=20, choices = CONTACT_LIST, default=PRIVATE_MESSAGE)
     detailContact = models.CharField(max_length=50, null=True, blank=True)
     openSchoolList = models.CharField(max_length=1000, null=True, blank=True)
+    
+    class Meta:
+        ordering=['-time']
     
