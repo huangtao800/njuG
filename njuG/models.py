@@ -124,4 +124,22 @@ class Message(models.Model):
     
     class Meta:
         ordering=['-time']
+
+
+class Activity(models.Model):
+    time = models.DateTimeField(auto_now=False, default=timezone.now)
+    user = models.ForeignKey(User)
+    interestCount = models.IntegerField(default=0)
+    
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    onlyForSchool = models.BooleanField(default=True)
+    openToAll = models.BooleanField(default=False, blank=True)
+    
+    PRIVATE_MESSAGE = '私信我'
+    WECHAT = '微信'
+    CONTACT_LIST = ((PRIVATE_MESSAGE,'私信我'),(WECHAT,'微信'))
+    contact = models.CharField(max_length=20, choices = CONTACT_LIST, default=PRIVATE_MESSAGE)
+    detailContact = models.CharField(max_length=50, null=True, blank=True)
+    openSchoolList = models.CharField(max_length=1000, null=True, blank=True)
     
