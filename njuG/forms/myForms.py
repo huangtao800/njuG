@@ -26,7 +26,7 @@ class ActivityForm(forms.Form):
     content = forms.CharField(widget=forms.Textarea(attrs={'placeholder':'时间、地点等','required':'true'}),required=True)
     onlyForSchool = forms.BooleanField(initial=True, required=True)
     openToAll = forms.BooleanField(initial=True, required=False)
-    contact = forms.ChoiceField([('私信我','私信我'),('微信','微信')], initial="私信我", required=False)
+    contact = forms.ChoiceField([(u'私信我',u'私信我'),(u'微信',u'微信')], initial=u"私信我", required=False)
     detailContact = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'placeholder':'填写微信号'}), 
                             required=False, error_messages={'required': '请填写微信号'})
-    openSchoolList = forms.MultipleChoiceField(settings.SCHOOL_LIST,initial=['南京大学'],required=False)
+    openSchoolList = forms.MultipleChoiceField(settings.SCHOOL_LIST,initial=[u'南京大学'],required=False)

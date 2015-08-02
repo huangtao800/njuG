@@ -30,6 +30,32 @@ $(document).ready(function(){
 		if(!validateContact()){
 			$("#error_message").text("请填写微信号，或选择其他联系方式");
 		}
+		
+		var title = $('#id_title').val();
+		var content = $('#id_content').val();
+		var onlyForSchool = $('#id_onlyForSchool').val();
+		var openToAll = $("#id_openToAll").val();
+		var openSchoolList = $('#id_openSchoolList').val();
+		var contact = $("#id_contact").val();
+		var detailContact = $("#detailContact").val();
+		
+		var postData = {"title":title, "content":content, "onlyForSchool":onlyForSchool,
+						"openToAll": openToAll, "openSchoolList": openSchoolList,
+						"contact":contact, "detailContact":detailContact};
+		
+		$.ajax({
+			url: "/njuG/postActivity/",
+			dataType:"json",
+			type: 'POST',
+			data: postData,
+			headers: { "X-CSRFToken": $.cookie("csrftoken") },
+			success: function(response){
+				result = response['result'];
+				if(result){
+					window.location = "/njuG/activity/";
+				}
+			},
+		});
 		return false;
 	});
 });

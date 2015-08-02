@@ -1,10 +1,11 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.dispatch import receiver
 from django.conf import settings
 from django.contrib.auth.models import User
 
-from njuG.models import Post, Like, Comment, Blog, BlogComment, Image, Profile, Message
+from njuG.models import Post, Like, Comment, Blog, BlogComment, Image, Profile, Message, Activity
 from django.views.generic import CreateView, DeleteView, ListView
 from django.http import JsonResponse,HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.utils import timezone
@@ -362,4 +363,37 @@ def createActivity(request):
 		activityForm = ActivityForm()
 		return render(request,'njuG/createActivity.html',{'form': activityForm})
 	else:
-		pass			
+		pass	
+
+def validateSchool(onlyForSchool):
+	pass
+
+@login_required
+def postActivity(request):
+	if(request.method=='POST'):
+		form = ActivityForm(request.POST)
+		if(form.is_valid()):
+			title = form.cleaned_data['title']
+			content = form.cleaned_data['content']
+			onlyForSchool = form.cleaned_data['onlyForSchool']
+			openToAll = form.cleaned_data['openToAll']
+			contact = form.cleaned_data['contact']
+			detailContact = form.cleaned_data['detailContact']
+			openSchoolList = form.cleaned_data['openSchoolList']
+			
+			openSchoolListData = " ".join(openSchoolList)
+			if(onlyForSchool=='on'):
+				onlyForSchool = True
+			else:
+				onlyForSchool = False
+			if(openToAll =='on'):
+				openToAll = True
+			else:
+				openToAll = False
+			activity = Activity(user=request.user, title=title,content=content,onlyForSchool=onlyForSchool,
+							openToAll=openToAll,contact=contact,detailContact=detailContact,
+							openSchoolList=openSchoolListData)
+			activity.save()
+			return JsonResponse({'result': 1, 'msg':''})
+
+			
