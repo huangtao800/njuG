@@ -47,3 +47,8 @@ def isBlogComment(message):
 @register.filter_function
 def isReplyBlogComment(message):
     return message.type==Message.REPLY_BLOG_COMMENT
+
+@register.filter_function
+def getSchoolList(openSchoolList):
+    schoolList = openSchoolList.split(' ')
+    return schoolList

@@ -320,7 +320,8 @@ def postAvatar(request):
 	
 def activity(request):
 	if(request.method=='GET'):
-		return render(request, 'njuG/activity.html')
+		activities = Activity.objects.all()
+		return render(request, 'njuG/activity.html',{"activities": activities})
 
 @login_required
 def home(request, **kwargs):
@@ -380,16 +381,9 @@ def postActivity(request):
 			contact = form.cleaned_data['contact']
 			detailContact = form.cleaned_data['detailContact']
 			openSchoolList = form.cleaned_data['openSchoolList']
-			
+ 			
 			openSchoolListData = " ".join(openSchoolList)
-			if(onlyForSchool=='on'):
-				onlyForSchool = True
-			else:
-				onlyForSchool = False
-			if(openToAll =='on'):
-				openToAll = True
-			else:
-				openToAll = False
+			print openSchoolListData
 			activity = Activity(user=request.user, title=title,content=content,onlyForSchool=onlyForSchool,
 							openToAll=openToAll,contact=contact,detailContact=detailContact,
 							openSchoolList=openSchoolListData)

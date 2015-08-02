@@ -10,9 +10,9 @@ class LoginForm(AuthenticationForm):
 class ProfileForm(forms.Form):
     nickName = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'placeholder':'昵称','required':'true'}),
                                required=True, error_messages={'required': '请填写昵称'})
-    school = forms.ChoiceField((('南京大学','南京大学'), ('其他学校','其他学校')), initial = '南京大学')
-    degree = forms.ChoiceField((('本科','本科'), ('硕士','硕士'), ('博士', '博士')), initial = '本科')
-    role = forms.ChoiceField((('攻','攻'), ('受','受'), ('不限','不限'), ('保密', '保密')), initial = 4)
+    school = forms.ChoiceField(((u'南京大学',u'南京大学'), (u'其他学校',u'其他学校')), initial = '南京大学')
+    degree = forms.ChoiceField(((u'本科',u'本科'), (u'硕士',u'硕士'), (u'博士', u'博士')), initial = '本科')
+    role = forms.ChoiceField(((u'攻',u'攻'), (u'受',u'受'), (u'不限',u'不限'), (u'保密', u'保密')), initial = 4)
     
 class BlogForm(forms.Form):
     title = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder':'标题','required':'true'}), 
@@ -24,9 +24,9 @@ class ActivityForm(forms.Form):
     title = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder':'找自习小伙伴 打球 爬山等','required':'true'}), 
                             required=True, error_messages={'required': '请填写名称'})
     content = forms.CharField(widget=forms.Textarea(attrs={'placeholder':'时间、地点等','required':'true'}),required=True)
-    onlyForSchool = forms.BooleanField(initial=True, required=True)
+    onlyForSchool = forms.BooleanField(initial=True, required=False)
     openToAll = forms.BooleanField(initial=True, required=False)
-    contact = forms.ChoiceField([(u'私信我',u'私信我'),(u'微信',u'微信')], initial=u"私信我", required=False)
+    contact = forms.ChoiceField([(u'私信我',u'私信我'),(u'微信',u'微信')], initial=u'私信我', required=False)
     detailContact = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'placeholder':'填写微信号'}), 
                             required=False, error_messages={'required': '请填写微信号'})
     openSchoolList = forms.MultipleChoiceField(settings.SCHOOL_LIST,initial=[u'南京大学'],required=False)

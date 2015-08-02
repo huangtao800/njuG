@@ -2,6 +2,9 @@
 {% load staticfiles %}
 {% load filters %}
 
+{% block loadCss %}
+<link rel="stylesheet" type="text/css" href="{% static "css/discussion.css" %}">
+{% endblock %}
 
 {% block content %}
 <div class="ui grid">
@@ -14,6 +17,39 @@
                     创建活动
                 </a>
             </div>
+            
+            <div class="ui items">
+                {% for act in activities %}
+                <div class="item">
+                    <a class="ui image xtiny">
+                        {% if act.user.profile.hasAvatar %}
+                        <img class="ui image" src="{% static act.user.username|getAvatarPath %}">
+                        {% else %}
+                        <img class="ui image" src="{% static ''|getAvatarPath %}">
+                        {% endif %}
+                    </a>
+                    <div class="content">
+                        <a class="header" href="">{{act.title}}</a>
+                        <div class="date">{{ act.time }}</div>
+                        {% if act.onlyForSchool %}
+                        <div class="responseView">{{act.user.profile.school}}</div>
+                        {% elif act.openToAll %}
+                        <div class="responseView">对所有人开放</div>
+                        {% else %}
+                        <div class="responseView">
+                            {% with schoolList=act.openSchoolList|getSchoolList %}
+                            {% for school in schoolList %}
+                            {{ school }}&nbsp
+                            {% endfor %}
+                            {% endwith %}
+                        </div>
+                        {% endif %}
+                        <!-- <div class="responseView">[1 / 2]</div> -->
+                        <div class="description cutoff">{{act.content|striptags}}</div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>            
         </div>
         <div class="two wide column"></div>
     </div>
