@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django import template
 from njuG.models import Post, Like, Comment, Blog, BlogComment, Image, Profile, Message
 
@@ -52,3 +53,7 @@ def isReplyBlogComment(message):
 def getSchoolList(openSchoolList):
     schoolList = openSchoolList.split(' ')
     return schoolList
+
+@register.filter_function
+def isWechat(contact):
+    return contact==u'微信'

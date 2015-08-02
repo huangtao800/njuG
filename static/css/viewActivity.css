@@ -1,0 +1,13 @@
+.field{
+	margin-bottom: 1em;
+}
+
+.field > label{
+	font-size:1.1em;
+	font-weight: 700;
+}
+
+.field .fieldValue{
+	margin-top: 0.5em;
+	margin-left: 1em;
+}

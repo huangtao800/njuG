@@ -20,9 +20,9 @@
         <!-- <input type="text" name="title" placeholder="标题" required> -->
       </div>
       <div class="field">
-        <label for="{{ form.content.id_for_label }}">文章内容</label>
-        {{ form.content }}
-        {% for error in form.content.errors %}
+        <label for="{{ form.blogContent.id_for_label }}">文章内容</label>
+        {{ form.blogContent }}
+        {% for error in form.blogContent.errors %}
             {{error}}
         {% endfor %}
         <!-- <textarea name="content" rows="12" required></textarea> -->
@@ -57,8 +57,7 @@
         
         $('.ui.checkbox').checkbox();
         
-        $("#id_content").trumbowyg({
-            // btnsAdd: ['base64'],
+        $("#id_blogContent").trumbowyg({
             btnsDef:{
                 insertImages:{
                     dropdown: ['insertImage','base64'],

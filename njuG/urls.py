@@ -27,6 +27,8 @@ urlpatterns = [
     
     url(r'^activity/', views.activity, name="activity"),
     url(r'^createActivity/', views.createActivity, name="createActivity"),
+    url(r'^viewActivity/(?P<id>[0-9]+)/$', views.viewActivity, name="viewActivity"),
+    
     url(r'^postActivity/', views.postActivity, name="postActivity"),
     
     url(r'^home/message/$', views.message, name="message"),

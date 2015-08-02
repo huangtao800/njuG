@@ -191,7 +191,7 @@ def postDiscussion(request):
 		print form.errors
 		if form.is_valid():
 			title = form.cleaned_data['title']
-			content = form.cleaned_data['content']
+			content = form.cleaned_data['blogContent']
 			isAnonymous = form.cleaned_data['isAnonymous']
 			user = request.user
 			blog = Blog(title=title,content=content,isAnonymous=isAnonymous,user=user, time=timezone.now())
@@ -390,4 +390,8 @@ def postActivity(request):
 			activity.save()
 			return JsonResponse({'result': 1, 'msg':''})
 
+def viewActivity(request, id):
+	if(request.method=='GET'):
+		activity = Activity.objects.get(pk=id)
+		return render(request, "njuG/viewActivity.html", {"activity": activity})
 			

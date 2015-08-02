@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load filters %}
+
+{% block loadCss %}
+<link rel="stylesheet" type="text/css" href="{% static "css/viewActivity.css" %}">
+{% endblock %}
+
+{% block content %}
+<div class="ui grid">
+    <div class="row">
+        <div class="two wide column"></div>
+        <div class="twelve wide column">
+            <h2>{{ activity.title }}</h2>
+            <div class="ui comments">
+              <div class="comment">
+                <a class="avatar">
+                    {% if activity.user.profile.hasAvatar %}
+                    <img src="{% static acitvity.user.username|getAvatarPath %}">
+                    {% else %}
+                    <img src="{% static ''|getAvatarPath %}">
+                    {% endif %}
+                  <!-- <img src="{% static "img/avatar/small/elliot.jpg" %}"> -->
+                </a>
+                <div class="content">
+                  <a class="author" href="{% url 'home' activity.user.id %}">{{activity.user.username}}</a>
+                  <div class="text date" style="color: rgba(0,0,0,.4);">
+                    <span class="date">{{ activity.time }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="field">
+                <label>活动详情:</label>
+                <div class="fieldValue">{{activity.content}}</div>
+            </div>
+            
+            <div class="field">
+                <label>活动范围:</label>
+                <div class="fieldValue">
+                    {% with schoolList=activity.openSchoolList|getSchoolList %}
+                    {% for school in schoolList %}
+                    {{ school }}&nbsp
+                    {% endfor %}
+                    {% endwith %}
+                </div>
+            </div>
+            
+            <div class="field">
+                <label>联系方式:</label>
+                <div class="fieldValue">
+                    {{activity.contact}}
+                    {% if activity.contact|isWechat %}
+                    : {{activity.detailContact}}
+                    {% endif %}
+                </div>
+            </div>  
+        </div>
+        <div class="two wide column"></div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        $(".launch.item").removeClass("active");
+        $(".launch.item").eq(2).addClass("active");
+
+    });
+</script>
+{% endblock %}

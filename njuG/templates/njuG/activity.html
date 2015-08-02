@@ -29,7 +29,7 @@
                         {% endif %}
                     </a>
                     <div class="content">
-                        <a class="header" href="">{{act.title}}</a>
+                        <a class="header" href="{% url 'viewActivity' act.id %}">{{act.title}}</a>
                         <div class="date">{{ act.time }}</div>
                         {% if act.onlyForSchool %}
                         <div class="responseView">{{act.user.profile.school}}</div>
