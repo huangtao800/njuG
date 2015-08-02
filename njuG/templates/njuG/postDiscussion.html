@@ -9,7 +9,7 @@
 {% block content %}
 
 <div class="discussionPanel">
-    <form class="ui form" method="post">
+    <form id="postDiscussionForm" class="ui form" method="post">
         {% csrf_token %}
       <div class="field">
         <label for="{{ form.title.id_for_label }}">标题</label>
@@ -37,10 +37,11 @@
         {% endfor %}
         </div>
       </div>
-      <button class="ui labeled icon blue basic button" type="submit">
+      <button id="submitButton" class="ui labeled icon blue basic button" type="submit">
         <i class="send icon"></i>
         发布帖子
       </button>
+      
     </form>
 </div>
 
@@ -78,6 +79,12 @@
         $(".trumbowyg-base64-dropdown-button, .trumbowyg-insertImage-dropdown-button").mousedown(function(){
             $(".trumbowyg-modal-box label input").css({"width": "340px", "border-radius": "0em"});
         });
+        
+        $("#submitButton").click(function(){
+            $(".trumbowyg-viewHTML-button").mousedown();
+            $(".trumbowyg-viewHTML-button").mousedown();
+        });
+
 //         
 //         
         // $("button[type='submit']").click(function(){
