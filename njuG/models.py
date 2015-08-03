@@ -6,6 +6,7 @@ from django.dispatch.dispatcher import receiver
 from django.utils import timezone
 from django.conf import settings
 from sorl.thumbnail import ImageField
+from datetime import datetime 
 
 # Create your models here.
 class Image(models.Model):
@@ -71,6 +72,9 @@ class Profile(models.Model):
     nickName = models.CharField(max_length=30, default="无昵称")
     school = models.CharField(max_length=10, choices=settings.SCHOOL_LIST, default=u'南京大学')
     
+    BIRTH_YEAR_CHOICES = [(i,i) for i in range(1970,2005)]
+    birth_year = models.IntegerField(choices=BIRTH_YEAR_CHOICES, default=1995)
+    
     TOP = u'攻'
     BOTTOM = u'受'
     VERS = u'不限'
@@ -93,6 +97,10 @@ class Profile(models.Model):
     hasAvatar = models.BooleanField(default=False)
     avatarType = models.CharField(max_length=6, default='jpg')
     unreadMessageCount = models.IntegerField(default=0)
+    
+    def age(self):
+        current_year = datetime.now().year
+        return current_year - self.birth_year
 
 class Message(models.Model):
     time = models.DateTimeField(auto_now=False)
