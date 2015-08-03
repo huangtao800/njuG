@@ -107,12 +107,14 @@ class Message(models.Model):
     BLOG_COMMENT = 3
     REPLY_BLOG_COMMENT = 4
     LIKE_POST = 5
+    PRIVATE_MESSAGE = 6
     TYPE_CHOICES = (
         (POST_COMMENT, 1),
         (REPLY_POST_COMMENT, 2),
         (BLOG_COMMENT, 3),
         (REPLY_BLOG_COMMENT, 4),
-        (LIKE_POST, 5)
+        (LIKE_POST, 5),
+        (PRIVATE_MESSAGE, 6)
         )
     type = models.IntegerField(choices = TYPE_CHOICES, default=POST_COMMENT)
     masterPost = models.ForeignKey(Post, blank=True, null=True)
@@ -120,6 +122,7 @@ class Message(models.Model):
     
     masterBlog = models.ForeignKey(Blog, blank=True, null=True)
     blogComment = models.ForeignKey(BlogComment, blank=True, null=True)
+    masterComment = models.ForeignKey(BlogComment, blank=True, null=True, related_name="master_comment")
     content = models.TextField()
     
     class Meta:
