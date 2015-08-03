@@ -47,7 +47,7 @@
               <a class="item" href="{% url 'myHome' %}"><i class="home icon"></i> 我的主页</a>
               <a class="item" href="{% url 'profile' %}"><i class="edit icon"></i> 修改资料</a>
               <a class="item" href="{% url 'message' %}"><i class="alarm outline icon"></i> 通知
-                {% if request.user and request.user.profile.unreadMessageCount > 0%}
+                {% if request.user.is_authenticated and request.user.profile.unreadMessageCount > 0 %}
                 <span class="ui teal label messageCount">{{request.user.profile.unreadMessageCount}}</span>
                 {% endif %}
               </a>

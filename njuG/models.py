@@ -36,12 +36,16 @@ class Post(Event):
     
     def comments(self):
         return self.comment_set.all().order_by("-time")
+    def __str__(self): 
+        return self.content
 
 class Comment(Event):
     content = models.CharField(max_length=500)
     user = models.ForeignKey(User)
     post = models.ForeignKey(Post)
     replyTo = models.ForeignKey("self", null=True)   # a comment might reply another
+    def __str__(self): 
+        return self.content
     
     
 class Like(Event):
@@ -59,6 +63,8 @@ class Blog(Event):
     isAnonymous = models.BooleanField(default=False)
     viewCount = models.IntegerField(default=0)
     commentCount = models.IntegerField(default=0)
+    def __str__(self): 
+        return self.title
     
 class BlogComment(Event):
     content = models.TextField()
@@ -66,6 +72,8 @@ class BlogComment(Event):
     blog = models.ForeignKey(Blog)
     replyTo = models.ForeignKey("self", null=True, blank=True)  ## reply someone's comment
     masterComment = models.ForeignKey("self", null=True, blank=True, related_name="first_blog_comment")    ## the first comment of a group of related blogComments
+    def __str__(self): 
+        return self.content
     
 class Profile(models.Model):
     user = models.OneToOneField(User)
@@ -101,6 +109,9 @@ class Profile(models.Model):
     def age(self):
         current_year = datetime.now().year
         return current_year - self.birth_year
+    
+    def __str__(self): 
+        return self.nickName
 
 class Message(models.Model):
     time = models.DateTimeField(auto_now=False)
@@ -151,6 +162,9 @@ class Activity(models.Model):
     contact = models.CharField(max_length=20, choices = CONTACT_LIST, default=PRIVATE_MESSAGE)
     detailContact = models.CharField(max_length=50, null=True, blank=True)
     openSchoolList = models.CharField(max_length=1000, null=True, blank=True)
+    
+    def __str__(self): 
+        return self.title
     
     class Meta:
         ordering=['-time']
