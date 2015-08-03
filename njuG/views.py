@@ -330,7 +330,7 @@ def postAvatar(request):
 		pic.seek(0)
 		
 		largeAvatar = image.crop((x,y,x+width,y+height))
-		size = (150, 150)
+		size = (200, 200)
 		largeAvatar.thumbnail(size)
 		
 		largeAvatar.save(settings.AVATAR_PATH+username, image.format)
