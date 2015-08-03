@@ -23,7 +23,7 @@
                   <!-- <img src="{% static "img/avatar/small/elliot.jpg" %}"> -->
                 </a>
                 <div class="content">
-                  <a class="author" href="{% url 'home' activity.user.id %}">{{activity.user.username}}</a>
+                  <a class="author" href="{% url 'home' activity.user.id %}">{{activity.user.profile.nickName}}</a>
                   <div class="text date" style="color: rgba(0,0,0,.4);">
                     <span class="date">{{ activity.time }}</span>
                   </div>

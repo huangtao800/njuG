@@ -20,7 +20,7 @@
           <!-- <img src="{% static "img/avatar/small/elliot.jpg" %}"> -->
         </a>
         <div class="content">
-          <a class="author" href="{% url 'home' blog.user.id %}">{{blog.user.username}}</a>
+          <a class="author" href="{% url 'home' blog.user.id %}">{{blog.user.profile.nickName}}</a>
           <div class="text date" style="color: rgba(0,0,0,.4);">
             <span class="date">{{ blog.time }}</span>
           </div>
@@ -45,7 +45,7 @@
             {% endif %}
           </a>
           <div class="content">
-              <a class="author">{{ comment.user.username}}</a>
+              <a class="author">{{ comment.user.profile.nickName}}</a>
               <div class="metadata">
                   <span class="date">{{ comment.time }}</span>
               </div>
@@ -77,7 +77,7 @@
                       {% endif %}
                   </a>
                   <div class="content">
-                      <a class="author" href="{% url 'home' reply.user.id %}">{{ reply.user.username }}</a>回复<a class="author">{{ reply.replyTo.user.username }}</a>
+                      <a class="author" href="{% url 'home' reply.user.id %}">{{ reply.user..profile.nickName }}</a>回复<a class="author">{{ reply.replyTo.user.profile.nickName }}</a>
                       <div class="metadata">
                           <span class="date">{{ reply.time }}</span>
                       </div>

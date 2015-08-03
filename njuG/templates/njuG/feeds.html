@@ -13,7 +13,7 @@
         </div>
         <div class="content">
             <div class="summary">
-                <a href="{% url 'home' post.user.id %}">{{ post.user.username }}</a> posted on his page
+                <a href="{% url 'home' post.user.id %}">{{ post.user.profile.nickName }}</a> posted on his page
                 <div class="date">
                     {{ post.time }}
                 </div>
@@ -68,10 +68,10 @@
                     </a>
                     <div class="content">
                         {% if comment.replyTo %}
-                        <a href="{% url 'home' comment.user.id %}" class="author">{{ comment.user.username }}</a> 回复 
-                        <a href="{% url 'home' comment.replyTo.user.id %}" class="author">{{ comment.replyTo.user.username }}</a>
+                        <a href="{% url 'home' comment.user.id %}" class="author">{{ comment.user.profile.nickName }}</a> 回复 
+                        <a href="{% url 'home' comment.replyTo.user.id %}" class="author">{{ comment.replyTo.user.profile.nickName }}</a>
                         {% else %}
-                        <a class="author">{{ comment.user.username }}</a>
+                        <a class="author">{{ comment.user.profile.nickName }}</a>
                         {% endif %}
                         <div class="metadata">
                             <span class="date">{{ comment.time }}</span>
