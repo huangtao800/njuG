@@ -27,16 +27,7 @@
         {% endfor %}
         <!-- <textarea name="content" rows="12" required></textarea> -->
       </div>
-      <div class="inline field">
-        <div class="ui toggle checkbox">
-            {{ form.isAnonymous }}
-          <!-- <input type="checkbox" tabindex="0" class="hidden"> -->
-          <label>匿名发布</label>
-        {% for error in form.isAnonymous.errors %}
-            {{error}}
-        {% endfor %}
-        </div>
-      </div>
+
       <button id="submitButton" class="ui labeled icon blue basic button" type="submit">
         <i class="send icon"></i>
         发布帖子

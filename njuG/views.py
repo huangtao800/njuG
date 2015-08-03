@@ -219,6 +219,8 @@ def viewDiscussion(request, id):
 	if(request.method=='GET'):
 		blog = Blog.objects.get(pk=id)
 		blogComments = blog.blogcomment_set.all()
+		blog.viewCount+=1
+		blog.save()
 		context = {'blog':blog, 'blogComments': blogComments}
 		return render(request, 'njuG/viewDiscussion.html', context)
 
@@ -232,6 +234,8 @@ def commentBlog(request):
 			blog = Blog.objects.get(pk=blogid)
 			blogComment = BlogComment(content=content, user=user, blog=blog, time=timezone.now())
 			blogComment.save()
+			blog.commentCount+=1
+			blog.save()
 			
 			target = blog.user
 			if target.id != request.user.id:
@@ -258,6 +262,8 @@ def replyBlogComment(request):
 			masterComment = BlogComment.objects.get(pk=masterCommentid)
 			blogComment = BlogComment(content=content, user=user, blog=blog, replyTo=replyTo, masterComment=masterComment)
 			blogComment.save()
+			blog.commentCount+=1
+			blog.save()
 			
 			target1 = blog.user
 			target2 = replyTo.user
