@@ -15,6 +15,7 @@ $(document).ready(function(){
 					$("#postForm textarea").val('');
 					$("#imgPreviewTable").empty();
 					showMessage(1, "发布成功！");
+					window.location.replace("/njuG");
 				}
 				else{
 					if(response["msg"]==="user not login"){

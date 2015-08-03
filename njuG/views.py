@@ -12,6 +12,7 @@ from django.http import JsonResponse,HttpResponse, HttpResponseRedirect, HttpRes
 from django.utils import timezone
 from njuG.forms.myForms import BlogForm, ProfileForm, ActivityForm
 from allauth.account.signals import user_signed_up
+from django.core.urlresolvers import reverse
 from . import utils
 
 # Create your views here.
@@ -148,7 +149,7 @@ def postUploadImg(request):
 		file = request.FILES[u'files[]']
 		filename = file.name
 		filesize = file.size
-		
+
 		image = Image()
 		image.file = file
 		image.user = request.user
@@ -170,6 +171,8 @@ def postUploadImg(request):
 						"deleteType": "POST"})
 		
 		return JsonResponse({"files": imgList});
+	else:
+		return HttpResponseRedirect(reverse('account_login'))
 	
 def deletePostImg(request, pk):
 	if request.method == 'POST':

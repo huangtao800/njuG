@@ -79,6 +79,13 @@
         
         $(".launch.item").removeClass("active");
         $(".launch.item").eq(0).addClass("active");
+        
+        $("#fileupload").click(function(){
+            {% if not request.user.is_authenticated %}
+            window.location.replace("/accounts/login/");
+            return false;
+            {% endif %}
+        });
         $("#fileupload").change(function(e){
             var fileNum = $("#fileupload").prop("files").length + $("table").find("tr").length;
             if(fileNum > 3 ){
