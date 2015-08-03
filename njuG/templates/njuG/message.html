@@ -28,79 +28,22 @@
 {% block tab_content %}
 
 <div class="ui feed">
+    <h3 class="ui dividing header">未读消息</h3>
     {% for message in messages %}
-    {% with source=message.source %}
-    <div class="event">
-        <div class="label">
-            {% if source.profile.hasAvatar %}
-            <img src="{% static message.source.username|getAvatarPath %}">
-            {% else %}
-            <img src="{% static ''|getAvatarPath %}">
-            {% endif %}
-        </div>
-        <div class="content">
-            <div class="summary">
-                <a>{{ source.username }}</a>
-                <span class="messageTopic">
-                    {% if message|isPostComment or message|isReplyPostComment %}
-                    &nbsp在$nbsp{{ message.masterPost.content }}
-                    {% elif message|isBlogComment or message|isReplyBlogComment %}
-                    &nbsp在&nbsp{{ message.masterBlog.title }}
-                    {% endif %}
-                </span>
-                {% if message|isPrivateMessage %}
-                向你发送私信
-                {% else %}
-                中评论你：
-                {% endif %}
-                <div class="date">
-                    {{ message.time }}
-                </div>
-            </div>
-            <div class="extra text">
-                {{ message.content }}
-            </div>
-            
-            
-            <div class="ui comments">
-                <div class="comment">
-                    <div class="actions">
-                        <a class="reply postCommentReply" messageid="{{message.id}}">回复</a>
-                        <a class="read" messageid="{{message.id}}">已读</a>
-                        {% if message|isPostComment or message|isReplyPostComment %} 
-                        <form class="ui form postCommentReplyForm" style="display: none" 
-                        commentid="{{ message.postComment.id}}", postid="{{ message.masterPost.id}}">
-                        
-                        {% elif message|isBlogComment %}
-                        <form class="ui form replyCommentForm" style="display: none" 
-                        commentid="{{ message.blogComment.id}}", masterCommentid="{{message.blogComment.id}}"
-                         blogid="{{ message.masterBlog.id}}">
-                        
-                        {% elif message|isReplyBlogComment %}
-                        <form class="ui form replyCommentForm" style="display: none" 
-                        commentid="{{ message.blogComment.id}}", masterCommentid="{{message.masterComment.id}}"
-                         blogid="{{ message.masterBlog.id}}">
-                        
-                        {% elif message|isPrivateMessage %}
-                        <form class="ui form replyMessageForm" style="display: none"
-                        targetid="{{message.source.id}}" >
-                        {% endif %}
-                            <div class="field">
-                                <textarea rows="2" name="content" required></textarea>
-                            </div>
-                            <button class="ui labeled icon tiny basic button" type="submit">
-                                <i class="send icon"></i>
-                                回复
-                            </button>
-                        </form>
-                    </div>                
-                </div>
-            </div>
-
-            
-        </div>
-    </div>
-    {% endwith %}
+        {% if not message.isRead %}
+        {% with source=message.source %}
+        {% include 'njuG/message_list.html' %}
+        {% endwith %}
+        {% endif %}
+    {% endfor %}
+    
+    <h3 class="ui dividing header">已读消息</h3>
+    {% for message in messages %}
+        {% if message.isRead %}
+        {% with source=message.source %}
+        {% include 'njuG/message_list.html' %}
+        {% endwith %}
+        {% endif %}
     {% endfor %}
 </div>
 
