@@ -42,6 +42,8 @@ function cropImage(){
 
 function uplpadAvatar(){
 	if($("#cropImg").attr("src")){
+		$("#uploadAvatarBtn").addClass("loading");
+		$("#uploadAvatarBtn").prop("disabled",true);
 		var x = $("#cropImg").cropper("getData")['x'];
 		var y = $("#cropImg").cropper("getData")['y'];
 		var width = $("#cropImg").cropper("getData")['width'];
@@ -55,8 +57,12 @@ function uplpadAvatar(){
 			type: 'POST',
 			data: {"x": x, "y":y, "width":width, "height":height, "imgName": imgName, "imgContent": imgContent},
 			success: function(response){
-				alert("success");
+				alert("上传成功");
 			},
+			complete: function(){
+				$("#uploadAvatarBtn").removeClass("loading");
+				$("#uploadAvatarBtn").prop("disabled",false);
+			}
 		});
 	}
 	return false;
