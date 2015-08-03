@@ -53,6 +53,10 @@
                          <div class="field">
                             <button id="sendMessage" class="ui basic button">发送私信</button>
                          </div> 
+                        {% else %}
+                         <div class="field">
+                            <a id="changeProfile" href="{% url 'profile' %}" class="ui basic button">修改资料</a>
+                         </div> 
                         {% endif %}
                     </div>                  
                 </div>

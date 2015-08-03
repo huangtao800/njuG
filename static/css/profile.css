@@ -9,7 +9,7 @@
 	height: 400px;
 }
 
-#changeAvatar, #removeAvatar{
+.three.wide.column > .ui.button{
 	margin-top:1em;
 }
 

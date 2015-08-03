@@ -20,7 +20,8 @@
             {% endif %}
             <br />
             <button id="changeAvatar" class="ui basic button">修改头像</button><br />
-            <button id="removeAvatar" class="ui red button">删除头像</button>
+            <button id="removeAvatar" class="ui black button">删除头像</button><br />
+            <a class="ui red button" href="{% url 'account_reset_password' %}">修改密码</a>
         </div>
         <div class="nine wide column">
             <form id="postProfileForm" class="ui form" method="post" >
