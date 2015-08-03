@@ -10,7 +10,9 @@ I created this website with the hope of boosting the communication among gay stu
 4. pip install sorl-thumbnail
 5. sudo apt-get install libjpeg-dev
 6. pip install Pillow
-7. Edit njuGay/settings.py. Change the database name, and password.
+7. Build a new database in your MySQL database
+8. Edit njuGay/settings.py. Modify "DATABASES" secition, change the database name, user and password to the ones you created in step 7.
+9. Edit njuGay/settings.py. Modify "EMAIL_HOST", "EMAIL_HOST_USER", "EMAIL_HOST_PASSWORD" and "EMAIL_PORT" to your preferred email service. The default configuration uses Gmail to send emails to users.
 
 ## Features
 1. Sharing status, pictures, and blogs
