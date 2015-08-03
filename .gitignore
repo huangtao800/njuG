@@ -65,3 +65,6 @@ node_modules/
 
 # Django Media
 media/
+
+static/img/avatar
+static/img/avatar/origin
