@@ -1,0 +1,33 @@
+            <div style="text-align: center;">
+                <div class="ui pagination menu">
+                  <a class="item" href="?page=1">
+                    首页
+                  </a>
+                  {% if list.has_previous %}
+                  <a class="item" href="?page={{list.previous_page_number}}">
+                    上一页
+                  </a>
+                  {% else %}
+                  <div class="disabled item">
+                    前一页
+                  </div>
+                  {% endif %}
+                  
+                  <a class="item" href="?page={{list.number}}">
+                    第{{list.number}}页
+                  </a>
+                  
+                  {% if list.has_next %}
+                  <a class="item" href="?page={{list.next_page_number}}">
+                    下一页
+                  </a>
+                  {% else %}
+                  <div class="disabled item">
+                    下一页
+                  </div>
+                  {% endif %}
+                  <a class="item" href="?page={{list.paginator.num_pages}}">
+                    末页
+                  </a>
+                </div>
+            </div>

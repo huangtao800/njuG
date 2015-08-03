@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.dispatch import receiver
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from njuG.models import Post, Like, Comment, Blog, BlogComment, Image, Profile, Message, Activity
 from django.views.generic import CreateView, DeleteView, ListView
@@ -15,14 +16,17 @@ from . import utils
 
 # Create your views here.
 def index(request):
-	if(request.user.is_authenticated()):
-		posts = Post.objects.all()
+	post_list = Post.objects.all()
+	paginator = Paginator(post_list, 8)
+	page = request.GET.get('page')
+	try:
+		posts = paginator.page(page)
+	except PageNotAnInteger:
+		posts = paginator.page(1)
+	except EmptyPage:
+		posts = paginator.page(paginator.num_pages)
 		
-		context = {'posts': posts}
-	else:
-		posts = Post.objects.all()
-		context = {'posts': posts}	
-	return render(request, 'njuG/index.html', context)
+	return render(request, 'njuG/index.html', {'posts': posts})
 
 # @login_required
 def post(request):
@@ -180,7 +184,17 @@ def deletePostImg(request, pk):
 
 
 def discussion(request):
-	blogs = Blog.objects.all()
+	blog_list = Blog.objects.all()
+	paginator = Paginator(blog_list, 10)
+	page = request.GET.get('page')
+	
+	try:
+		blogs = paginator.page(page)
+	except PageNotAnInteger:
+		blogs = paginator.page(1)
+	except EmptyPage:
+		blogs = paginator.page(paginator.num_pages)
+		
 	context = {'blogs': blogs}
 	return render(request, 'njuG/discussion.html', context)
 
@@ -320,8 +334,20 @@ def postAvatar(request):
 	
 def activity(request):
 	if(request.method=='GET'):
-		activities = Activity.objects.all()
-		return render(request, 'njuG/activity.html',{"activities": activities})
+		
+		activity_list = Activity.objects.all()
+		paginator = Paginator(activity_list, 10)
+		page = request.GET.get('page')
+		
+		try:
+			activities = paginator.page(page)
+		except PageNotAnInteger:
+			activities = paginator.page(1)
+		except EmptyPage:
+			activities = paginator.page(paginator.num_pages)
+			
+		context = {'activities': activities}
+		return render(request, 'njuG/activity.html',context)
 
 @login_required
 def home(request, **kwargs):
