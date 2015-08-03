@@ -56,6 +56,8 @@ class Blog(Event):
     content = models.TextField()
     user = models.ForeignKey(User)
     isAnonymous = models.BooleanField(default=False)
+    viewCount = models.IntegerField(default=0)
+    commentCount = models.IntegerField(default=0)
     
 class BlogComment(Event):
     content = models.TextField()
