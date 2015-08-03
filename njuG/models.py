@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
 from django.utils import timezone
+from django.conf import settings
 from sorl.thumbnail import ImageField
 
 # Create your models here.
@@ -66,12 +67,7 @@ class BlogComment(Event):
 class Profile(models.Model):
     user = models.OneToOneField(User)
     nickName = models.CharField(max_length=30, default="无昵称")
-    NJU = u'南京大学'
-    OTHER = u'其他学校'
-    SCHOOL_CHOICES = (
-        (NJU, u'南京大学'),
-        (OTHER, u'其他学校'))
-    school = models.CharField(max_length=10, choices=SCHOOL_CHOICES, default=NJU)
+    school = models.CharField(max_length=10, choices=settings.SCHOOL_LIST, default=u'南京大学')
     
     TOP = u'攻'
     BOTTOM = u'受'

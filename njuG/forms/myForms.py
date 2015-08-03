@@ -10,7 +10,7 @@ class LoginForm(AuthenticationForm):
 class ProfileForm(forms.Form):
     nickName = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'placeholder':'昵称','required':'true'}),
                                required=True, error_messages={'required': '请填写昵称'})
-    school = forms.ChoiceField(((u'南京大学',u'南京大学'), (u'其他学校',u'其他学校')), initial = '南京大学')
+    school = forms.ChoiceField(settings.SCHOOL_LIST, initial = u'南京大学')
     degree = forms.ChoiceField(((u'本科',u'本科'), (u'硕士',u'硕士'), (u'博士', u'博士')), initial = '本科')
     role = forms.ChoiceField(((u'攻',u'攻'), (u'受',u'受'), (u'不限',u'不限'), (u'保密', u'保密')), initial = 4)
     
