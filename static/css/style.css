@@ -101,3 +101,8 @@ body > .segment{
     border-radius: .28571429rem;
     font-weight: 700;*/
 }
+
+.ui.button, .ui .menu,
+h1,h2,h3,h4,h5{
+	font-family: 'Lato','Helvetica Neue','Arial','Helvetica','Microsoft YaHei', 'WenQuanYi Micro Hei';
+}
