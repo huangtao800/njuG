@@ -14,6 +14,9 @@ class ProfileForm(forms.Form):
     degree = forms.ChoiceField(((u'本科',u'本科'), (u'硕士',u'硕士'), (u'博士', u'博士')), initial = '本科')
     role = forms.ChoiceField(((u'攻',u'攻'), (u'受',u'受'), (u'不限',u'不限'), (u'保密', u'保密')), initial = 4)
     
+    BIRTH_YEAR_CHOICES = [(i,i) for i in range(1970,2005)]
+    birth_year = forms.ChoiceField(BIRTH_YEAR_CHOICES, initial=1995)
+    
 class BlogForm(forms.Form):
     title = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder':'标题','required':'true'}), 
                             required=True, error_messages={'required': '请填写标题'})

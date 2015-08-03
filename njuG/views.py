@@ -305,8 +305,9 @@ def profile(request):
 			profile.school = profileForm.cleaned_data['school']
 			profile.degree = profileForm.cleaned_data['degree']
 			profile.role = profileForm.cleaned_data['role']
+			profile.birth_year = profileForm.cleaned_data['birth_year']
 			profile.save()
-			return render(request, 'njuG/profile.html', {'form': profileForm})
+			return JsonResponse({'result':1, 'msg':''})
 
 @login_required
 def postAvatar(request):
