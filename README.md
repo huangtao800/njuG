@@ -3,7 +3,7 @@ njuG (name might be changed) is a website built with Django 1.8.
 
 ## How to set up
 1. pip install Django==1.8.3
-2. Install MySQLdb
+2. pip install mysql-python
 3. pip install django-allauth
 4. pip install sorl-thumbnail
 5. sudo apt-get install libjpeg-dev
