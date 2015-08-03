@@ -20,7 +20,7 @@
           <!-- <img src="{% static "img/avatar/small/elliot.jpg" %}"> -->
         </a>
         <div class="content">
-          <a class="author">{{blog.user.username}}</a>
+          <a class="author" href="{% url 'home' blog.user.id %}">{{blog.user.username}}</a>
           <div class="text date" style="color: rgba(0,0,0,.4);">
             <span class="date">{{ blog.time }}</span>
           </div>
@@ -77,7 +77,7 @@
                       {% endif %}
                   </a>
                   <div class="content">
-                      <a class="author">{{ reply.user.username }}</a>回复<a class="author">{{ reply.replyTo.user.username }}</a>
+                      <a class="author" href="{% url 'home' reply.user.id %}">{{ reply.user.username }}</a>回复<a class="author">{{ reply.replyTo.user.username }}</a>
                       <div class="metadata">
                           <span class="date">{{ reply.time }}</span>
                       </div>
@@ -86,7 +86,7 @@
                       </div>
                       <div class="actions">
                           <a class="reply">回复</a>
-                          <form class="ui form replyCommentForm" style="display: none" commentid="{{ comment.id }}" blogid="{{ blog.id }}" masterCommentid="{{comment.id}}">
+                          <form class="ui form replyCommentForm" style="display: none" commentid="{{ reply.id }}" blogid="{{ blog.id }}" masterCommentid="{{comment.id}}">
                               <div class="field">
                                   <textarea rows="2" name="content" required></textarea>
                               </div>
@@ -146,24 +146,12 @@
             $(this).next().slideToggle("fast");
         });
         
-        $(".replyCommentForm").submit(function(){
-            var blogid = $(this).attr("blogid");
-            var commentid = $(this).attr("commentid");
-            var masterCommentid = $(this).attr("masterCommentid");
-            var content = $(this).find("textarea").first().val();
-            $(this).ajaxSubmit({
-                dataType: "json",
-                headers: { "X-CSRFToken": $.cookie("csrftoken") },
-                type: "POST",
-                url: "/njuG/replyBlogComment/",
-                data: {"blogid": blogid, "commentid": commentid, "content": content, "masterCommentid":masterCommentid},
-                success: function(response){
-                    showMessage(1,"回复成功！");
-                }
-            });
-            return false;
-        });
+
     });
     
 </script>
 {% endblock %}
+
+{% block loadJs %}
+<script src="{% static "js/replyBlogComment.js" %}"></script>
+{% endblock%}

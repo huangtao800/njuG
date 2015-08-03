@@ -43,7 +43,13 @@
                         <div class="field">
                             <div class="label"><label>角色: </label></div>
                             <div class="value"><span>{{ target.profile.role }}</span></div>
-                        </div>                        
+                        </div>
+                         
+                        {% if request.user.id != target.id %}
+                         <div class="field">
+                            <button id="sendMessage" class="ui basic button">发送私信</button>
+                         </div> 
+                        {% endif %}
                     </div>                  
                 </div>
                 
@@ -67,4 +73,47 @@
         <div class="two wide column"></div>
     </div>
 </div>
+
+<div class="ui modal">
+  <div class="header">向{{target.username}}发送私信</div>
+  <div class="content">
+    <form id="sendMessageForm" class="ui form">
+        {% csrf_token %}
+        <div class='field'>
+            <textarea targetid="{{target.id}}" name="messageContent" rows=4 placeholder='私信内容'></textarea>
+        </div>
+    </form>
+  </div>
+  <div class="actions">
+    <div id="sendMessageButton" class="ui primary button">发送</div>
+  </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        $("#sendMessage").click(function(){
+            $(".ui.modal").modal("show");
+        });
+            
+        $("#sendMessageButton").click(function(){
+            var messageContent = $('textarea').val();
+            var targetid = $('textarea').attr("targetid");
+            $("#sendMessageForm").ajaxSubmit({
+                dataType:"json",
+                url: "/njuG/sendMessage/",
+                type: 'POST',
+                headers: { "X-CSRFToken": $.cookie("csrftoken") },
+                data: {'messageContent':messageContent, 'targetid':targetid},
+                success: function(response){
+                    result = response['result'];
+                    if(result){
+                        $(".ui.modal").modal("hide");
+                    }
+                },
+            });
+        });
+    });
+
+
+</script>
 {% endblock %}

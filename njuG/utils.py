@@ -13,8 +13,16 @@ def createMessage(source, target, **kwargs):
         content = kwargs['content']
         blog = kwargs['blog']
         blogComment = kwargs['blogComment']
-        message = Message(source=source, target=target, type=type, 
-                masterBlog=blog, content=content, blogComment=blogComment, time=timezone.now())
+        if type==Message.REPLY_BLOG_COMMENT:
+            masterComment = kwargs['masterComment']
+            message = Message(source=source, target=target, type=type, 
+                    masterBlog=blog, content=content, blogComment=blogComment, masterComment=masterComment, time=timezone.now())
+        else:
+            message = Message(source=source, target=target, type=type, 
+                    masterBlog=blog, content=content, blogComment=blogComment, time=timezone.now())
+    elif(type==Message.PRIVATE_MESSAGE):
+        content = kwargs['content']
+        message = Message(source=source, target=target, type=type, content=content, time=timezone.now())
     target.profile.unreadMessageCount += 1
     target.profile.save()
     message.save()

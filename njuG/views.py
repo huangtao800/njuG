@@ -249,10 +249,10 @@ def replyBlogComment(request):
 			target2 = replyTo.user
 			if target1.id != request.user.id:
 				utils.createMessage(request.user, target1, type=Message.REPLY_BLOG_COMMENT, 
-								blog=blog, content=content, blogComment=blogComment)
+								blog=blog, content=content, blogComment=blogComment, masterComment=masterComment)
 			if target2.id!=target1.id and target2.id!=request.user.id:
 				utils.createMessage(request.user, target2, type=Message.REPLY_BLOG_COMMENT, 
-								blog=blog, content=content, blogComment=blogComment)
+								blog=blog, content=content, blogComment=blogComment, masterComment=masterComment)
 			return JsonResponse({'result':1, 'msg':''})
 		except Exception as e:
 			print e.message
@@ -394,4 +394,14 @@ def viewActivity(request, id):
 	if(request.method=='GET'):
 		activity = Activity.objects.get(pk=id)
 		return render(request, "njuG/viewActivity.html", {"activity": activity})
-			
+	
+def sendMessage(request):
+	if request.method=='POST' and request.user.is_authenticated():
+		messageContent = request.POST['messageContent']
+		targetid = request.POST['targetid']
+		target = User.objects.get(pk=targetid)
+		utils.createMessage(request.user, target, content=messageContent, type=Message.PRIVATE_MESSAGE)
+		return JsonResponse({'result': 1, 'msg':''})
+	else:
+		return JsonResponse({'result': 0, 'msg':'user not login'})
+		

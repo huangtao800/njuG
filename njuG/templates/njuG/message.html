@@ -40,14 +40,19 @@
         </div>
         <div class="content">
             <div class="summary">
-                <a>{{ source.username }}</a> 在
+                <a>{{ source.username }}</a>
                 <span class="messageTopic">
                     {% if message|isPostComment or message|isReplyPostComment %}
-                    {{ message.masterPost.content }}
+                    &nbsp在$nbsp{{ message.masterPost.content }}
                     {% elif message|isBlogComment or message|isReplyBlogComment %}
-                    {{ message.masterBlog.title }}
+                    &nbsp在&nbsp{{ message.masterBlog.title }}
                     {% endif %}
-                </span> 中评论你：
+                </span>
+                {% if message|isPrivateMessage %}
+                向你发送私信
+                {% else %}
+                中评论你：
+                {% endif %}
                 <div class="date">
                     {{ message.time }}
                 </div>
@@ -65,9 +70,20 @@
                         {% if message|isPostComment or message|isReplyPostComment %} 
                         <form class="ui form postCommentReplyForm" style="display: none" 
                         commentid="{{ message.postComment.id}}", postid="{{ message.masterPost.id}}">
-                        {% elif message|isBlogComment or message|isReplyBlogComment %}
-                        <form class="ui form postCommentReplyForm" style="display: none" 
-                        commentid="{{ message.blogComment.id}}", blogid="{{ message.masterBlog.id}}">
+                        
+                        {% elif message|isBlogComment %}
+                        <form class="ui form replyCommentForm" style="display: none" 
+                        commentid="{{ message.blogComment.id}}", masterCommentid="{{message.blogComment.id}}"
+                         blogid="{{ message.masterBlog.id}}">
+                        
+                        {% elif message|isReplyBlogComment %}
+                        <form class="ui form replyCommentForm" style="display: none" 
+                        commentid="{{ message.blogComment.id}}", masterCommentid="{{message.masterComment.id}}"
+                         blogid="{{ message.masterBlog.id}}">
+                        
+                        {% elif message|isPrivateMessage %}
+                        <form class="ui form replyMessageForm" style="display: none"
+                        targetid="{{message.source.id}}" >
                         {% endif %}
                             <div class="field">
                                 <textarea rows="2" name="content" required></textarea>
@@ -117,4 +133,6 @@
 
 {% block loadJs %}
 <script src="{% static "js/createEvent.js" %}"></script>
+<script src="{% static "js/replyBlogComment.js" %}"></script>
+<script src="{% static "js/replyMessage.js" %}"></script>
 {% endblock%}
