@@ -12,6 +12,7 @@ from datetime import datetime
 class Image(models.Model):
     file = ImageField(upload_to="images")
     user = models.ForeignKey(User)
+    
  
 @receiver(pre_delete, sender=Image)
 def image_delete(sender, instance, **kwargs):
@@ -36,8 +37,8 @@ class Post(Event):
     
     def comments(self):
         return self.comment_set.all().order_by("-time")
-    def __str__(self): 
-        return self.content
+    def __unicode__(self): 
+        return u'%s' % self.content
 
 class Comment(Event):
     content = models.CharField(max_length=500)
@@ -142,6 +143,8 @@ class Message(models.Model):
     masterComment = models.ForeignKey(BlogComment, blank=True, null=True, related_name="master_comment")
     content = models.TextField()
     
+    def __unicode__(self): 
+        return u'%s' % self.content
     class Meta:
         ordering=['-time']
 
