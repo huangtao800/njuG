@@ -28,3 +28,8 @@
 .ui.items>.item>.content>.description{
 	margin-top: 0.3em;
 }
+
+img, .trumbowyg-editor img{
+	max-width:450px;
+	max-height:450px;
+}
