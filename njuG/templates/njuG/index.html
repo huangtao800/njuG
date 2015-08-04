@@ -90,7 +90,14 @@
             var fileNum = $("#fileupload").prop("files").length + $("table").find("tr").length;
             if(fileNum > 3 ){
                 alert("抱歉！一条状态至多可以关联3张图片。");
-                e.stopImmediatePropagation();
+                // e.stopImmediatePropagation();
+                setTimeout(function(){
+                    var imgs = $("table").find("tr");
+                    var length = imgs.length;
+                    for(i=3;i<length;i++){
+                        imgs[i].remove();
+                    }
+                },100);
             }
         });
         
