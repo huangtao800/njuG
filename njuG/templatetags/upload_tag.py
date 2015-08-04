@@ -29,13 +29,13 @@ def upload_js():
             {% if (!o.files.error && !i && !o.options.autoUpload) { %}
                 <button class="ui labeled icon blue button start">
                     <i class="cloud upload icon"></i>
-                    <span>{%=locale.fileupload.start%}</span>
+                    <span>上传</span>
                 </button>
             {% } %}
             {% if (!i) { %}
                 <button class="ui labeled icon button cancel">
                     <i class="ban icon"></i>
-                    <span>{%=locale.fileupload.cancel%}</span>
+                    <span>取消</span>
                 </button>
             {% } %}
         </td>
@@ -67,7 +67,7 @@ def upload_js():
         <td>
             <button class="ui labeled icon red button delete" data-imgpk="{%=file.imgPk%}" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
                 <i class="remove icon"></i>
-                <span>{%=locale.fileupload.destroy%}</span>
+                <span>删除</span>
             </button>
             
         </td>

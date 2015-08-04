@@ -102,3 +102,7 @@ img{
 .ui.form .field{
 	margin-top: 1em;
 }
+
+.ui.feed>.event>.content .summary{
+	font-size: 0.9em;
+}
