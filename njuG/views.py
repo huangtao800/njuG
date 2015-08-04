@@ -441,3 +441,16 @@ def sendMessage(request):
 	else:
 		return JsonResponse({'result': 0, 'msg':'user not login'})
 		
+		
+def poll(request):
+	from django.core.mail import send_mail
+	if(request.method=='POST'):
+		content = request.POST['content']
+		if content==u'1':
+			send_mail(u'问卷调查', '我支持edu邮箱注册', 'njuboyclub@gmail.com',
+    			['huangtao7725@live.com'], fail_silently=False)
+		elif content==u'0':
+			send_mail(u'问卷调查', '我不支持edu邮箱注册', 'njuboyclub@gmail.com',
+    			['huangtao7725@live.com'], fail_silently=False)
+		return JsonResponse({'result': 1, 'msg':''})
+	

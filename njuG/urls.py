@@ -36,6 +36,7 @@ urlpatterns = [
     url(r'^home/(?P<id>[0-9]+)/$', views.home, name="home"),
     
     url(r'^setMessageRead/$', views.setMessageRead, name="setMessageRead"),
-     url(r'^sendMessage/$', views.sendMessage, name="sendMessage"),
+    url(r'^sendMessage/$', views.sendMessage, name="sendMessage"),
     
+    url(r'^poll/$', views.poll, name="poll"),
 ]

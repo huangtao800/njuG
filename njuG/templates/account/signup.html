@@ -9,7 +9,7 @@
 	<div class="row">
 		<div class="nine wide column"></div>
 		<div class="five wide column">
-		    <p>{% blocktrans %}已经有账户了? <a href="{{ login_url }}">点击登陆</a>.{% endblocktrans %}</p>
+		    <p>{% blocktrans %}已经有账户了? <a href="{{ login_url }}">点击登录</a>.{% endblocktrans %}</p>
 			<form class="ui form" id="signup_form" method="post" action="/accounts/signup/">
                 {% for error in form.non_field_errors %}
                     {{ error|escape }}
@@ -38,6 +38,12 @@
 					<label for="{{form.email.id__for_label}}">电子邮箱</label>
 					{{ form.email }}
 				</div>
+                <div class="field" id="poll">
+                    <p>目前网站处于测试阶段，任意邮箱均可注册，但是您可以告诉开发者您是否支持仅限于edu邮箱注册：（这是一项匿名且自愿的调查）</p>
+                    <p>使用edu邮箱可以确保用户均为高校学生或校友。<a href="http://nic.nju.edu.cn/35/e2/c598a13794/page.htm">了解如何获得edu邮箱</a></p>
+                    <button class="ui basic button pollBtn" value='1' type="button">支持</button>
+                    <button class="ui basic button pollBtn" value='0' type="button">不支持</button>
+                </div>
 				{% if redirect_field_value %}
 				<input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
 				{% endif %}
@@ -47,6 +53,31 @@
 		<div class = "two wide column"></div>
 	</div>	
 </div>
+
+<script>
+    $(document).ready(function(){
+        $(".pollBtn").click(function(){
+            $(this).addClass("loading");
+            $(".pollBtn").prop("disabled",true);
+            var value = $(this).val();
+            $.ajax({
+                dataType:'json',
+                headers: { "X-CSRFToken": $.cookie("csrftoken") },
+                type: 'POST',
+                url: '/njuG/poll/',
+                data:{'content': value},
+                success: function(response){
+                    result = response['result'];
+                    if(result){
+                        var poll = $("#poll");
+                        poll.empty();
+                        poll.append($("<p></p>").text("您的意见已经告知开发者，感谢您的参与！"));
+                    }
+                }
+            });
+        });
+    });
+</script>
 
 
 <!-- <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
