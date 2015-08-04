@@ -23,7 +23,7 @@
                     
 			    {% csrf_token %}
 				<div class="field">
-					<label for="{{form.username.id__for_label}}">用户名</label>
+					<label for="{{form.username.id__for_label}}">登录名</label>
 					{{ form.username }}
 				</div>
 				<div class="field">
@@ -39,14 +39,15 @@
 					{{ form.email }}
 				</div>
                 <div class="field" id="poll">
-                    <p>目前网站处于测试阶段，任意邮箱均可注册，但是您可以告诉开发者您是否支持仅限于edu邮箱注册：（这是一项匿名且自愿的调查）</p>
-                    <p>使用edu邮箱可以确保用户均为高校学生或校友。<a href="http://nic.nju.edu.cn/35/e2/c598a13794/page.htm">了解如何获得edu邮箱</a></p>
+                    <p style="margin-bottom:0.5em;">目前网站处于测试阶段，任意邮箱均可注册，但是您可以告诉开发者您是否支持仅限于edu邮箱注册：（这是一项匿名且自愿的调查）</p>
+                    <p style="margin-bottom:0.5em;">使用edu邮箱可以确保用户均为高校学生或校友。<a href="http://nic.nju.edu.cn/35/e2/c598a13794/page.htm">了解如何获得edu邮箱</a></p>
                     <button class="ui basic button pollBtn" value='1' type="button">支持</button>
                     <button class="ui basic button pollBtn" value='0' type="button">不支持</button>
                 </div>
 				{% if redirect_field_value %}
 				<input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
 				{% endif %}
+				<p style="margin-bottom:0.6em;">您的注册资料将会被妥善保管。开发者承诺不会与任何第三方机构或个人分享您的信息。</p>
 				<button type="submit" class="ui submit blue button">{% trans "注册" %} &raquo;</button>
 			</form>
 		</div>
