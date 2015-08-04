@@ -418,8 +418,7 @@ def postActivity(request):
 			detailContact = form.cleaned_data['detailContact']
 			openSchoolList = form.cleaned_data['openSchoolList']
  			
-			openSchoolListData = " ".join(openSchoolList)
-# 			print openSchoolListData
+			openSchoolListData = u' '.join(openSchoolList)
 			activity = Activity(user=request.user, title=title,content=content,onlyForSchool=onlyForSchool,
 							openToAll=openToAll,contact=contact,detailContact=detailContact,
 							openSchoolList=openSchoolListData)
