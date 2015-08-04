@@ -158,15 +158,15 @@ def postUploadImg(request):
 		file_delete_url = '/njuG/deletePostImg/'
 		file_url = '/'
 		
-		im = get_thumbnail(image, "80x80", quality=50)
-		thumb_url = im.url
+# 		im = get_thumbnail(image, "80x80", quality=50)
+# 		thumb_url = im.url
 		
 		imgList = []
 		imgList.append({"name": filename,
 						"size": filesize,
 						"url": file_url,
 						"imgPk": image.pk,
-						"thumbnail_url": thumb_url,
+# 						"thumbnail_url": thumb_url,
 						"deleteUrl": file_delete_url + str(image.pk) + '/',
 						"deleteType": "POST"})
 		
