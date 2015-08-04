@@ -210,7 +210,7 @@ def postDiscussion(request):
 		print form.errors
 		if form.is_valid():
 			title = form.cleaned_data['title']
-			content = form.cleaned_data['blogContent']
+			content = form.cleaned_data['content']
 			isAnonymous = form.cleaned_data['isAnonymous']
 			user = request.user
 			blog = Blog(title=title,content=content,isAnonymous=isAnonymous,user=user, time=timezone.now())
@@ -219,6 +219,27 @@ def postDiscussion(request):
 	else:
 		form = BlogForm()
 	return render(request, 'njuG/postDiscussion.html',{'form': form})
+
+@login_required
+def editDiscussion(request, id):
+	if(request.method=="GET"):
+		blog = Blog.objects.get(pk=id)
+		if(request.user.id == blog.user.id):
+			form = BlogForm(blog.__dict__)
+			return render(request,'njuG/postDiscussion.html',{'form': form})
+	else:
+		blog = Blog.objects.get(pk=id)
+		if request.user.id == blog.user.id:
+			form = BlogForm(request.POST)
+			if form.is_valid():
+				title = form.cleaned_data['title']
+				content = form.cleaned_data['content']
+				isAnonymous = form.cleaned_data['isAnonymous']
+				blog.title = title
+				blog.content = content
+				blog.isAnonymous = isAnonymous
+				blog.save()
+				return HttpResponseRedirect("/njuG/discussion")
 
 def viewDiscussion(request, id):
 	if(request.method=='GET'):

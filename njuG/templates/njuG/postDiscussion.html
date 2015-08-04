@@ -20,9 +20,9 @@
         <!-- <input type="text" name="title" placeholder="标题" required> -->
       </div>
       <div class="field">
-        <label for="{{ form.blogContent.id_for_label }}">文章内容</label>
-        {{ form.blogContent }}
-        {% for error in form.blogContent.errors %}
+        <label for="{{ form.content.id_for_label }}">文章内容</label>
+        {{ form.content }}
+        {% for error in form.content.errors %}
             {{error}}
         {% endfor %}
         <!-- <textarea name="content" rows="12" required></textarea> -->
@@ -49,7 +49,7 @@
         
         $('.ui.checkbox').checkbox();
         
-        $("#id_blogContent").trumbowyg({
+        $("#id_content").trumbowyg({
             btnsDef:{
                 insertImages:{
                     dropdown: ['insertImage','base64'],
@@ -76,15 +76,6 @@
             $(".trumbowyg-viewHTML-button").mousedown();
         });
 
-//         
-//         
-        // $("button[type='submit']").click(function(){
-            // $(".trumbowyg-viewHTML-button").click();
-            // return false;
-            // if(!$("#id_content").val()){
-                // $("#id_content").val($(".trumbowyg-editor").text());
-            // }
-        // });
     });
 </script>
 {% endblock %}

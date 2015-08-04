@@ -9,6 +9,9 @@
 {% block content %}
 <div class="discussionPanel">
     <h2>{{ blog.title }}</h2>
+    {% if blog.user.id == request.user.id %}
+    <a href="{% url 'editDiscussion' blog.id %}">继续编辑</a>
+    {% endif %}
     <div class="ui comments">
       <div class="comment">
         <a class="avatar">

@@ -20,7 +20,7 @@ class ProfileForm(forms.Form):
 class BlogForm(forms.Form):
     title = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder':'标题','required':'true'}), 
                             required=True, error_messages={'required': '请填写标题'})
-    blogContent = forms.CharField(widget=forms.Textarea(attrs={'placeholder':'内容','required':'true'}),required=True)
+    content = forms.CharField(widget=forms.Textarea(attrs={'placeholder':'内容','required':'true'}),required=True)
     isAnonymous = forms.BooleanField(initial=False, required=False)
     
 class ActivityForm(forms.Form):

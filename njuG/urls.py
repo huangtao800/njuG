@@ -18,6 +18,7 @@ urlpatterns = [
     
     url(r'^discussion/', views.discussion, name="discussion"),
     url(r'^postDiscussion/', views.postDiscussion, name="postDiscussion"),
+    url(r'^editDiscussion/(?P<id>[0-9]+)/$', views.editDiscussion, name="editDiscussion"),
     url(r'^viewDiscussion/(?P<id>[0-9]+)/$', views.viewDiscussion, name="viewDiscussion"),
     url(r'^commentBlog/', views.commentBlog, name="commentBlog"),
     url(r'^replyBlogComment/', views.replyBlogComment, name="replyBlogComment"),
