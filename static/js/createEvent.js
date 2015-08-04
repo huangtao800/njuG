@@ -126,7 +126,16 @@ $(document).ready(function(){
 			url: "/njuG/replyPostComment",
 			data: {"commentid": commentid, "postid": postid, "content":content},
 			success: function(response){
-				showMessage(1,"回复成功！");
+				result = response['result'];
+				if(result){
+					showMessage(1,"回复成功！");
+				}else{
+					if(response["msg"]==="user not login"){
+						var url = window.location.protocol+"//"
+							+window.location.host+"/accounts/login";
+						window.location = url;
+					}
+				}
 			},
 		});
 		return false;

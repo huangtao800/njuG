@@ -137,6 +137,8 @@ def replyPostComment(request):
  			utils.createMessage(request.user, target2, type=Message.REPLY_POST_COMMENT, 
 				post=post, content=content, postComment=replyComment)
  		return JsonResponse(responseDict)
+ 	else:
+ 		return JsonResponse({'result':0, 'msg':'user not login'})
 
 # @login_required
 def postUploadImg(request):
@@ -227,9 +229,10 @@ def viewDiscussion(request, id):
 		context = {'blog':blog, 'blogComments': blogComments}
 		return render(request, 'njuG/viewDiscussion.html', context)
 
-@login_required
+
 def commentBlog(request):
-	if(request.method=='POST'):
+	if(request.method == 'POST' and request.user.is_authenticated()):
+		print "user log in"
 		try:
 			blogid = request.POST['blogid']
 			content = request.POST['content']
@@ -249,10 +252,12 @@ def commentBlog(request):
 			print e.message
 			responseDict = {'result':0, 'msg':e.message}
 			return JsonResponse(responseDict)
+	else:
+		return JsonResponse({'result':0, 'msg':'user not login'})
 
-@login_required
+# @login_required
 def replyBlogComment(request):
-	if(request.method=='POST'):
+	if(request.method=='POST' and request.user.is_authenticated()):
 		try:
 			blogid = request.POST['blogid']
 			commentid = request.POST['commentid']
@@ -281,6 +286,8 @@ def replyBlogComment(request):
 			print e.message
 			responseDict = {'result':0, 'msg':e.message}
 			return JsonResponse(responseDict)
+	else:
+		return JsonResponse({'result':0, 'msg':'user not login'})
 			
 
 @receiver(user_signed_up)
