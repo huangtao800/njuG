@@ -34,7 +34,7 @@
 
 .ui.action.input{
 	display: inline-flex;
-	min-width: 350px;
+	min-width: 300px;
 	padding-left: 0.75em;
 }
 
