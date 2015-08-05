@@ -1,8 +1,10 @@
 {% load account %}{% user_display user as user_display %}{% load i18n %}{% autoescape off %}{% blocktrans with site_name=current_site.name site_domain=current_site.domain %}Hello from {{ site_name }}!
 
-You're receiving this e-mail because user {{ user_display }} has given yours as an e-mail address to connect their account.
+您收到这封邮件是因为{{ user_display }}在{{site_domain}}上使用您的邮箱注册了账户。
 
-To confirm this is correct, go to {{ activate_url }}
+请点击如下链接确认注册： {{ activate_url }}
+
+如果您并未在{{site_domain}}上注册账户，请您忽略这封邮件。
 {% endblocktrans %}{% endautoescape %}
 {% blocktrans with site_name=current_site.name site_domain=current_site.domain %}Thank you from {{ site_name }}!
 {{ site_domain }}{% endblocktrans %}
