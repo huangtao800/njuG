@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load filters %}
+{% block loadCss %}
+<link rel="stylesheet" type="text/css" href="{% static "css/discussion.css" %}">
+{% endblock %}
+
+{% block content %}
+<div class="ui grid">
+    <div class="row">
+        <div class="two wide column"></div>
+        <div class="twelve wide column">
+            <div class="ui items">
+                {% for profile in profiles %}
+                {% with user=profile.user %}
+                <div class="item">
+                    <a class="ui image xtiny">
+                        {% if profile.hasAvatar %}
+                        <img class="ui image" src="{% static user.username|getAvatarPath %}">
+                        {% else %}
+                        <img class="ui image" src="{% static ''|getAvatarPath %}">
+                        {% endif %}
+                    </a>
+                    <div class="content">
+                        <a class="header" href="{% url 'home' user.id %}">{{profile.nickName}}</a>
+
+                    </div>
+                </div>
+                {% endwith %}
+                {% endfor %}
+            </div>
+            
+        </div>
+        
+        <div class="two wide column"></div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function(){
+        $(".launch.item").removeClass("active");
+    });
+</script>
+{% endblock %}

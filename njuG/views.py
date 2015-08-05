@@ -494,6 +494,12 @@ def sendMessage(request):
 		return JsonResponse({'result': 1, 'msg':''})
 	else:
 		return JsonResponse({'result': 0, 'msg':'user not login'})
+
+def searchUsers(request):
+	if(request.method=='POST'):
+		keyword = request.POST['keyword']
+		userProfiles = Profile.objects.filter(nickName__contains=keyword)
+		return render(request,'njuG/search_users.html',{'profiles':userProfiles})
 		
 		
 def poll(request):

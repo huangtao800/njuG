@@ -42,5 +42,6 @@ urlpatterns = [
     url(r'^setMessageRead/$', views.setMessageRead, name="setMessageRead"),
     url(r'^sendMessage/$', views.sendMessage, name="sendMessage"),
     
+    url(r'^searchUsers/$', views.searchUsers, name="searchUsers"),
     url(r'^poll/$', views.poll, name="poll"),
 ]

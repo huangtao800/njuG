@@ -36,6 +36,15 @@
         </div>
 
         <div class="right menu">
+            <div class="item">
+              <div class="ui transparent icon input">
+                <form id="searchUserForm" method="post" action="{% url 'searchUsers' %}">
+                    {% csrf_token %}
+                    <input type="text" name='keyword' placeholder="搜索用户...">
+                    <i id="searchUserBtn" class="search link icon"></i>
+                </form>
+              </div>
+            </div>
           <div id="homeDropdown" class="ui dropdown item">
             <i class="user icon"></i>
             
@@ -90,6 +99,9 @@
 <script>
     $(document).ready(function(){
         $("#homeDropdown").dropdown();
+        $("#searchUserBtn").click(function(){
+            $("#searchUserForm").submit();
+        });
     });
 </script>
 
