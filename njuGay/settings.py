@@ -46,7 +46,7 @@ INSTALLED_APPS = (
     'sorl.thumbnail',
 )
 
-SITE_ID = 1
+SITE_ID = 2
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -150,7 +150,7 @@ EMAIL_HOST_PASSWORD = 'Paul_1993'
 EMAIL_PORT = 587
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login'
-LOGIN_REDIRECT_URL = "/njuG/profile"
+LOGIN_REDIRECT_URL = "/njuG/"
 ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/njuG/profile'
 
 
