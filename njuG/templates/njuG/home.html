@@ -22,6 +22,16 @@
     {% endif %}
     
     {% if request.user.username == target.username %}
+    <a href="{% url 'myDiscussion' %}" class="item">
+      我的帖子
+    </a>
+    {% else %}
+    <a href="{% url 'hisDiscussion' target.id %}" class="item">
+        他的帖子
+    </a>
+    {% endif %}
+    
+    {% if request.user.username == target.username %}
     <a href="{% url 'message' %}" class="item">
       我的消息
       {% if request.user.profile.unreadMessageCount > 0 %}

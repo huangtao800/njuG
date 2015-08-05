@@ -1,0 +1,105 @@
+{% extends "njuG/home_base.html" %}
+
+{% load staticfiles %}
+{% load filters %}
+{% load thumbnail %}
+
+{% block loadCss %}
+<link rel="stylesheet" type="text/css" href="{% static "css/index.css" %}">
+<link rel="stylesheet" type="text/css" href="{% static "css/home.css" %}">
+{% endblock %}
+
+{% block tab_menu %}
+<div class="ui vertical fluid tabular menu">
+    {% if request.user.username == target.username %}
+    <a href="{% url 'myHome' %}" class="item">
+      我的发布
+    </a>
+    {% else %}
+    <a href="{% url 'home' target.id %}" class="item">
+        他的发布
+    </a>
+    {% endif %}
+    
+    {% if request.user.username == target.username %}
+    <a href="{% url 'myDiscussion' %}" class="item active">
+      我的帖子
+    </a>
+    {% else %}
+    <a href="{% url 'hisDiscussion' target.id %}" class="item active">
+        他的帖子
+    </a>
+    {% endif %}
+    
+    {% if request.user.username == target.username %}
+    <a href="{% url 'message' %}" class="item">
+      我的消息
+      {% if request.user.profile.unreadMessageCount > 0 %}
+      <div class="ui teal pointing left label">{{request.user.profile.unreadMessageCount}}</div>
+      {% endif %}
+    </a>
+    {% endif %}
+
+</div>
+{% endblock %}
+
+{% block tab_content %}
+<div class="ui feed">
+    {% for blog in blogs %}
+    <div class="event">
+        <div class="label">
+            {% if blog.user.profile.hasAvatar %}
+            <img src="{% static blog.user.username|getAvatarPath %}">
+            {% else %}
+            <img src="{% static ''|getAvatarPath %}">
+            {% endif %}
+        </div>
+        <div class="content">
+            <div class="summary">
+                <a href="{% url 'home' blog.user.id %}">{{ blog.user.profile.nickName }}</a> 发布了 <a href="{% url 'viewDiscussion' blog.id%}">{{blog.title}}</a>
+                <div class="date">
+                    {{ blog.time }}
+                </div>
+            {% if blog.user.id == request.user.id %}
+            <br>
+            <div class="meta">
+                <a class="deleteDiscussion" blogid="{{ blog.id }}">
+                    删除
+                </a>
+            </div>
+            {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+    $(document).ready(function(){
+        $(".deleteDiscussion").click(function(){
+            var blogid = $(this).attr("blogid");
+            var blogEvent = $(this).parents('.event').first();
+            $.ajax({
+                dataType: "json",
+                headers: { "X-CSRFToken": $.cookie("csrftoken") },
+                type: 'POST',
+                url: '/njuG/deleteDiscussion/',
+                data: {"blogid":blogid},
+                success: function(response){
+                    result = response['result'];
+                    if(result){
+                        blogEvent.slideUp("fast");
+                    }
+                },
+            });
+            return false;
+        });
+
+    });
+</script>
+
+{% endblock %}
+
+{% block loadJs %}
+<script src="{% static "js/createEvent.js" %}"></script>
+{% endblock %}

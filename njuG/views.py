@@ -241,6 +241,14 @@ def editDiscussion(request, id):
 				blog.save()
 				return HttpResponseRedirect("/njuG/discussion")
 
+def deleteDiscussion(request):
+	if request.method=="POST":
+		blogid = request.POST['blogid']
+		blog = Blog.objects.get(pk=blogid)
+		if blog.user.id == request.user.id:
+			blog.delete()
+			return JsonResponse({'result':1, 'msg':''})
+
 def viewDiscussion(request, id):
 	if(request.method=='GET'):
 		blog = Blog.objects.get(pk=id)
@@ -249,6 +257,11 @@ def viewDiscussion(request, id):
 		blog.save()
 		context = {'blog':blog, 'blogComments': blogComments}
 		return render(request, 'njuG/viewDiscussion.html', context)
+	
+@login_required
+def myBlogs(request):
+	if request.method=="GET":
+		return render(request, 'njuG/myBlogs.html', {"target": request.user})
 
 
 def commentBlog(request):
@@ -398,6 +411,20 @@ def home(request, **kwargs):
 		else:
 			target = request.user
 			return render(request, 'njuG/home.html', {"target": target})
+		
+@login_required
+def myDiscussion(request, **kwargs):
+	if(request.method=='GET'):
+		if('id' in kwargs):
+			id = kwargs['id']
+			user = User.objects.get(pk=id)
+			target = user
+			blogs = Blog.objects.filter(user=target)
+			return render(request, 'njuG/myBlog.html', {"target":target,'blogs':blogs})
+		else:
+			target = request.user
+			blogs = Blog.objects.filter(user=target)
+			return render(request, 'njuG/myBlog.html', {"target": target, 'blogs':blogs})
 				
 @login_required
 def message(request):

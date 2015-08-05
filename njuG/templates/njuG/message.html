@@ -15,6 +15,9 @@
     <a href="{% url 'myHome' %}" class="item">
       我的发布
     </a>
+    <a href="{% url 'myDiscussion' %}" class="item">
+      我的帖子
+    </a>   
     <a href="{% url 'message' %}" class="item active">
       我的消息
       {% if request.user.profile.unreadMessageCount > 0 %}

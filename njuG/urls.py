@@ -19,6 +19,7 @@ urlpatterns = [
     url(r'^discussion/', views.discussion, name="discussion"),
     url(r'^postDiscussion/', views.postDiscussion, name="postDiscussion"),
     url(r'^editDiscussion/(?P<id>[0-9]+)/$', views.editDiscussion, name="editDiscussion"),
+    url(r'^deleteDiscussion/$', views.deleteDiscussion, name="deleteDiscussion"),
     url(r'^viewDiscussion/(?P<id>[0-9]+)/$', views.viewDiscussion, name="viewDiscussion"),
     url(r'^commentBlog/', views.commentBlog, name="commentBlog"),
     url(r'^replyBlogComment/', views.replyBlogComment, name="replyBlogComment"),
@@ -35,6 +36,8 @@ urlpatterns = [
     url(r'^home/message/$', views.message, name="message"),
     url(r'^home/$', views.home, name="myHome"),
     url(r'^home/(?P<id>[0-9]+)/$', views.home, name="home"),
+    url(r'^home/myDiscussion$', views.myDiscussion, name="myDiscussion"),
+    url(r'^home/(?P<id>[0-9]+)/myDiscussion$', views.myDiscussion, name="hisDiscussion"),
     
     url(r'^setMessageRead/$', views.setMessageRead, name="setMessageRead"),
     url(r'^sendMessage/$', views.sendMessage, name="sendMessage"),
