@@ -13,7 +13,7 @@
 		<div class="two wide column"></div>
 		<div class="five wide column">
 			<h1>{% trans "登录" %}</h1>
-			<form method="post" action="{% url 'account_login' %}">
+			<form id="loginForm" method="post" action="{% url 'account_login' %}">
 				{% csrf_token %}
 				<div class="ui form">
 					<div class="field">
@@ -60,11 +60,11 @@
     }
     
     $(document).ready(function(){
-        var action = $("form").attr("action");
+        var action = $("#loginForm").attr("action");
         var next = getUrlParameter('next');
         if(next){
             var newAction = action + "?next=" + next;
-            $("form").attr("action", newAction);
+            $("#loginForm").attr("action", newAction);
         }
     }); 
 </script>
