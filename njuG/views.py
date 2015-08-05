@@ -334,7 +334,7 @@ def createProfile(sender, **kwargs):
 def profile(request):
 	if(request.method == "GET"):
 		profile = request.user.profile
-		profileForm = ProfileForm(initial={'nickName': profile.nickName, 'school':profile.school, 'role': profile.role})
+		profileForm = ProfileForm(initial={'nickName': profile.nickName, 'school':profile.school, 'birth_year':profile.birth_year , 'role': profile.role})
 		if(profile.hasAvatar):
 			avatar_path = "/static/img/avatar/" + request.user.username
 		else:

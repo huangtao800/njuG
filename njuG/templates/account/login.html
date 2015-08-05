@@ -13,7 +13,7 @@
 		<div class="two wide column"></div>
 		<div class="five wide column">
 			<h1>{% trans "登录" %}</h1>
-			<form method="POST" action="{% url 'account_login' %}">
+			<form method="post" action="{% url 'account_login' %}">
 				{% csrf_token %}
 				<div class="ui form">
 					<div class="field">

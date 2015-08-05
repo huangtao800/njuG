@@ -40,7 +40,7 @@
               <div class="ui transparent icon input">
                 <form id="searchUserForm" method="post" action="{% url 'searchUsers' %}">
                     {% csrf_token %}
-                    <input type="text" name='keyword' placeholder="搜索用户...">
+                    <input id="keyword" type="text" name='keyword' placeholder="搜索用户...">
                     <i id="searchUserBtn" class="search link icon"></i>
                 </form>
               </div>
@@ -102,6 +102,11 @@
         $("#searchUserBtn").click(function(){
             $("#searchUserForm").submit();
         });
+        // $("#keyword").keypress(function(e){
+              // if (e.which == 13) {
+                // return false;
+              // }
+        // });
     });
 </script>
 
