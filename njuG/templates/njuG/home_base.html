@@ -17,7 +17,7 @@
                          <div class="ui card">
                             <div class="image">
                                 {% if target.profile.hasAvatar %}
-                                <img src="{% static request.user.username|getAvatarPath %}">
+                                <img src="{% static target.username|getAvatarPath %}">
                                 {% else %}
                                 <img src="{% static ''|getAvatarPath %}">
                                 {% endif %}
