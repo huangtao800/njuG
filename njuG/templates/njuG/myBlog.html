@@ -35,7 +35,7 @@
     <a href="{% url 'message' %}" class="item">
       我的消息
       {% if request.user.profile.unreadMessageCount > 0 %}
-      <div class="ui teal pointing left label">{{request.user.profile.unreadMessageCount}}</div>
+      <div class="ui orange pointing left label">{{request.user.profile.unreadMessageCount}}</div>
       {% endif %}
     </a>
     {% endif %}

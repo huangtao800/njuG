@@ -49,7 +49,7 @@
             <i class="user icon"></i>
             
             {% if request.user and request.user.profile.unreadMessageCount > 0%}
-            <span class="ui myLabel teal messageCount">{{request.user.profile.unreadMessageCount}}</span>
+            <span class="ui myLabel orange messageCount">{{request.user.profile.unreadMessageCount}}</span>
             {% endif %}
             <i class="dropdown icon"></i>
             <div class="menu">
@@ -57,7 +57,7 @@
               <a class="item" href="{% url 'profile' %}"><i class="edit icon"></i> 修改资料</a>
               <a class="item" href="{% url 'message' %}"><i class="alarm outline icon"></i> 通知
                 {% if request.user.is_authenticated and request.user.profile.unreadMessageCount > 0 %}
-                <span class="ui teal label messageCount">{{request.user.profile.unreadMessageCount}}</span>
+                <span class="ui orange label messageCount">{{request.user.profile.unreadMessageCount}}</span>
                 {% endif %}
               </a>
               {% if request.user.is_authenticated %}
