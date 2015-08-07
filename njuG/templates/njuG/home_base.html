@@ -88,7 +88,7 @@
     <form id="sendMessageForm" class="ui form">
         {% csrf_token %}
         <div class='field'>
-            <textarea targetid="{{target.id}}" name="messageContent" rows=4 placeholder='私信内容'></textarea>
+            <textarea id="messageInput" targetid="{{target.id}}" name="messageContent" rows=4 placeholder='私信内容'></textarea>
         </div>
     </form>
   </div>
@@ -104,8 +104,8 @@
         });
             
         $("#sendMessageButton").click(function(){
-            var messageContent = $('textarea').val();
-            var targetid = $('textarea').attr("targetid");
+            var messageContent = $('#messageInput').val();
+            var targetid = $('#messageInput').attr("targetid");
             $("#sendMessageForm").ajaxSubmit({
                 dataType:"json",
                 url: "/njuG/sendMessage/",
