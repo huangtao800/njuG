@@ -48,7 +48,7 @@
             {% endif %}
           </a>
           <div class="content">
-              <a class="author">{{ comment.user.profile.nickName}}</a>
+              <a class="author" href="{% url 'home' comment.user.id %}">{{ comment.user.profile.nickName}}</a>
               <div class="metadata">
                   <span class="date">{{ comment.time }}</span>
               </div>

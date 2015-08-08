@@ -11,7 +11,7 @@
         </div>
         <div class="content">
             <div class="summary">
-                <a>{{ source.profile.nickName }}</a>
+                <a href="{% url 'home' source.id %}">{{ source.profile.nickName }}</a>
                 <span class="messageTopic">
                     {% if message|isPostComment or message|isReplyPostComment %}
                     &nbsp在&nbsp{{ message.masterPost.content }}
