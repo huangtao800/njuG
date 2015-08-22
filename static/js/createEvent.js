@@ -47,6 +47,7 @@ $(document).ready(function(){
 				if(result==1){
 					commentContent.val('');
 					showMessage(1,"评论成功！");
+					location.reload();
 				}else{
 					if(response["msg"]==="user not login"){
 						var url = window.location.protocol+"//"
@@ -128,7 +129,19 @@ $(document).ready(function(){
 			success: function(response){
 				result = response['result'];
 				if(result){
+					var imgSrc = response['imgSrc'];
+					var replyerURL = response['replyerURL'];
+					var replyNickName = response['replyerNickName'];
+					var replyeeURL = response['replyeeURL'];
+					var replyeeNickName = response['replyeeNickName'];
+					var content = response['content'];
+					var time = response['time'];
+					var replyCommentid = response['replyCommentid'];
+					
+					// addReply(imgSrc, replyerURL, replyNickName, replyeeURL, replyeeNickName, content,
+						// time, replyCommentid, postid);
 					showMessage(1,"回复成功！");
+					location.reload();
 				}else{
 					if(response["msg"]==="user not login"){
 						var url = window.location.protocol+"//"
