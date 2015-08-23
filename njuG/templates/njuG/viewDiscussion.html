@@ -80,7 +80,7 @@
                       {% endif %}
                   </a>
                   <div class="content">
-                      <a class="author" href="{% url 'home' reply.user.id %}">{{ reply.user..profile.nickName }}</a>回复<a class="author">{{ reply.replyTo.user.profile.nickName }}</a>
+                      <a class="author" href="{% url 'home' reply.user.id %}">{{ reply.user.profile.nickName }}</a>回复<a class="author">{{ reply.replyTo.user.profile.nickName }}</a>
                       <div class="metadata">
                           <span class="date">{{ reply.time }}</span>
                       </div>
@@ -139,6 +139,7 @@
                     result = response['result'];
                     if(result){
                         showMessage(1,"评论成功！");
+                        location.reload();
                     }else{
                         if(response["msg"]==="user not login"){
                             var url = window.location.protocol+"//"

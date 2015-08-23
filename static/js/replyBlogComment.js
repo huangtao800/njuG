@@ -14,6 +14,7 @@ $(document).ready(function(){
                 	result = response['result'];
                 	if(result){
                 		showMessage(1,"回复成功！");
+                		location.reload();
                 	}else{
 						if(response["msg"]==="user not login"){
 							var url = window.location.protocol+"//"
