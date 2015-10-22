@@ -68,3 +68,7 @@ media/
 
 static/img/avatar
 static/img/avatar/origin
+
+# virtualenv
+venv/
+.idea/
