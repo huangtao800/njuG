@@ -1,4 +1,4 @@
-workon virt1
-
-export PYTHONPATH=$PYTHONPATH:/home/tao/Documents/websites/njuG/njuG
+source ./venv/bin/activate
+export PATH=$PATH:/usr/local/mysql/bin
+#export PYTHONPATH=$PYTHONPATH:/Users/tao/Documents/code/PyCharm/njuG/njuG
 
