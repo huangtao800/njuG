@@ -74,9 +74,16 @@
             filesContainer: $('table.files'),
             uploadTemplateId: 'template-upload',
             downloadTemplateId: "template-download",
-            
-        }); 
-        
+        });
+
+        $("#imgPreviewTable").on("click", "button.start", function(){
+            $(this).waitMe({
+                effect:'facebook',
+                sizeH:'1em',
+                color:'#2185d0'
+            });
+        })
+
         $(".launch.item").removeClass("active");
         $(".launch.item").eq(0).addClass("active");
         
@@ -86,6 +93,8 @@
             return false;
             {% endif %}
         });
+
+
         $("#fileupload").change(function(e){
             var fileNum = $("#fileupload").prop("files").length + $("table").find("tr").length;
             if(fileNum > 3 ){
