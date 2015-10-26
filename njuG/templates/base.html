@@ -14,9 +14,12 @@
 <script src="{% static "semantic/out/semantic.min.js" %}"></script>
 <script src="{% static "jquery/jquery.form.min.js" %}"></script>
 <script src="{% static "jquery/jquery-cookie/jquery.cookie.js" %}"></script>
+<script src="{% static "jquery/waitMe/waitMe.min.js" %}"></script>
   
 <link rel="stylesheet" type="text/css" href="{% static "semantic/out/semantic.min.css" %}">
 <link rel="stylesheet" type="text/css" class="ui" href="{% static "css/style.css" %}">
+<link rel="stylesheet" type="text/css" class="ui" href="{% static "jquery/waitMe/waitMe.min.css" %}">
+
 {% block loadCss %}
 {% endblock %}
 
@@ -94,6 +97,7 @@
       </div><a href="mailto:njuboyclub.gmail.com" class="item">contact me</a>
     </div>
   </div>
+
 
 <script>
     $(document).ready(function(){

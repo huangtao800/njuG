@@ -4,12 +4,17 @@ $(document).ready(function(){
 		$.each($("button.delete"), function(){
 			imgPkList.push($(this).attr("data-imgpk"));
 		});
+        $('body').waitMe({
+            effect : 'rotateplane',
+            color: "#2185d0",
+        });
 		$(this).ajaxSubmit({
 			dataType: "json",
 			headers: { "X-CSRFToken": $.cookie("csrftoken") },
 			type: 'POST',
 			data: {"content": $("#postArea").val(), "imgPkList[]": imgPkList},
 			success: function(response){
+                $("body").waitMe("hide");
 				var result = response['result'];
 				if(result==1){
 					$("#postForm textarea").val('');
@@ -26,8 +31,9 @@ $(document).ready(function(){
 				}
 			},
 			error: function(xhr, ajaxOptions, thrownError){
-				
-			}
+                $("body").waitMe("hide");
+			},
+
 		});
 		return false;
 	});
