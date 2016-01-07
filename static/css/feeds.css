@@ -1,3 +1,7 @@
+.ui.comments {
+    font-size: 0.8em;
+}
+
 .ui.comments > .comment{
     min-width:70%;
 }
