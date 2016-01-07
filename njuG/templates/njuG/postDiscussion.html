@@ -76,6 +76,12 @@
             $(".trumbowyg-viewHTML-button").mousedown();
         });
 
+        $("#postDiscussionForm").submit(function(){
+            $('body').waitMe({
+                effect : 'rotateplane',
+                color: "#2185d0",
+            });
+        });
     });
 </script>
 {% endblock %}
