@@ -25,7 +25,7 @@ def getAvatarPath(username):
 @register.filter_function
 def getPosts(user, page = 1):
     post_list = Post.objects.filter(user = user)
-    paginator = Paginator(post_list, 10)
+    paginator = Paginator(post_list, 8)
     try:
         posts = paginator.page(page)
     except PageNotAnInteger:
