@@ -74,6 +74,8 @@
     {% endfor %}
 </div>
 
+    {% include "njuG/pagination.html" with list=blogs %}
+
 <script>
     $(document).ready(function(){
         $(".deleteDiscussion").click(function(){
