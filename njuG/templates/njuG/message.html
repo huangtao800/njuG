@@ -31,24 +31,21 @@
 {% block tab_content %}
 
 <div class="ui feed">
-    <h3 class="ui dividing header">未读消息</h3>
     {% for message in messages %}
-        {% if not message.isRead %}
         {% with source=message.source %}
         {% include 'njuG/message_list.html' %}
         {% endwith %}
-        {% endif %}
     {% endfor %}
-    
-    <h3 class="ui dividing header">已读消息</h3>
-    {% for message in messages %}
-        {% if message.isRead %}
-        {% with source=message.source %}
-        {% include 'njuG/message_list.html' %}
-        {% endwith %}
-        {% endif %}
-    {% endfor %}
+
+{#    {% for message in messages %}#}
+{#        {% if message.isRead %}#}
+{#        {% with source=message.source %}#}
+{#        {% include 'njuG/message_list.html' with unread=False %}#}
+{#        {% endwith %}#}
+{#        {% endif %}#}
+{#    {% endfor %}#}
 </div>
+{% include "njuG/pagination.html" with list=messages %}
 
 <script>
     $(document).ready(function(){

@@ -461,7 +461,15 @@ def myDiscussion(request, **kwargs):
 def message(request):
 	if (request.method == 'GET'):
 		target = request.user
-		messages = Message.objects.filter(target=request.user)
+		message_list = Message.objects.filter(target=request.user)
+		paginator = Paginator(message_list, 8)
+		page = request.GET.get('page')
+		try:
+			messages = paginator.page(page)
+		except PageNotAnInteger:
+			messages = paginator.page(1)
+		except EmptyPage:
+			messages = paginator.page(paginator.num_pages)
 		return render(request, 'njuG/message.html', {"target": target, "messages": messages})
 
 

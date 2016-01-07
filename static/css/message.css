@@ -15,3 +15,7 @@
 .ui.feed>.event>.label img{
 	border-radius: 0.25em;
 }
+
+.ui.feed>.event.unread{
+    background-color: #EFF8FB;
+}

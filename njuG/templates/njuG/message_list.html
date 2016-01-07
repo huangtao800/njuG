@@ -1,7 +1,7 @@
 {% load staticfiles %}
 {% load filters %}
 
-    <div class="event">
+    <div class="event {% if not message.isRead %}unread{% endif %}">
         <div class="label">
             {% if source.profile.hasAvatar %}
             <img src="{% static message.source.username|getAvatarPath %}">
