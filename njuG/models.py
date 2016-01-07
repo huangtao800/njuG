@@ -146,7 +146,7 @@ class Message(models.Model):
     def __unicode__(self): 
         return u'%s' % self.content
     class Meta:
-        ordering=['-time']
+        ordering=['isRead', '-time']
 
 
 class Activity(models.Model):
