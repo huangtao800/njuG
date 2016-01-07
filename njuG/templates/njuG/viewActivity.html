@@ -16,7 +16,7 @@
               <div class="comment">
                 <a class="avatar">
                     {% if activity.user.profile.hasAvatar %}
-                    <img src="{% static acitvity.user.username|getAvatarPath %}">
+                    <img src="{% static activity.user.username|getAvatarPath %}">
                     {% else %}
                     <img src="{% static ''|getAvatarPath %}">
                     {% endif %}
