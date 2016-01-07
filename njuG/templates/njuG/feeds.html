@@ -57,45 +57,90 @@
             </div>
             
             <div class="ui comments">
-            {% for comment in post.comments %}
-                <div class="comment">
-                    <a class="avatar">
-                        {% if comment.user.profile.hasAvatar %}
-                        <img src="{% static comment.user.username|getAvatarPath %}">
-                        {% else %}
-                        <img src="{% static ''|getAvatarPath %}">
-                        {% endif %}
-                    </a>
-                    <div class="content">
-                        {% if comment.replyTo %}
-                        <a href="{% url 'home' comment.user.id %}" class="author">{{ comment.user.profile.nickName }}</a> 回复 
-                        <a href="{% url 'home' comment.replyTo.user.id %}" class="author">{{ comment.replyTo.user.profile.nickName }}</a>
-                        {% else %}
-                        <a href="{% url 'home' comment.user.id %}" class="author">{{ comment.user.profile.nickName }}</a>
-                        {% endif %}
-                        <div class="metadata">
-                            <span class="date">{{ comment.time }}</span>
+                <div class="display">
+                {% for comment in post.comments|getLatest %}
+                    <div class="comment">
+                        <a class="avatar">
+                            {% if comment.user.profile.hasAvatar %}
+                            <img src="{% static comment.user.username|getAvatarPath %}">
+                            {% else %}
+                            <img src="{% static ''|getAvatarPath %}">
+                            {% endif %}
+                        </a>
+                        <div class="content">
+                            {% if comment.replyTo %}
+                            <a href="{% url 'home' comment.user.id %}" class="author">{{ comment.user.profile.nickName }}</a> 回复
+                            <a href="{% url 'home' comment.replyTo.user.id %}" class="author">{{ comment.replyTo.user.profile.nickName }}</a>
+                            {% else %}
+                            <a href="{% url 'home' comment.user.id %}" class="author">{{ comment.user.profile.nickName }}</a>
+                            {% endif %}
+                            <div class="metadata">
+                                <span class="date">{{ comment.time }}</span>
+                            </div>
+                            <div class="text">
+                                {{ comment.content }}
+                            </div>
+                            <div class="actions">
+                                <a class="reply postCommentReply">回复</a>
+                                <form class="ui form postCommentReplyForm" style="display: none" commentid="{{comment.id}}", postid="{{post.id}}">
+                                    <div class="field">
+                                        <textarea rows="2" name="content" required></textarea>
+                                    </div>
+                                    <button class="ui labeled icon tiny basic button" type="submit">
+                                        <i class="send icon"></i>
+                                        回复
+                                    </button>
+                                </form>
+                            </div>
                         </div>
-                        <div class="text">
-                            {{ comment.content }}
-                        </div>
-                        <div class="actions">
-                            <a class="reply postCommentReply">回复</a>
-                            <form class="ui form postCommentReplyForm" style="display: none" commentid="{{comment.id}}", postid="{{post.id}}">
-                                <div class="field">
-                                    <textarea rows="2" name="content" required></textarea>
-                                </div>
-                                <button class="ui labeled icon tiny basic button" type="submit">
-                                    <i class="send icon"></i>
-                                    回复
-                                </button>
-                            </form>
-                        </div>
+
                     </div>
-                    
-                </div>                      
-            {% endfor %}
-            
+                {% endfor %}
+                </div>
+
+                <div class="hide">
+                {% for comment in post.comments|getHistory %}
+                    <div class="comment">
+                        <a class="avatar">
+                            {% if comment.user.profile.hasAvatar %}
+                            <img src="{% static comment.user.username|getAvatarPath %}">
+                            {% else %}
+                            <img src="{% static ''|getAvatarPath %}">
+                            {% endif %}
+                        </a>
+                        <div class="content">
+                            {% if comment.replyTo %}
+                            <a href="{% url 'home' comment.user.id %}" class="author">{{ comment.user.profile.nickName }}</a> 回复
+                            <a href="{% url 'home' comment.replyTo.user.id %}" class="author">{{ comment.replyTo.user.profile.nickName }}</a>
+                            {% else %}
+                            <a href="{% url 'home' comment.user.id %}" class="author">{{ comment.user.profile.nickName }}</a>
+                            {% endif %}
+                            <div class="metadata">
+                                <span class="date">{{ comment.time }}</span>
+                            </div>
+                            <div class="text">
+                                {{ comment.content }}
+                            </div>
+                            <div class="actions">
+                                <a class="reply postCommentReply">回复</a>
+                                <form class="ui form postCommentReplyForm" style="display: none" commentid="{{comment.id}}", postid="{{post.id}}">
+                                    <div class="field">
+                                        <textarea rows="2" name="content" required></textarea>
+                                    </div>
+                                    <button class="ui labeled icon tiny basic button" type="submit">
+                                        <i class="send icon"></i>
+                                        回复
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                {% endfor %}
+                </div>
+                {% if post.comments|length > 5 %}
+                <a class="toggleMoreComments">更多评论...</a>
+                {% endif %}
                 <div class="comment">
                     <a class="avatar commentAvatar">
                         {% if request.user.profile.hasAvatar %}
@@ -121,3 +166,19 @@
     </div>
     {% endfor %}
 </div>
+
+<script>
+    $(document).ready(function(){
+        $(".hide").hide();
+        $(".toggleMoreComments").click(function(){
+            var toggle = $(this);
+            $(this).prev(".hide").slideToggle(300,function(){
+                if(toggle.prev(".hide").is(":hidden")){
+                    toggle.text("更多评论...");
+                }else{
+                    toggle.text("隐藏评论");
+                }
+            });
+        });
+    });
+</script>

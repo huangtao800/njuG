@@ -42,6 +42,14 @@ def isLikePost(user, post):
     return False
 
 @register.filter_function
+def getLatest(list):
+    return list[0:5]
+
+@register.filter_function
+def getHistory(list):
+    return list[5:]
+
+@register.filter_function
 def isPostComment(message):
     return message.type==Message.POST_COMMENT
 

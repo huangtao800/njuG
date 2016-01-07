@@ -1,3 +1,9 @@
 .ui.comments > .comment{
     min-width:70%;
 }
+
+.toggleMoreComments{
+    margin: 0 .75em 0 0;
+    color: rgba(0,0,0,.4);
+    font-size: 0.8em;
+}
