@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django import template
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from njuG.models import Post, Like, Comment, Blog, BlogComment, Image, Profile, Message
 
 register = template.Library()
@@ -22,8 +23,15 @@ def getAvatarPath(username):
         return "/static/img/avatar/Default-Avatar.jpg"
     
 @register.filter_function
-def getPosts(user):
-    posts = Post.objects.filter(user = user)
+def getPosts(user, page = 1):
+    post_list = Post.objects.filter(user = user)
+    paginator = Paginator(post_list, 10)
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
     return posts
 
 @register.filter_function

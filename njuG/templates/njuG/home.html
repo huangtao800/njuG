@@ -44,8 +44,11 @@
 {% endblock %}
 
 {% block tab_content %}
+    {% with posts=target|getPosts:page %}
+        {% include "njuG/feeds.html" with posts=posts %}
 
-    {% include "njuG/feeds.html" with posts=target|getPosts %}
+        {% include "njuG/pagination.html" with list=posts %}
+    {% endwith %}
 
 {% endblock %}
 

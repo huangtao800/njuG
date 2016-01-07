@@ -70,5 +70,5 @@ static/img/avatar
 static/img/avatar/origin
 
 # virtualenv
-venv/
+virt_env/
 .idea/

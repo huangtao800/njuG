@@ -407,10 +407,10 @@ def home(request, **kwargs):
 			id = kwargs['id']
 			user = User.objects.get(pk=id)
 			target = user
-			return render(request, 'njuG/home.html', {"target":target})
+			return render(request, 'njuG/home.html', {"target":target, "page":request.GET.get('page', 1)})
 		else:
 			target = request.user
-			return render(request, 'njuG/home.html', {"target": target})
+			return render(request, 'njuG/home.html', {"target": target, "page":request.GET.get('page', 1)})
 		
 @login_required
 def myDiscussion(request, **kwargs):
