@@ -36,7 +36,6 @@ def post(request):
 	if (request.method == 'POST' and request.user.is_authenticated()):
 
 		postContent = request.POST['content']
-		print postContent
 		imgPkList = request.POST.getlist('imgPkList[]')
 		post = Post(user=request.user, content=postContent, time=timezone.now())
 		for idx, val in enumerate(imgPkList):
