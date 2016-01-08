@@ -1,5 +1,6 @@
 $(document).ready(function(){
 	$("#postForm").submit(function(){
+		console.log($("#postArea").val());
 		var imgPkList = new Array();
 		$.each($("button.delete"), function(){
 			imgPkList.push($(this).attr("data-imgpk"));

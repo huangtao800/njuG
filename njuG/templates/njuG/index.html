@@ -19,8 +19,16 @@
 					{% csrf_token %}
 				  <div class="field">
 				    <label>说点儿什么吧...</label>
-				    <textarea id="postArea" name="content" rows="2" class="poststate" placeholder="What's on your mind" required=></textarea>
-				  </div>
+				    <textarea id="postArea" name="content" rows="3" class="poststate" placeholder="What's on your mind" required></textarea>
+
+                      <div class="emoji">
+                          <div class="ui icon buttons">
+                              <button id="emoji-picker" class="ui button">
+                                  <i class="smile large icon"></i>
+                              </button>
+                          </div>
+                      </div>
+                  </div>
 				  <button class="ui labeled icon blue basic button" type="submit" id="postButton">
 	  				<i class="send icon"></i>
 	  				就这样吧
@@ -67,7 +75,21 @@
 <script>
     $(document).ready(function(){
         $(".ui.feed").addClass("large");
-        
+
+        $('#postArea').emojiPicker({
+            button: false,
+        });
+
+        $("#emoji-picker").click(function(e){
+            e.preventDefault();
+            $("#postArea").emojiPicker('toggle');
+            //set emojiPicker offset
+            var emojiPicker = $("div.emojiPicker");
+            var offset = $(".field .emoji").offset();
+            var emojiTop = offset.top + $(".field .emoji").height();
+            emojiPicker.offset({top: emojiTop, left: offset.left});
+        });
+
         $("#fileupload").fileupload({
             dataType: "json",
             url: "/njuG/postUploadImg/",

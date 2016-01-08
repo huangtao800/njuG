@@ -34,23 +34,21 @@ def index(request):
 # @login_required
 def post(request):
 	if (request.method == 'POST' and request.user.is_authenticated()):
-		try:
-			postContent = request.POST['content']
-			imgPkList = request.POST.getlist('imgPkList[]')
-			post = Post(user=request.user, content=postContent, time=timezone.now())
-			for idx, val in enumerate(imgPkList):
-				attrName = "img" + str(idx + 1);
-				img = get_object_or_404(Image, pk=val)
-				setattr(post, attrName, img)
-				print img.pk
 
-			post.save()
-			responseDict = {'result': 1, 'msg': ''}
-			return JsonResponse(responseDict)
-		except Exception as e:
-			print e.message
-			responseDict = {'result': 0, 'msg': e.message}
-			return JsonResponse(responseDict)
+		postContent = request.POST['content']
+		print postContent
+		imgPkList = request.POST.getlist('imgPkList[]')
+		post = Post(user=request.user, content=postContent, time=timezone.now())
+		for idx, val in enumerate(imgPkList):
+			attrName = "img" + str(idx + 1);
+			img = get_object_or_404(Image, pk=val)
+			setattr(post, attrName, img)
+			print img.pk
+
+		post.save()
+		responseDict = {'result': 1, 'msg': ''}
+		return JsonResponse(responseDict)
+
 	else:
 		return JsonResponse({'result': 0, 'msg': 'user not login'})
 
