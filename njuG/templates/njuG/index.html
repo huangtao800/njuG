@@ -76,21 +76,25 @@
     $(document).ready(function(){
         $(".ui.feed").addClass("large");
 
-        $('#postArea').emojiPicker({
-            button: false,
-            width: 250,
-            height: 200,
-        });
+        if(! /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ){
+            $('#postArea').emojiPicker({
+                button: false,
+                width: 250,
+                height: 200,
+            });
 
-        $("#emoji-picker").click(function(e){
-            e.preventDefault();
-            $("#postArea").emojiPicker('toggle');
-            //set emojiPicker offset
-            var emojiPicker = $("div.emojiPicker");
-            var offset = $(".field .emoji").offset();
-            var emojiTop = offset.top + $(".field .emoji").height();
-            emojiPicker.offset({top: emojiTop, left: offset.left});
-        });
+            $("#emoji-picker").click(function(e){
+                e.preventDefault();
+                $("#postArea").emojiPicker('toggle');
+                //set emojiPicker offset
+                var emojiPicker = $("div.emojiPicker");
+                var offset = $(".field .emoji").offset();
+                var emojiTop = offset.top + $(".field .emoji").height();
+                emojiPicker.offset({top: emojiTop, left: offset.left});
+            });
+        }else{
+            $(".field .emoji").remove();
+        }
 
         $("#fileupload").fileupload({
             dataType: "json",
