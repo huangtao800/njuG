@@ -195,6 +195,9 @@
      ************/
 
     iconClicked : function(e) {
+      if(!this.$picker){
+        this.createPicker();
+      }
       if ( this.$picker.is(':hidden') ) {
         this.show();
       } else {
