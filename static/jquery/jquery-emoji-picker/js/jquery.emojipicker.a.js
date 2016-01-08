@@ -1,13 +1,6 @@
 $(function() {
 $.fn.emojiPicker.emojis = [
   {
-    "name": "copyright",
-    "unicode": "00A9",
-    "shortcode": "copyright",
-    "description": "COPYRIGHT SIGN",
-    "category": "folderol"
-  },
-  {
     "name": "registered",
     "unicode": "00AE",
     "shortcode": "registered",
