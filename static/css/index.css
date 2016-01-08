@@ -15,6 +15,12 @@
 	border-bottom-color: rgba(34, 36, 38, 0.14902);
     border-bottom-style: solid;
     border-bottom-width: 1px;
+	border-left-color: rgba(34, 36, 38, 0.14902);
+    border-left-style: solid;
+    border-left-width: 1px;
+	border-right-color: rgba(34, 36, 38, 0.14902);
+    border-right-style: solid;
+    border-right-width: 1px;
 }
 
 .emoji > .ui.icon.buttons button:first-child{
