@@ -57,6 +57,9 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+
+	# detect mobile device
+	'mobileesp.middleware.MobileDetectionMiddleware',
 )
 
 ROOT_URLCONF = 'njuGay.urls'
