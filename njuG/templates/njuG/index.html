@@ -94,6 +94,13 @@
             });
         }else{
             $(".field .emoji").remove();
+            $("#postArea").css({
+                "border-bottom-style": "solid",
+                "border-bottom-width": "1px",
+                "border-bottom-color":"rgba(34, 36, 38, 0.14902)",
+                "border-bottom-right-radius":".28571429rem",
+                "border-bottom-left-radius": ".28571429rem",
+            });
         }
 
         $("#fileupload").fileupload({
